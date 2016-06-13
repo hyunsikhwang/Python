@@ -1,9 +1,4 @@
-
-# coding: utf-8
-
-# In[2]:
-
-
+#-*- coding: utf-8 -*-
 
 import urllib2
 from bs4 import BeautifulSoup
@@ -73,10 +68,4 @@ print end_time - start_time
 #editDataStr = str(editData_title)
 
 #print editDataStr
-
-
-
-# In[ ]:
-
-
 
