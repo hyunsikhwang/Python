@@ -1,5 +1,6 @@
 #-*- coding: utf-8 -*-
-
+import sys
+sys.path.insert(0, 'libs')
 import urllib2
 from bs4 import BeautifulSoup
 import time
