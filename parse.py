@@ -63,7 +63,7 @@ def CollectPrices(url):
 		    F[temp] = temp4
                     #priit temp, temp2, temp3, temp4
 
-def PrintStock(quote)
+def PrintStock(quote):
     print quote, MyPrettyPrinter().pformat(D[quote]), MyPrettyPrinter().pformat(E[quote]), MyPrettyPrinter().pformat(F[quote])
 
 CollectPrices(url_P)
