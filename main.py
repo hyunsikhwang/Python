@@ -293,7 +293,7 @@ class WebhookHandler1(webapp2.RequestHandler):
         urlfetch.set_default_fetch_deadline(60)
         now = time.localtime(time.time()+9*3600)
         #s = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-        s = ("%s\t%s\t%s\t%s\n"
+        s = "{0:20} {0:10} {0:10} {0:10}\n".format(C[u'리노공업'], D[u'리노공업'], E[u'리노공업'], F[u'리노공업'])
             "%s\t%s\t%s\t%s\n"
             "%s\t%s\t%s\t%s\n"
             "%s\t%s\t%s\t%s\n"
@@ -301,7 +301,7 @@ class WebhookHandler1(webapp2.RequestHandler):
             "%s\t%s\t%s\t%s\n"
             "%s\t%s\t%s\t%s\n"
             "%s\t%s\t%s\t%s\n"
-            "%s\t%s\t%s\t%s\n") % (C[u'리노공업'], D[u'리노공업'], E[u'리노공업'], F[u'리노공업'],
+            "%s\t%s\t%s\t%s\n") % (
                                 C[u'한미반도체'], D[u'한미반도체'], E[u'한미반도체'], F[u'한미반도체'],
                                 C[u'미창석유'], D[u'미창석유'], E[u'미창석유'], F[u'미창석유'],
                                 C[u'동서'], D[u'동서'], E[u'동서'], F[u'동서'],
