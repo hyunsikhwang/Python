@@ -294,21 +294,14 @@ class WebhookHandler1(webapp2.RequestHandler):
         now = time.localtime(time.time()+9*3600)
         #s = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
         s = "{0:20} {0:10} {0:10} {0:10}\n".format(C[u'리노공업'], D[u'리노공업'], E[u'리노공업'], F[u'리노공업'])
-        "%s\t%s\t%s\t%s\n"
-        "%s\t%s\t%s\t%s\n"
-        "%s\t%s\t%s\t%s\n"
-        "%s\t%s\t%s\t%s\n"
-        "%s\t%s\t%s\t%s\n"
-        "%s\t%s\t%s\t%s\n"
-        "%s\t%s\t%s\t%s\n"
-        "%s\t%s\t%s\t%s\n") % (C[u'한미반도체'], D[u'한미반도체'], E[u'한미반도체'], F[u'한미반도체'],
-                            C[u'미창석유'], D[u'미창석유'], E[u'미창석유'], F[u'미창석유'],
-                            C[u'동서'], D[u'동서'], E[u'동서'], F[u'동서'],
-                            C[u'코텍'], D[u'코텍'], E[u'코텍'], F[u'코텍'],
-                            C[u'금화피에스시'], D[u'금화피에스시'], E[u'금화피에스시'], F[u'금화피에스시'],
-                            C[u'토비스'], D[u'토비스'], E[u'토비스'], F[u'토비스'],
-                            C[u'KODEX 레버리지'], D[u'KODEX 레버리지'], E[u'KODEX 레버리지'], F[u'KODEX 레버리지'],
-                            C[u'KODEX 인버스'], D[u'KODEX 인버스'], E[u'KODEX 인버스'], F[u'KODEX 인버스'])
+            "{0:20} {0:10} {0:10} {0:10}\n".format(C[u'한미반도체'], D[u'한미반도체'], E[u'한미반도체'], F[u'한미반도체'])
+            "{0:20} {0:10} {0:10} {0:10}\n".format(C[u'미창석유'], D[u'미창석유'], E[u'미창석유'], F[u'미창석유'])
+            "{0:20} {0:10} {0:10} {0:10}\n".format(C[u'동서'], D[u'동서'], E[u'동서'], F[u'동서'])
+            "{0:20} {0:10} {0:10} {0:10}\n".format(C[u'코텍'], D[u'코텍'], E[u'코텍'], F[u'코텍'])
+            "{0:20} {0:10} {0:10} {0:10}\n".format(C[u'금화피에스시'], D[u'금화피에스시'], E[u'금화피에스시'], F[u'금화피에스시'])
+            "{0:20} {0:10} {0:10} {0:10}\n".format(C[u'토비스'], D[u'토비스'], E[u'토비스'], F[u'토비스'])
+            "{0:20} {0:10} {0:10} {0:10}\n".format(C[u'KODEX 레버리지'], D[u'KODEX 레버리지'], E[u'KODEX 레버리지'], F[u'KODEX 레버리지'])
+            "{0:20} {0:10} {0:10} {0:10}\n".format(C[u'KODEX 인버스'], D[u'KODEX 인버스'], E[u'KODEX 인버스'], F[u'KODEX 인버스']))
         broadcast(s)
 #        broadcast('Test Message')
 
