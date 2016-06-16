@@ -20,7 +20,7 @@ import re
 import time
 
 # 파싱 라이브러리 로드
-import parse from *
+from parse import *
 
 # 파싱 주소
 url_P = "http://finance.daum.net/quote/all.daum?type=S&stype=P"  #type : U(업종순), S(가나다순)
