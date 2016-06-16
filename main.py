@@ -301,7 +301,7 @@ class WebhookHandler1(webapp2.RequestHandler):
             + "{0:20} {0:10} {0:10} {0:10}\n".format(C[u'금화피에스시'], D[u'금화피에스시'], E[u'금화피에스시'], F[u'금화피에스시'])\
             + "{0:20} {0:10} {0:10} {0:10}\n".format(C[u'토비스'], D[u'토비스'], E[u'토비스'], F[u'토비스'])\
             + "{0:20} {0:10} {0:10} {0:10}\n".format(C[u'KODEX 레버리지'], D[u'KODEX 레버리지'], E[u'KODEX 레버리지'], F[u'KODEX 레버리지'])\
-            + "{0:20} {0:10} {0:10} {0:10}\n".format(C[u'KODEX 인버스'], D[u'KODEX 인버스'], E[u'KODEX 인버스'], F[u'KODEX 인버스'])))
+            + "{0:20} {0:10} {0:10} {0:10}\n".format(C[u'KODEX 인버스'], D[u'KODEX 인버스'], E[u'KODEX 인버스'], F[u'KODEX 인버스']))
         broadcast(s)
 #        broadcast('Test Message')
 
