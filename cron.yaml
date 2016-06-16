@@ -1,5 +1,5 @@
 cron:
 - description: broadcast wspaper.org news
   url: /broadcast-news
-  schedule: every 10 mins from 09:00 to 15:30
+  schedule: every 10 mins from 09:00 to 15:10
   timezone: Asia/Seoul
