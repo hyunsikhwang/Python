@@ -1,4 +1,4 @@
 cron:
 - description: broadcast wspaper.org news
   url: /broadcast-news
-  schedule: every 30 mins from 00:00 to 23:59
+  schedule: every 1 mins from 00:00 to 23:59
