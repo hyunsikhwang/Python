@@ -228,7 +228,7 @@ class SetWebhookHandler(webapp2.RequestHandler):
         url = self.request.get('url')
         if url:
             self.response.write(json.dumps(json.load(urllib2.urlopen(BASE_URL + 'setWebhook', urllib.urlencode({'url': url})))))
-    if cmd_broadcast_match:
+
 # /webhook 요청시 (텔레그램 봇 API)
 class WebhookHandler(webapp2.RequestHandler):
     def post(self):
@@ -236,6 +236,7 @@ class WebhookHandler(webapp2.RequestHandler):
         body = json.loads(self.request.body)
         self.response.write(json.dumps(body))
         process_cmds(body['message'])
+
 class WebhookHandler1(webapp2.RequestHandler):
     @cron_method
     def get(self):
@@ -247,6 +248,7 @@ class WebhookHandler1(webapp2.RequestHandler):
         s = E[u'리노공업']
         broadcast(s)
 #        broadcast('Test Message')
+
 # 구글 앱 엔진에 웹 요청 핸들러 지정
 app = webapp2.WSGIApplication([
     ('/me', MeHandler),
