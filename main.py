@@ -301,8 +301,7 @@ class WebhookHandler1(webapp2.RequestHandler):
         "%s\t%s\t%s\t%s\n"
         "%s\t%s\t%s\t%s\n"
         "%s\t%s\t%s\t%s\n"
-        "%s\t%s\t%s\t%s\n") % (
-                            C[u'한미반도체'], D[u'한미반도체'], E[u'한미반도체'], F[u'한미반도체'],
+        "%s\t%s\t%s\t%s\n") % (C[u'한미반도체'], D[u'한미반도체'], E[u'한미반도체'], F[u'한미반도체'],
                             C[u'미창석유'], D[u'미창석유'], E[u'미창석유'], F[u'미창석유'],
                             C[u'동서'], D[u'동서'], E[u'동서'], F[u'동서'],
                             C[u'코텍'], D[u'코텍'], E[u'코텍'], F[u'코텍'],
