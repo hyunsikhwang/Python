@@ -74,14 +74,14 @@ def CollectPrices(url):
                     temp = soup2.text
                     temp2 = soup2.find('a')['href']
                     temp2 = temp2[-6:]
-            C[temp] = temp
-            D[temp] = temp2
+                    C[temp] = temp
+                    D[temp] = temp2
                 elif i % 3 == 2:
                     temp3 = soup2.text
-            E[temp] = temp3
+                    E[temp] = temp3
                 elif i % 3 == 0:
                     temp4 = soup2.text
-            F[temp] = temp4
+                    F[temp] = temp4
                     #priit temp, temp2, temp3, temp4
 
 def PrintStock(quote):
