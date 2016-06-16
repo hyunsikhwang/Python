@@ -293,9 +293,7 @@ class WebhookHandler1(webapp2.RequestHandler):
         urlfetch.set_default_fetch_deadline(60)
         now = time.localtime(time.time()+9*3600)
         #s = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-        s = C[u'리노공업']
-        broadcast(s)
-        s = E[u'리노공업']
+        s = "%s %s %s %s" % (C[u'리노공업'], D[u'리노공업'], E[u'리노공업'], F[u'리노공업'])
         broadcast(s)
 #        broadcast('Test Message')
 
