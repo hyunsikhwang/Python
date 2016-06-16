@@ -6,12 +6,12 @@
 # github:      https://github.com/bakyeono/using-telegram-bot-api
 #
 
-# ±¸±Û ¾Û ¿£Áø ¶óÀÌºê·¯¸® ·Îµå
+# êµ¬ê¸€ ì•± ì—”ì§„ ë¼ì´ë¸ŒëŸ¬ë¦¬ ë¡œë“œ
 from google.appengine.api import urlfetch
 from google.appengine.ext import ndb
 import webapp2
 
-# URL, JSON, ·Î±×, Á¤±ÔÇ¥Çö½Ä °ü·Ã ¶óÀÌºê·¯¸® ·Îµå
+# URL, JSON, ë¡œê·¸, ì •ê·œí‘œí˜„ì‹ ê´€ë ¨ ë¼ì´ë¸ŒëŸ¬ë¦¬ ë¡œë“œ
 import urllib
 import urllib2
 import json
@@ -19,50 +19,53 @@ import logging
 import re
 import time
 
-# º¿ ÅäÅ«, º¿ API ÁÖ¼Ò
+# íŒŒì‹± ë¼ì´ë¸ŒëŸ¬ë¦¬ ë¡œë“œ
+import parse from *
+
+# ë´‡ í† í°, ë´‡ API ì£¼ì†Œ
 TOKEN = '234646277:AAEl5x5nIIgu36YtQWGqJR6pLdB_0bGNUvM'
 BASE_URL = 'https://api.telegram.org/bot' + TOKEN + '/'
 
-# º¿ÀÌ ÀÀ´äÇÒ ¸í·É¾î
+# ë´‡ì´ ì‘ë‹µí•  ëª…ë ¹ì–´
 CMD_START     = '/start'
 CMD_STOP      = '/stop'
 CMD_HELP      = '/help'
 CMD_BROADCAST = '/broadcast'
 
-# º¿ »ç¿ë¹ı & ¸Ş½ÃÁö
-USAGE = u"""[»ç¿ë¹ı] ¾Æ·¡ ¸í·É¾î¸¦ ¸Ş½ÃÁö·Î º¸³»°Å³ª ¹öÆ°À» ´©¸£½Ã¸é µË´Ï´Ù.
-/start - (·Îº¿ È°¼ºÈ­)
-/stop  - (·Îº¿ ºñÈ°¼ºÈ­)
-/help  - (ÀÌ µµ¿ò¸» º¸¿©ÁÖ±â)
+# ë´‡ ì‚¬ìš©ë²• & ë©”ì‹œì§€
+USAGE = u"""[ì‚¬ìš©ë²•] ì•„ë˜ ëª…ë ¹ì–´ë¥¼ ë©”ì‹œì§€ë¡œ ë³´ë‚´ê±°ë‚˜ ë²„íŠ¼ì„ ëˆ„ë¥´ì‹œë©´ ë©ë‹ˆë‹¤.
+/start - (ë¡œë´‡ í™œì„±í™”)
+/stop  - (ë¡œë´‡ ë¹„í™œì„±í™”)
+/help  - (ì´ ë„ì›€ë§ ë³´ì—¬ì£¼ê¸°)
 """
-MSG_START = u'º¿À» ½ÃÀÛÇÕ´Ï´Ù.'
-MSG_STOP  = u'º¿À» Á¤ÁöÇÕ´Ï´Ù.'
+MSG_START = u'ë´‡ì„ ì‹œì‘í•©ë‹ˆë‹¤.'
+MSG_STOP  = u'ë´‡ì„ ì •ì§€í•©ë‹ˆë‹¤.'
 
-# Ä¿½ºÅÒ Å°º¸µå
+# ì»¤ìŠ¤í…€ í‚¤ë³´ë“œ
 CUSTOM_KEYBOARD = [
         [CMD_START],
         [CMD_STOP],
         [CMD_HELP],
         ]
 
-# Ã¤ÆÃº° ·Îº¿ È°¼ºÈ­ »óÅÂ
-# ±¸±Û ¾Û ¿£ÁøÀÇ Datastore(NDB)¿¡ »óÅÂ¸¦ ÀúÀåÇÏ°í ÀĞÀ½
-# »ç¿ëÀÚ°¡ /start ´©¸£¸é È°¼ºÈ­
-# »ç¿ëÀÚ°¡ /stop  ´©¸£¸é ºñÈ°¼ºÈ­
+# ì±„íŒ…ë³„ ë¡œë´‡ í™œì„±í™” ìƒíƒœ
+# êµ¬ê¸€ ì•± ì—”ì§„ì˜ Datastore(NDB)ì— ìƒíƒœë¥¼ ì €ì¥í•˜ê³  ì½ìŒ
+# ì‚¬ìš©ìê°€ /start ëˆ„ë¥´ë©´ í™œì„±í™”
+# ì‚¬ìš©ìê°€ /stop  ëˆ„ë¥´ë©´ ë¹„í™œì„±í™”
 class EnableStatus(ndb.Model):
     enabled = ndb.BooleanProperty(required=True, indexed=True, default=False,)
 
 def set_enabled(chat_id, enabled):
-    u"""set_enabled: º¿ È°¼ºÈ­/ºñÈ°¼ºÈ­ »óÅÂ º¯°æ
-    chat_id:    (integer) º¿À» È°¼ºÈ­/ºñÈ°¼ºÈ­ÇÒ Ã¤ÆÃ ID
-    enabled:    (boolean) ÁöÁ¤ÇÒ È°¼ºÈ­/ºñÈ°¼ºÈ­ »óÅÂ
+    u"""set_enabled: ë´‡ í™œì„±í™”/ë¹„í™œì„±í™” ìƒíƒœ ë³€ê²½
+    chat_id:    (integer) ë´‡ì„ í™œì„±í™”/ë¹„í™œì„±í™”í•  ì±„íŒ… ID
+    enabled:    (boolean) ì§€ì •í•  í™œì„±í™”/ë¹„í™œì„±í™” ìƒíƒœ
     """
     es = EnableStatus.get_or_insert(str(chat_id))
     es.enabled = enabled
     es.put()
 
 def get_enabled(chat_id):
-    u"""get_enabled: º¿ È°¼ºÈ­/ºñÈ°¼ºÈ­ »óÅÂ ¹İÈ¯
+    u"""get_enabled: ë´‡ í™œì„±í™”/ë¹„í™œì„±í™” ìƒíƒœ ë°˜í™˜
     return: (boolean)
     """
     es = EnableStatus.get_by_id(str(chat_id))
@@ -71,20 +74,20 @@ def get_enabled(chat_id):
     return False
 
 def get_enabled_chats():
-    u"""get_enabled: º¿ÀÌ È°¼ºÈ­µÈ Ã¤ÆÃ ¸®½ºÆ® ¹İÈ¯
+    u"""get_enabled: ë´‡ì´ í™œì„±í™”ëœ ì±„íŒ… ë¦¬ìŠ¤íŠ¸ ë°˜í™˜
     return: (list of EnableStatus)
     """
     query = EnableStatus.query(EnableStatus.enabled == True)
     return query.fetch()
 
-# ¸Ş½ÃÁö ¹ß¼Û °ü·Ã ÇÔ¼öµé
+# ë©”ì‹œì§€ ë°œì†¡ ê´€ë ¨ í•¨ìˆ˜ë“¤
 def send_msg(chat_id, text, reply_to=None, no_preview=True, keyboard=None):
-    u"""send_msg: ¸Ş½ÃÁö ¹ß¼Û
-    chat_id:    (integer) ¸Ş½ÃÁö¸¦ º¸³¾ Ã¤ÆÃ ID
-    text:       (string)  ¸Ş½ÃÁö ³»¿ë
-    reply_to:   (integer) ~¸Ş½ÃÁö¿¡ ´ëÇÑ ´äÀå
-    no_preview: (boolean) URL ÀÚµ¿ ¸µÅ©(¹Ì¸®º¸±â) ²ô±â
-    keyboard:   (list)    Ä¿½ºÅÒ Å°º¸µå ÁöÁ¤
+    u"""send_msg: ë©”ì‹œì§€ ë°œì†¡
+    chat_id:    (integer) ë©”ì‹œì§€ë¥¼ ë³´ë‚¼ ì±„íŒ… ID
+    text:       (string)  ë©”ì‹œì§€ ë‚´ìš©
+    reply_to:   (integer) ~ë©”ì‹œì§€ì— ëŒ€í•œ ë‹µì¥
+    no_preview: (boolean) URL ìë™ ë§í¬(ë¯¸ë¦¬ë³´ê¸°) ë„ê¸°
+    keyboard:   (list)    ì»¤ìŠ¤í…€ í‚¤ë³´ë“œ ì§€ì •
     """
     params = {
         'chat_id': str(chat_id),
@@ -108,46 +111,46 @@ def send_msg(chat_id, text, reply_to=None, no_preview=True, keyboard=None):
         logging.exception(e)
 
 def broadcast(text):
-    u"""broadcast: º¿ÀÌ ÄÑÁ® ÀÖ´Â ¸ğµç Ã¤ÆÃ¿¡ ¸Ş½ÃÁö ¹ß¼Û
-    text:       (string)  ¸Ş½ÃÁö ³»¿ë
+    u"""broadcast: ë´‡ì´ ì¼œì ¸ ìˆëŠ” ëª¨ë“  ì±„íŒ…ì— ë©”ì‹œì§€ ë°œì†¡
+    text:       (string)  ë©”ì‹œì§€ ë‚´ìš©
     """
     for chat in get_enabled_chats():
         send_msg(chat.key.string_id(), text)
 
-# º¿ ¸í·É Ã³¸® ÇÔ¼öµé
+# ë´‡ ëª…ë ¹ ì²˜ë¦¬ í•¨ìˆ˜ë“¤
 def cmd_start(chat_id):
-    u"""cmd_start: º¿À» È°¼ºÈ­ÇÏ°í, È°¼ºÈ­ ¸Ş½ÃÁö ¹ß¼Û
-    chat_id: (integer) Ã¤ÆÃ ID
+    u"""cmd_start: ë´‡ì„ í™œì„±í™”í•˜ê³ , í™œì„±í™” ë©”ì‹œì§€ ë°œì†¡
+    chat_id: (integer) ì±„íŒ… ID
     """
     set_enabled(chat_id, True)
     send_msg(chat_id, MSG_START, keyboard=CUSTOM_KEYBOARD)
 
 def cmd_stop(chat_id):
-    u"""cmd_stop: º¿À» ºñÈ°¼ºÈ­ÇÏ°í, ºñÈ°¼ºÈ­ ¸Ş½ÃÁö ¹ß¼Û
-    chat_id: (integer) Ã¤ÆÃ ID
+    u"""cmd_stop: ë´‡ì„ ë¹„í™œì„±í™”í•˜ê³ , ë¹„í™œì„±í™” ë©”ì‹œì§€ ë°œì†¡
+    chat_id: (integer) ì±„íŒ… ID
     """
     set_enabled(chat_id, False)
     send_msg(chat_id, MSG_STOP)
 
 def cmd_help(chat_id):
-    u"""cmd_help: º¿ »ç¿ë¹ı ¸Ş½ÃÁö ¹ß¼Û
-    chat_id: (integer) Ã¤ÆÃ ID
+    u"""cmd_help: ë´‡ ì‚¬ìš©ë²• ë©”ì‹œì§€ ë°œì†¡
+    chat_id: (integer) ì±„íŒ… ID
     """
     send_msg(chat_id, USAGE, keyboard=CUSTOM_KEYBOARD)
 
 def cmd_broadcast(chat_id, text):
-    u"""cmd_broadcast: º¿ÀÌ È°¼ºÈ­µÈ ¸ğµç Ã¤ÆÃ¿¡ ¸Ş½ÃÁö ¹æ¼Û
-    chat_id: (integer) Ã¤ÆÃ ID
-    text:    (string)  ¹æ¼ÛÇÒ ¸Ş½ÃÁö
+    u"""cmd_broadcast: ë´‡ì´ í™œì„±í™”ëœ ëª¨ë“  ì±„íŒ…ì— ë©”ì‹œì§€ ë°©ì†¡
+    chat_id: (integer) ì±„íŒ… ID
+    text:    (string)  ë°©ì†¡í•  ë©”ì‹œì§€
     """
-    send_msg(chat_id, u'¸Ş½ÃÁö¸¦ ¹æ¼ÛÇÕ´Ï´Ù.', keyboard=CUSTOM_KEYBOARD)
+    send_msg(chat_id, u'ë©”ì‹œì§€ë¥¼ ë°©ì†¡í•©ë‹ˆë‹¤.', keyboard=CUSTOM_KEYBOARD)
     broadcast(text)
 
 def cmd_echo(chat_id, text, reply_to):
-    u"""cmd_echo: »ç¿ëÀÚÀÇ ¸Ş½ÃÁö¸¦ µû¶ó¼­ ´äÀå
-    chat_id:  (integer) Ã¤ÆÃ ID
-    text:     (string)  »ç¿ëÀÚ°¡ º¸³½ ¸Ş½ÃÁö ³»¿ë
-    reply_to: (integer) ´äÀåÇÒ ¸Ş½ÃÁö ID
+    u"""cmd_echo: ì‚¬ìš©ìì˜ ë©”ì‹œì§€ë¥¼ ë”°ë¼ì„œ ë‹µì¥
+    chat_id:  (integer) ì±„íŒ… ID
+    text:     (string)  ì‚¬ìš©ìê°€ ë³´ë‚¸ ë©”ì‹œì§€ ë‚´ìš©
+    reply_to: (integer) ë‹µì¥í•  ë©”ì‹œì§€ ID
     """
     send_msg(chat_id, text, reply_to=reply_to)
 
@@ -160,9 +163,9 @@ def cron_method(handler):
     return check_if_cron
 
 def process_cmds(msg):
-    u"""»ç¿ëÀÚ ¸Ş½ÃÁö¸¦ ºĞ¼®ÇØ º¿ ¸í·ÉÀ» Ã³¸®
-    chat_id: (integer) Ã¤ÆÃ ID
-    text:    (string)  »ç¿ëÀÚ°¡ º¸³½ ¸Ş½ÃÁö ³»¿ë
+    u"""ì‚¬ìš©ì ë©”ì‹œì§€ë¥¼ ë¶„ì„í•´ ë´‡ ëª…ë ¹ì„ ì²˜ë¦¬
+    chat_id: (integer) ì±„íŒ… ID
+    text:    (string)  ì‚¬ìš©ìê°€ ë³´ë‚¸ ë©”ì‹œì§€ ë‚´ìš©
     """
     msg_id = msg['message_id']
     chat_id = msg['chat']['id']
@@ -187,20 +190,20 @@ def process_cmds(msg):
     cmd_echo(chat_id, text, reply_to=msg_id)
     return
 
-# À¥ ¿äÃ»¿¡ ´ëÇÑ ÇÚµé·¯ Á¤ÀÇ
-# /me ¿äÃ»½Ã
+# ì›¹ ìš”ì²­ì— ëŒ€í•œ í•¸ë“¤ëŸ¬ ì •ì˜
+# /me ìš”ì²­ì‹œ
 class MeHandler(webapp2.RequestHandler):
     def get(self):
         urlfetch.set_default_fetch_deadline(60)
         self.response.write(json.dumps(json.load(urllib2.urlopen(BASE_URL + 'getMe'))))
 
-# /updates ¿äÃ»½Ã
+# /updates ìš”ì²­ì‹œ
 class GetUpdatesHandler(webapp2.RequestHandler):
     def get(self):
         urlfetch.set_default_fetch_deadline(60)
         self.response.write(json.dumps(json.load(urllib2.urlopen(BASE_URL + 'getUpdates'))))
 
-# /set-wehook ¿äÃ»½Ã
+# /set-wehook ìš”ì²­ì‹œ
 class SetWebhookHandler(webapp2.RequestHandler):
     def get(self):
         urlfetch.set_default_fetch_deadline(60)
@@ -208,7 +211,7 @@ class SetWebhookHandler(webapp2.RequestHandler):
         if url:
             self.response.write(json.dumps(json.load(urllib2.urlopen(BASE_URL + 'setWebhook', urllib.urlencode({'url': url})))))
     if cmd_broadcast_match:
-# /webhook ¿äÃ»½Ã (ÅÚ·¹±×·¥ º¿ API)
+# /webhook ìš”ì²­ì‹œ (í…”ë ˆê·¸ë¨ ë´‡ API)
 class WebhookHandler(webapp2.RequestHandler):
     def post(self):
         urlfetch.set_default_fetch_deadline(60)
@@ -223,7 +226,7 @@ class WebhookHandler1(webapp2.RequestHandler):
         s = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
         broadcast(s)
 #        broadcast('Test Message')
-# ±¸±Û ¾Û ¿£Áø¿¡ À¥ ¿äÃ» ÇÚµé·¯ ÁöÁ¤
+# êµ¬ê¸€ ì•± ì—”ì§„ì— ì›¹ ìš”ì²­ í•¸ë“¤ëŸ¬ ì§€ì •
 app = webapp2.WSGIApplication([
     ('/me', MeHandler),
     ('/updates', GetUpdatesHandler),
