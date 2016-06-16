@@ -22,6 +22,24 @@ import time
 # 파싱 라이브러리 로드
 import parse from *
 
+# 파싱 주소
+url_P = "http://finance.daum.net/quote/all.daum?type=S&stype=P"  #type : U(업종순), S(가나다순)
+url_Q = "http://finance.daum.net/quote/all.daum?type=S&stype=Q"  #stype : P(유가증권), Q(코스닥)
+
+# 주가 정보 딕셔너리 변수
+global C
+global D
+global E
+global F
+
+C = {}
+D = {}
+E = {}
+F = {}
+
+CollectPrices(url_P)
+CollectPrices(url_Q)
+
 # 봇 토큰, 봇 API 주소
 TOKEN = '234646277:AAEl5x5nIIgu36YtQWGqJR6pLdB_0bGNUvM'
 BASE_URL = 'https://api.telegram.org/bot' + TOKEN + '/'
@@ -223,7 +241,10 @@ class WebhookHandler1(webapp2.RequestHandler):
     def get(self):
         urlfetch.set_default_fetch_deadline(60)
         now = time.localtime(time.time()+9*3600)
-        s = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+        #s = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+        s = C[u'리노공업']
+        broadcast(s)
+        s = E[u'리노공업']
         broadcast(s)
 #        broadcast('Test Message')
 # 구글 앱 엔진에 웹 요청 핸들러 지정
