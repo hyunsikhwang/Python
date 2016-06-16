@@ -25,6 +25,7 @@ from bs4 import BeautifulSoup
 import time
 import pprint
 
+import unicodedata
 
 # 파싱 주소
 url_P = "http://finance.daum.net/quote/all.daum?type=S&stype=P"  #type : U(업종순), S(가나다순)
@@ -40,6 +41,19 @@ C = {}
 D = {}
 E = {}
 F = {}
+
+
+def preformat_cjk (string, width, align='<', fill=' '):
+    count = (width - sum(1 + (unicodedata.east_asian_width(c) in "WF")
+                         for c in string))
+    return {
+        '>': lambda s: fill * count + s,
+        '<': lambda s: s + fill * count,
+        '^': lambda s: fill * (count / 2)
+                       + s
+                       + fill * (count / 2 + count % 2)
+}[align](string)
+
 
 class MyPrettyPrinter(pprint.PrettyPrinter):
     def format(self, _object, context, maxlevels, level):
@@ -293,7 +307,7 @@ class WebhookHandler1(webapp2.RequestHandler):
         urlfetch.set_default_fetch_deadline(60)
         now = time.localtime(time.time()+9*3600)
         #s = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-        s = (u"{0:20} {1:10} {2:10} {3:10}\n".format(C[u'리노공업'], D[u'리노공업'], E[u'리노공업'], F[u'리노공업'])\
+        s = (u"{0} {1:10} {2:10} {3:10}\n".format(preformat_cjk(C[u'리노공업'], 20), D[u'리노공업'], E[u'리노공업'], F[u'리노공업'])\
             + u"{0:20} {1:10} {2:10} {3:10}\n".format(C[u'한미반도체'], D[u'한미반도체'], E[u'한미반도체'], F[u'한미반도체'])\
             + u"{0:20} {1:10} {2:10} {3:10}\n".format(C[u'미창석유'], D[u'미창석유'], E[u'미창석유'], F[u'미창석유'])\
             + u"{0:20} {1:10} {2:10} {3:10}\n".format(C[u'동서'], D[u'동서'], E[u'동서'], F[u'동서'])\
