@@ -10,9 +10,11 @@ start_time = time.time()
 url_P = "http://finance.daum.net/quote/all.daum?type=S&stype=P"  #type : U(업종순), S(가나다순)
 url_Q = "http://finance.daum.net/quote/all.daum?type=S&stype=Q"  #stype : P(유가증권), Q(코스닥)
 
+global C
 global D
 global E
 global F
+C = {}
 D = {}
 E = {}
 F = {}
@@ -51,6 +53,7 @@ def CollectPrices(url):
                     temp = soup2.text
                     temp2 = soup2.find('a')['href']
                     temp2 = temp2[-6:]
+		    C[temp] = temp
 		    D[temp] = temp2
                 elif i % 3 == 2:
                     temp3 = soup2.text
@@ -63,15 +66,15 @@ def CollectPrices(url):
 CollectPrices(url_P)
 CollectPrices(url_Q)
 
-print MyPrettyPrinter().pformat(D[u'리노공업']), MyPrettyPrinter().pformat(E[u'리노공업']), MyPrettyPrinter().pformat(F[u'리노공업'])
-print MyPrettyPrinter().pformat(D[u'한미반도체']), MyPrettyPrinter().pformat(E[u'한미반도체']),MyPrettyPrinter().pformat(F[u'한미반도체'])
-print MyPrettyPrinter().pformat(D[u'미창석유']), MyPrettyPrinter().pformat(E[u'미창석유']), MyPrettyPrinter().pformat(F[u'미창석유'])
-print MyPrettyPrinter().pformat(D[u'동서']), MyPrettyPrinter().pformat(E[u'동서']), MyPrettyPrinter().pformat(F[u'동서'])
-print MyPrettyPrinter().pformat(D[u'코텍']), MyPrettyPrinter().pformat(E[u'코텍']), MyPrettyPrinter().pformat(F[u'코텍'])
-print MyPrettyPrinter().pformat(D[u'금화피에스시']), MyPrettyPrinter().pformat(E[u'금화피에스시']), MyPrettyPrinter().pformat(F[u'금화피에스시'])
-print MyPrettyPrinter().pformat(D[u'토비스']), MyPrettyPrinter().pformat(E[u'토비스']), MyPrettyPrinter().pformat(F[u'토비스'])
-print MyPrettyPrinter().pformat(D[u'KODEX 레버리지']), MyPrettyPrinter().pformat(E[u'KODEX 레버리지']), MyPrettyPrinter().pformat(F[u'KODEX 레버리지'])
-print MyPrettyPrinter().pformat(D[u'KODEX 인버스']), MyPrettyPrinter().pformat(E[u'KODEX 인버스']), MyPrettyPrinter().pformat(F[u'KODEX 인버스'])
+print u'리노공업', MyPrettyPrinter().pformat(D[u'리노공업']), MyPrettyPrinter().pformat(E[u'리노공업']), MyPrettyPrinter().pformat(F[u'리노공업'])
+print u'한미반도체', MyPrettyPrinter().pformat(D[u'한미반도체']), MyPrettyPrinter().pformat(E[u'한미반도체']),MyPrettyPrinter().pformat(F[u'한미반도체'])
+print u'미창석유', MyPrettyPrinter().pformat(D[u'미창석유']), MyPrettyPrinter().pformat(E[u'미창석유']), MyPrettyPrinter().pformat(F[u'미창석유'])
+print u'동서', MyPrettyPrinter().pformat(D[u'동서']), MyPrettyPrinter().pformat(E[u'동서']), MyPrettyPrinter().pformat(F[u'동서'])
+print u'코텍', MyPrettyPrinter().pformat(D[u'코텍']), MyPrettyPrinter().pformat(E[u'코텍']), MyPrettyPrinter().pformat(F[u'코텍'])
+print u'금화피에스시', MyPrettyPrinter().pformat(D[u'금화피에스시']), MyPrettyPrinter().pformat(E[u'금화피에스시']), MyPrettyPrinter().pformat(F[u'금화피에스시'])
+print u'토비스', MyPrettyPrinter().pformat(D[u'토비스']), MyPrettyPrinter().pformat(E[u'토비스']), MyPrettyPrinter().pformat(F[u'토비스'])
+print u'KODEX 레버리지', MyPrettyPrinter().pformat(D[u'KODEX 레버리지']), MyPrettyPrinter().pformat(E[u'KODEX 레버리지']), MyPrettyPrinter().pformat(F[u'KODEX 레버리지'])
+print u'KODEX 인버스', MyPrettyPrinter().pformat(D[u'KODEX 인버스']), MyPrettyPrinter().pformat(E[u'KODEX 인버스']), MyPrettyPrinter().pformat(F[u'KODEX 인버스'])
 #print MyPrettyPrinter().pformat(D)
 #print D
             
