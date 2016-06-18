@@ -190,7 +190,7 @@ def send_msg(chat_id, text, reply_to=None, no_preview=True, keyboard=None):
         params['reply_markup'] = reply_markup
     try:
         urllib2.urlopen(BASE_URL + 'sendMessage', urllib.urlencode(params)).read()
-    except Exception as e: 
+    except Exception as e:
         logging.exception(e)
 
 def broadcast(text):
@@ -326,8 +326,10 @@ class WebhookHandler1(webapp2.RequestHandler):
     @cron_method
     def get(self):
         urlfetch.set_default_fetch_deadline(60)
+        broadcast(time.time())
         CollectPrices(url_P)
         CollectPrices(url_Q)
+        broadcast(time.time())
         s = (u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'리노공업'], 14, "<", "_"), D[u'리노공업'], E[u'리노공업'], F[u'리노공업'])\
             + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'한미반도체'], 14, "<", "_"), D[u'한미반도체'], E[u'한미반도체'], F[u'한미반도체'])\
             + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'미창석유'], 14, "<", "_"), D[u'미창석유'], E[u'미창석유'], F[u'미창석유'])\
@@ -338,6 +340,7 @@ class WebhookHandler1(webapp2.RequestHandler):
             + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'KODEX 레버리지'], 14, "<", "_"), D[u'KODEX 레버리지'], E[u'KODEX 레버리지'], F[u'KODEX 레버리지'])\
             + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'KODEX 인버스'], 14, "<", "_"), D[u'KODEX 인버스'], E[u'KODEX 인버스'], F[u'KODEX 인버스']))
         broadcast(s)
+        broadcast(time.time())
 #        broadcast('Test Message')
 
 # 구글 앱 엔진에 웹 요청 핸들러 지정
