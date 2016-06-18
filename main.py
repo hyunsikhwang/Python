@@ -236,7 +236,8 @@ def cmd_view(chat_id):
         + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'토비스'], 14, "<", "_"), D[u'토비스'], E[u'토비스'], F[u'토비스'])\
         + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'KODEX 레버리지'], 14, "<", "_"), D[u'KODEX 레버리지'], E[u'KODEX 레버리지'], F[u'KODEX 레버리지'])\
         + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'KODEX 인버스'], 14, "<", "_"), D[u'KODEX 인버스'], E[u'KODEX 인버스'], F[u'KODEX 인버스']))
-    send_msg(chat_id, s)
+    #send_msg(chat_id, s)
+    broadcast(s)
 
 def cmd_broadcast(chat_id, text):
     u"""cmd_broadcast: 봇이 활성화된 모든 채팅에 메시지 방송
