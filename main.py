@@ -225,10 +225,8 @@ def cmd_view(chat_id):
     u"""cmd_view: 봇 수동 실행
     chat_id (integer) 채팅 ID
     """
-    send_msg(chat_id, str(time.time()))
     CollectPrices(url_P)
     CollectPrices(url_Q)
-    send_msg(chat_id, str(time.time()))
     s = (u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'리노공업'], 14, "<", "_"), D[u'리노공업'], E[u'리노공업'], F[u'리노공업'])\
         + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'한미반도체'], 14, "<", "_"), D[u'한미반도체'], E[u'한미반도체'], F[u'한미반도체'])\
         + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'미창석유'], 14, "<", "_"), D[u'미창석유'], E[u'미창석유'], F[u'미창석유'])\
@@ -239,7 +237,6 @@ def cmd_view(chat_id):
         + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'KODEX 레버리지'], 14, "<", "_"), D[u'KODEX 레버리지'], E[u'KODEX 레버리지'], F[u'KODEX 레버리지'])\
         + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'KODEX 인버스'], 14, "<", "_"), D[u'KODEX 인버스'], E[u'KODEX 인버스'], F[u'KODEX 인버스']))
     send_msg(chat_id, s)
-    send_msg(chat_id, str(time.time()))
 
 def cmd_broadcast(chat_id, text):
     u"""cmd_broadcast: 봇이 활성화된 모든 채팅에 메시지 방송
