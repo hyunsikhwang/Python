@@ -280,6 +280,9 @@ def process_cmds(msg):
     if CMD_STOP == text:
         cmd_stop(chat_id)
         return
+    if CMD_VIEW == text:
+        cmd_view(chat_id)
+        return
     if CMD_HELP == text:
         cmd_help(chat_id)
         return
