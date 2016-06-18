@@ -101,8 +101,6 @@ def CollectPrices(url):
 def PrintStock(quote):
     print quote, MyPrettyPrinter().pformat(D[quote]), MyPrettyPrinter().pformat(E[quote]), MyPrettyPrinter().pformat(F[quote])
 
-CollectPrices(url_P)
-CollectPrices(url_Q)
 
 # 봇 토큰, 봇 API 주소
 TOKEN = '234646277:AAEl5x5nIIgu36YtQWGqJR6pLdB_0bGNUvM'
@@ -305,8 +303,8 @@ class WebhookHandler1(webapp2.RequestHandler):
     @cron_method
     def get(self):
         urlfetch.set_default_fetch_deadline(60)
-        now = time.localtime(time.time()+9*3600)
-        #s = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+        CollectPrices(url_P)
+        CollectPrices(url_Q)
         s = (u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'리노공업'], 14, "<", "_"), D[u'리노공업'], E[u'리노공업'], F[u'리노공업'])\
             + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'한미반도체'], 14, "<", "_"), D[u'한미반도체'], E[u'한미반도체'], F[u'한미반도체'])\
             + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'미창석유'], 14, "<", "_"), D[u'미창석유'], E[u'미창석유'], F[u'미창석유'])\
