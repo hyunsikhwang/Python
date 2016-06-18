@@ -110,12 +110,14 @@ BASE_URL = 'https://api.telegram.org/bot' + TOKEN + '/'
 CMD_START     = '/start'
 CMD_STOP      = '/stop'
 CMD_HELP      = '/help'
+CMD_VIEW      = '/view'
 CMD_BROADCAST = '/broadcast'
 
 # 봇 사용법 & 메시지
 USAGE = u"""[사용법] 아래 명령어를 메시지로 보내거나 버튼을 누르시면 됩니다.
 /start - (로봇 활성화)
 /stop  - (로봇 비활성화)
+/view  - (수동 실행)
 /help  - (이 도움말 보여주기)
 """
 MSG_START = u'봇을 시작합니다.'
@@ -125,6 +127,7 @@ MSG_STOP  = u'봇을 정지합니다.'
 CUSTOM_KEYBOARD = [
         [CMD_START],
         [CMD_STOP],
+        [CMD_VIEW],
         [CMD_HELP],
         ]
 
@@ -217,6 +220,23 @@ def cmd_help(chat_id):
     chat_id: (integer) 채팅 ID
     """
     send_msg(chat_id, USAGE, keyboard=CUSTOM_KEYBOARD)
+
+def cmd_view(chat_id):
+    u"""cmd_view: 봇 수동 실행
+    chat_id (integer) 채팅 ID
+    """
+    CollectPrices(url_P)
+    CollectPrices(url_Q)
+    s = (u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'리노공업'], 14, "<", "_"), D[u'리노공업'], E[u'리노공업'], F[u'리노공업'])\
+        + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'한미반도체'], 14, "<", "_"), D[u'한미반도체'], E[u'한미반도체'], F[u'한미반도체'])\
+        + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'미창석유'], 14, "<", "_"), D[u'미창석유'], E[u'미창석유'], F[u'미창석유'])\
+        + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'동서'], 14, "<", "_"), D[u'동서'], E[u'동서'], F[u'동서'])\
+        + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'코텍'], 14, "<", "_"), D[u'코텍'], E[u'코텍'], F[u'코텍'])\
+        + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'금화피에스시'], 14, "<", "_"), D[u'금화피에스시'], E[u'금화피에스시'], F[u'금화피에스시'])\
+        + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'토비스'], 14, "<", "_"), D[u'토비스'], E[u'토비스'], F[u'토비스'])\
+        + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'KODEX 레버리지'], 14, "<", "_"), D[u'KODEX 레버리지'], E[u'KODEX 레버리지'], F[u'KODEX 레버리지'])\
+        + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'KODEX 인버스'], 14, "<", "_"), D[u'KODEX 인버스'], E[u'KODEX 인버스'], F[u'KODEX 인버스']))
+    send_msg(chat_id, s)
 
 def cmd_broadcast(chat_id, text):
     u"""cmd_broadcast: 봇이 활성화된 모든 채팅에 메시지 방송
