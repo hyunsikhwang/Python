@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: cp949 -*-
 import urllib2
 from bs4 import BeautifulSoup
 import time
@@ -21,7 +21,7 @@ class MyPrettyPrinter(pprint.PrettyPrinter):
 
 def CollectPrices(url):
     f = urllib2.urlopen(url)
-    page = f.read().decode('utf-8', 'ignore')
+    page = f.read().decode('euc-kr', 'ignore')
     f.close()
 
     soup = BeautifulSoup(page, 'html.parser', from_encoding='euc-kr')
