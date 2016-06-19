@@ -19,3 +19,7 @@
 
 
 기타 : python 2.7 기준
+
+
+문제점 : Google App Engine 에서 전체 종목 parsing 해서 bot 을 통해 broadcast 하는데 25~30초 정도 걸림
+
