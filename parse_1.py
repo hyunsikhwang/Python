@@ -7,7 +7,7 @@ import pprint
 #processing start
 start_time = time.time()
 
-url_quote = "http://finance.daum.net/item/main.daum?code=058470"  # 종목 시세 주소
+url_quote = "http://finance.daum.net/item/main.daum?code="  # 종목 시세 주소
 
 
 class MyPrettyPrinter(pprint.PrettyPrinter):
@@ -37,7 +37,15 @@ def CollectPrices(url):
             print li.text
 
     
-CollectPrices(url_quote)
+CollectPrices(url_quote + "058470")
+CollectPrices(url_quote + "042700")
+CollectPrices(url_quote + "003650")
+CollectPrices(url_quote + "026960")
+CollectPrices(url_quote + "052330")
+CollectPrices(url_quote + "036190")
+CollectPrices(url_quote + "051360")
+CollectPrices(url_quote + "122630")
+CollectPrices(url_quote + "114800")
 
 
 #processing end
