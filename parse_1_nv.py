@@ -33,7 +33,7 @@ def CollectPrices(url):
     
     for li in editData_title:
         i = i + 1
-        if i = 4:
+        if i == 4:
             print li.text
 
     
