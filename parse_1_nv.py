@@ -34,7 +34,7 @@ def CollectPrices(url):
     for li in editData_title:
         i = i + 1
         if i == 4:
-            print str(li.text)
+            print str(li.text.encode('utf-8'))
 
     
 CollectPrices(url_quote + "058470")
