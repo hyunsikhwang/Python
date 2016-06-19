@@ -7,7 +7,7 @@ import pprint
 #processing start
 start_time = time.time()
 
-url_quote = "view-source:http://finance.daum.net/item/main.daum?code=058470"  # 종목 시세 주소
+url_quote = "http://finance.daum.net/item/main.daum?code=058470"  # 종목 시세 주소
 
 
 class MyPrettyPrinter(pprint.PrettyPrinter):
