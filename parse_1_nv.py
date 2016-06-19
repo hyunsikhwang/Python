@@ -24,7 +24,7 @@ def CollectPrices(url):
     page = f.read().decode('utf-8', 'ignore')
     f.close()
 
-    soup = BeautifulSoup(page, 'html.parser', from_encoding='utf-8')
+    soup = BeautifulSoup(page, 'html.parser', from_encoding='euc-kr')
 
     editData_table = soup.find('dl', {'class' : "blind"})
     editData_title = editData_table.findAll("dd")
