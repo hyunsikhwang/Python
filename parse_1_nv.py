@@ -31,6 +31,8 @@ def CollectPrices(url):
 
     i = 0
     
+    print editData_title
+    
     for li in editData_title:
         i = i + 1
         if i == 4:
