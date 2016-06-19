@@ -27,9 +27,9 @@ def CollectPrices(url):
     soup = BeautifulSoup(page, 'html.parser', from_encoding='utf-8')
 
     editData_table = soup.find('ul', {'class' : "list stockrate"})
-    editData_title = editData_table.findAll("li")
+    #editData_title = editData_table.findAll("li")
     
-    print editData_title
+    print editData_table
 
 CollectPrices(url_quote)
 
