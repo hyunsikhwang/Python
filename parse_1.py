@@ -28,9 +28,13 @@ def CollectPrices(url):
 
     editData_table = soup.find('ul', {'class' : "list_stockrate"})
     editData_title = editData_table.findAll("li")
+
+    i = 0
     
     for li in editData_title:
-        print li.text
+        i = i + 1
+        if i <= 3:
+            print li.text
 
     
 CollectPrices(url_quote)
