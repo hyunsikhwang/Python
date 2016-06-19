@@ -12,10 +12,13 @@
 	
 	
 	
-2. parse.py : Daum 전종목 주가 정보에서 전체 정보 parsing
+2. parse.py : Daum 전종목 주가 정보에서 전체 정보 parsing (종목명, 종목번호, 현재주가, 등락폭)
  
 
 3. parse_1.py : Daum 종목별 주가 정보에서 종목별 parsing
+
+
+4. parse_1_nv.py : 네이버 종목별 주가 정보에서 종목별 parsing
 
 
 기타 : python 2.7 기준
