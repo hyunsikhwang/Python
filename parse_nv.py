@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import urllib2
-from bs4 import BeautifulSoup
 import time
 import pprint
 from xml.etree.ElementTree import parse
@@ -25,11 +24,10 @@ def CollectPrices(url):
     page = f.read().decode('utf-8', 'ignore')
     f.close()
 
-    soup = BeautifulSoup(page, 'html.parser', from_encoding='utf-8')
-
     print page
-    editData_table = page.find('result:areas:datas:nv')
-    print editData_table
+    
+    for result in page.iter('result'):
+        print result
     
 
 CollectPrices(url_quote + "058470")
