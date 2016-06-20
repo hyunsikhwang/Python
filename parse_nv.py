@@ -22,10 +22,10 @@ class MyPrettyPrinter(pprint.PrettyPrinter):
 
 def CollectPrices(url):
     f = urllib2.urlopen(url)
-    page = f.read().decode('euc-kr', 'ignore')
+    page = f.read().decode('utf-8', 'ignore')
     f.close()
 
-    soup = BeautifulSoup(page, 'lxml', from_encoding='euc-kr')
+    soup = BeautifulSoup(page, 'html.parser', from_encoding='utf-8')
 
     editData_table = page.find('nv')
     print editData_table
