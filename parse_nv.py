@@ -27,7 +27,7 @@ def CollectPrices(url):
 
     soup = BeautifulSoup(page, 'html.parser', from_encoding='utf-8')
 
-    print soup
+    print page
     editData_table = page.find('result:areas:datas:nv')
     print editData_table
     
