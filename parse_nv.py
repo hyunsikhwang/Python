@@ -26,8 +26,7 @@ def CollectPrices(url):
 
     print page
     
-    for result in page.iter('result'):
-        print result
+    print page['result']['areas']['datas']['nv']
     
 
 CollectPrices(url_quote + "058470")
