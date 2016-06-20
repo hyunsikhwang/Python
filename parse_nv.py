@@ -25,7 +25,7 @@ def CollectPrices(url):
     page = f.read().decode('euc-kr', 'ignore')
     f.close()
 
-    soup = BeautifulSoup(page, 'html.parser', from_encoding='euc-kr')
+    soup = BeautifulSoup(page, 'lxml', from_encoding='euc-kr')
 
     editData_table = page.find('nv')
     print editData_table
