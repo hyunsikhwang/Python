@@ -26,7 +26,7 @@ def CollectPrices(url):
 
     print page
     
-    print page['result']['areas']['datas']['nv']
+    print page[2][1][1]
     
 
 CollectPrices(url_quote + "058470")
