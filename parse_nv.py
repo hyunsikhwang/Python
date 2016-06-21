@@ -13,7 +13,7 @@ def CollectPrices(url):
     page = f.read().decode('euc-kr', 'ignore')
     f.close()
     js = json.loads(page)
-    print js['result']['areas'][0]['datas'][0]['nv'], js['result']['areas'][0]['datas'][0]['nm']
+    print js['result']['areas'][0]['datas'][0]['nm'], url[-6:], js['result']['areas'][0]['datas'][0]['nv'], js['result']['areas'][0]['datas'][0]['cv'] 
 
 CollectPrices(url_quote + "058470")
 CollectPrices(url_quote + "042700")
