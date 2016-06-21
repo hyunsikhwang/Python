@@ -30,17 +30,6 @@ import unicodedata
 # 파싱 주소
 url_quote = "http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_ITEM:"  # 종목 시세 주소
 
-# 주가 정보 딕셔너리 변수
-global C
-global D
-global E
-global F
-
-C = {}
-D = {}
-E = {}
-F = {}
-
 
 def preformat_cjk (string, width, align='<', fill=' '):
     count = (width - sum(1 + (unicodedata.east_asian_width(c) in "WF")
@@ -77,6 +66,7 @@ def CollectPrices(url):
     price_ud = (price_t - price_y) / float(price_y) * 100.0
     print "%s %s %s %.2f%%" % (name, quote, price_t, price_ud)
     return u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(name, 14, "<", "_"), quote, price_t, price_ud)
+
 
 # 봇 토큰, 봇 API 주소
 TOKEN = '234646277:AAEl5x5nIIgu36YtQWGqJR6pLdB_0bGNUvM'
@@ -201,14 +191,14 @@ def cmd_view(chat_id):
     u"""cmd_view: 봇 수동 실행
     chat_id (integer) 채팅 ID
     """
-    s = CollectPrices(url_quote + '058470') \
-        CollectPrices(url_quote + '042700') \
-        CollectPrices(url_quote + '003650') \
-        CollectPrices(url_quote + '026960') \
-        CollectPrices(url_quote + '052330') \
-        CollectPrices(url_quote + '036190') \
-        CollectPrices(url_quote + '051360') \
-        CollectPrices(url_quote + '122630') \
+    s = CollectPrices(url_quote + '058470')\
+        CollectPrices(url_quote + '042700')\
+        CollectPrices(url_quote + '003650')\
+        CollectPrices(url_quote + '026960')\
+        CollectPrices(url_quote + '052330')\
+        CollectPrices(url_quote + '036190')\
+        CollectPrices(url_quote + '051360')\
+        CollectPrices(url_quote + '122630')\
         CollectPrices(url_quote + '114800')
     send_msg(chat_id, s)
 
