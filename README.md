@@ -24,5 +24,13 @@
 기타 : python 2.7 기준
 
 
-문제점 : Google App Engine 에서 전체 종목 parsing 해서 bot 을 통해 broadcast 하는데 25~30초 정도 걸림
+문제점
 
+	1) Google App Engine 에서 전체 종목 parsing 해서 bot 을 통해 broadcast 하는데 25~30초 정도 걸림 (parse_1.py)
+	2) parse_1_nv.py 의 방식을 이용해서 필요한 종목의 정보만 가져올 경우 5초 이내로 런타임 단축
+
+
+향후계획
+	1) 조회 대상 종목을 명령어를 이용해서 NDB 에 추가 및 삭제 (사용자별)
+	2) 등록 종목별 목표수익률과 매수평단가 입력받아서 현재 가격이 목표수익률 도달시 알림
+	3) 전체 종목명 / 종목코드를 "/init" 명령을 이용해서 저장 및 refresh
