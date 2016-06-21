@@ -192,7 +192,7 @@ def cmd_view(chat_id):
     chat_id (integer) 채팅 ID
     """
     s = CollectPrices(url_quote + '058470')
-#        CollectPrices(url_quote + '042700')\
+    s = s + CollectPrices(url_quote + '042700')
 #        CollectPrices(url_quote + '003650')\
 #        CollectPrices(url_quote + '026960')\
 #        CollectPrices(url_quote + '052330')\
