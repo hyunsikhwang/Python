@@ -1,36 +1,23 @@
 # -*- coding: utf-8 -*-
+import json
 import urllib2
-import time
-import pprint
-from xml.etree.ElementTree import parse
 
 #processing start
 start_time = time.time()
 
 url_quote = "http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_ITEM:"  # 종목 시세 주소
 
-
-class MyPrettyPrinter(pprint.PrettyPrinter):
-    def format(self, _object, context, maxlevels, level):
-        if isinstance(_object, unicode):
-            return "'%s'" % _object.encode('utf8'), True, False
-        elif isinstance(_object, str):
-            _object = unicode(_object,'utf8')
-            return "'%s'" % _object.encode('utf8'), True, False
-        return pprint.PrettyPrinter.format(self, _object, context, maxlevels, level)
-
 def CollectPrices(url):
     f = urllib2.urlopen(url)
-    page = f.read().decode('utf-8', 'ignore')
+    page = f.read().decode('euc-kr', 'ignore')
     f.close()
+    js = json.loads(page)
+    return js
 
-    print page
-    
-    print page[1][0][0]
-    
+StockInfo = CollectPrices(url_quote+"058470")
 
-CollectPrices(url_quote + "058470")
-
+print StockInfo['result']['areas'][0]['datas'][0]['nv']
+print StockInfo['result']['areas'][0]['datas'][0]['nm']
 
 #processing end
 end_time = time.time()
