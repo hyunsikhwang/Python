@@ -13,47 +13,29 @@ def CollectPrices(url):
     page = f.read().decode('euc-kr', 'ignore')
     f.close()
     js = json.loads(page)
+    print js['result']['areas'][0]['datas'][0]['nv']
+    print js['result']['areas'][0]['datas'][0]['nm']
     return js
 
 StockInfo = CollectPrices(url_quote+"058470")
-print StockInfo['result']['areas'][0]['datas'][0]['nv']
-print StockInfo['result']['areas'][0]['datas'][0]['nm']
 
 StockInfo = CollectPrices(url_quote + "058470")
-print StockInfo['result']['areas'][0]['datas'][0]['nv']
-print StockInfo['result']['areas'][0]['datas'][0]['nm']
 
 StockInfo = CollectPrices(url_quote + "042700")
-print StockInfo['result']['areas'][0]['datas'][0]['nv']
-print StockInfo['result']['areas'][0]['datas'][0]['nm']
 
 StockInfo = CollectPrices(url_quote + "003650")
-print StockInfo['result']['areas'][0]['datas'][0]['nv']
-print StockInfo['result']['areas'][0]['datas'][0]['nm']
 
 StockInfo = CollectPrices(url_quote + "026960")
-print StockInfo['result']['areas'][0]['datas'][0]['nv']
-print StockInfo['result']['areas'][0]['datas'][0]['nm']
 
 StockInfo = CollectPrices(url_quote + "052330")
-print StockInfo['result']['areas'][0]['datas'][0]['nv']
-print StockInfo['result']['areas'][0]['datas'][0]['nm']
 
 StockInfo = CollectPrices(url_quote + "036190")
-print StockInfo['result']['areas'][0]['datas'][0]['nv']
-print StockInfo['result']['areas'][0]['datas'][0]['nm']
 
 StockInfo = CollectPrices(url_quote + "051360")
-print StockInfo['result']['areas'][0]['datas'][0]['nv']
-print StockInfo['result']['areas'][0]['datas'][0]['nm']
 
 StockInfo = CollectPrices(url_quote + "122630")
-print StockInfo['result']['areas'][0]['datas'][0]['nv']
-print StockInfo['result']['areas'][0]['datas'][0]['nm']
 
 StockInfo = CollectPrices(url_quote + "114800")
-print StockInfo['result']['areas'][0]['datas'][0]['nv']
-print StockInfo['result']['areas'][0]['datas'][0]['nm']
 
 #processing end
 end_time = time.time()
