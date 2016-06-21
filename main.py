@@ -65,7 +65,7 @@ def CollectPrices(url):
     price_y = js['result']['areas'][0]['datas'][0]['sv']
     price_ud = (price_t - price_y) / float(price_y) * 100.0
     #print "%s %s %s %.2f%%" % (name, quote, price_t, price_ud)
-    return u"{0} {1:8} {2:8} {3:.2f%%}\n".format(preformat_cjk(name, 14, "<", "_"), quote, price_t, price_ud)
+    return u"{0} {1:8} {2:8} {3:.2f}%\n".format(preformat_cjk(name, 14, "<", "_"), quote, price_t, price_ud)
 
 
 # 봇 토큰, 봇 API 주소
