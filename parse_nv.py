@@ -19,7 +19,7 @@ def CollectPrices(url):
     price_t = js['result']['areas'][0]['datas'][0]['nv']
     price_y = js['result']['areas'][0]['datas'][0]['sv']
     price_ud = (price_t - price_y) / float(price_y) * 100.0
-    print "%s %s %s %4.2f%%" % name, quote, price_t,  price_ud
+    print "%s %s %s .2f%%" % name, quote, price_t, price_ud
 
 CollectPrices(url_quote + "058470")
 CollectPrices(url_quote + "042700")
