@@ -18,7 +18,7 @@ def CollectPrices(url):
     quote = url[-6:]
     price_t = js['result']['areas'][0]['datas'][0]['nv']
     price_y = js['result']['areas'][0]['datas'][0]['sv']
-    price_ud = (price_y - price_t) / price_y * 100
+    price_ud = (price_y - price_t) / price_y * 100.0
     print name, quote, price_t,  price_ud
 
 CollectPrices(url_quote + "058470")
