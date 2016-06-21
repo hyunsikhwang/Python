@@ -191,15 +191,15 @@ def cmd_view(chat_id):
     u"""cmd_view: 봇 수동 실행
     chat_id (integer) 채팅 ID
     """
-    s = CollectPrices(url_quote + '058470')+
-        CollectPrices(url_quote + '042700')
-#        CollectPrices(url_quote + '003650')\
-#        CollectPrices(url_quote + '026960')\
-#        CollectPrices(url_quote + '052330')\
-#        CollectPrices(url_quote + '036190')\
-#        CollectPrices(url_quote + '051360')\
-#        CollectPrices(url_quote + '122630')\
-#        CollectPrices(url_quote + '114800')
+    s = CollectPrices(url_quote + '058470')
+    s = s + CollectPrices(url_quote + '042700')
+    s = s + CollectPrices(url_quote + '003650')
+    s = s + CollectPrices(url_quote + '026960')
+    s = s + CollectPrices(url_quote + '052330')
+    s = s + CollectPrices(url_quote + '036190')
+    s = s + CollectPrices(url_quote + '051360')
+    s = s + CollectPrices(url_quote + '122630')
+    s = s + CollectPrices(url_quote + '114800')
     send_msg(chat_id, s)
 
 def cmd_broadcast(chat_id, text):
@@ -291,14 +291,14 @@ class WebhookHandler1(webapp2.RequestHandler):
     def get(self):
         urlfetch.set_default_fetch_deadline(60)
         s = CollectPrices(url_quote + '058470')
-#        CollectPrices(url_quote + '042700')\
-#        CollectPrices(url_quote + '003650')\
-#        CollectPrices(url_quote + '026960')\
-#        CollectPrices(url_quote + '052330')\
-#        CollectPrices(url_quote + '036190')\
-#        CollectPrices(url_quote + '051360')\
-#        CollectPrices(url_quote + '122630')\
-#        CollectPrices(url_quote + '114800')
+        s = s + CollectPrices(url_quote + '042700')
+        s = s + CollectPrices(url_quote + '003650')
+        s = s + CollectPrices(url_quote + '026960')
+        s = s + CollectPrices(url_quote + '052330')
+        s = s + CollectPrices(url_quote + '036190')
+        s = s + CollectPrices(url_quote + '051360')
+        s = s + CollectPrices(url_quote + '122630')
+        s = s + CollectPrices(url_quote + '114800')
         broadcast(s)
 #        broadcast('Test Message')
 
