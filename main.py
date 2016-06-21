@@ -28,8 +28,7 @@ import pprint
 import unicodedata
 
 # 파싱 주소
-url_P = "http://finance.daum.net/quote/all.daum?type=S&stype=P"  #type : U(업종순), S(가나다순)
-url_Q = "http://finance.daum.net/quote/all.daum?type=S&stype=Q"  #stype : P(유가증권), Q(코스닥)
+url_quote = "http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_ITEM:"  # 종목 시세 주소
 
 # 주가 정보 딕셔너리 변수
 global C
@@ -64,43 +63,20 @@ class MyPrettyPrinter(pprint.PrettyPrinter):
             return "'%s'" % _object.encode('utf8'), True, False
         return pprint.PrettyPrinter.format(self, _object, context, maxlevels, level)
 
+
 def CollectPrices(url):
     f = urllib2.urlopen(url)
-    page = f.read().decode('utf-8', 'ignore')
+    page = f.read().decode('euc-kr', 'ignore')
     f.close()
-
-    soup = BeautifulSoup(page, 'html.parser', from_encoding='utf-8')
-
-    editData_table = soup.find('table', {'class' : "gTable clr"})
-    editData_title = editData_table.findAll("tr")
-
-    i = 0
-
-    for li in editData_title:
-        editData_rec = li.findAll('td')
-        for li2 in editData_rec:
-            soup2 = BeautifulSoup(str(li2), 'html.parser', from_encoding='utf-8')
-            #print i, soup2.text
-
-            if soup2.text <> '':
-                i = i + 1
-                if i % 3 == 1:
-                    temp = soup2.text
-                    temp2 = soup2.find('a')['href']
-                    temp2 = temp2[-6:]
-                    C[temp] = temp
-                    D[temp] = temp2
-                elif i % 3 == 2:
-                    temp3 = soup2.text
-                    E[temp] = temp3
-                elif i % 3 == 0:
-                    temp4 = soup2.text
-                    F[temp] = temp4
-                    #priit temp, temp2, temp3, temp4
-
-def PrintStock(quote):
-    print quote, MyPrettyPrinter().pformat(D[quote]), MyPrettyPrinter().pformat(E[quote]), MyPrettyPrinter().pformat(F[quote])
-
+    js = json.loads(page)
+    
+    name = js['result']['areas'][0]['datas'][0]['nm']
+    quote = url[-6:]
+    price_t = js['result']['areas'][0]['datas'][0]['nv']
+    price_y = js['result']['areas'][0]['datas'][0]['sv']
+    price_ud = (price_t - price_y) / float(price_y) * 100.0
+    print "%s %s %s %.2f%%" % (name, quote, price_t, price_ud)
+    return u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(name, 14, "<", "_"), quote, price_t, price_ud)
 
 # 봇 토큰, 봇 API 주소
 TOKEN = '234646277:AAEl5x5nIIgu36YtQWGqJR6pLdB_0bGNUvM'
@@ -225,17 +201,15 @@ def cmd_view(chat_id):
     u"""cmd_view: 봇 수동 실행
     chat_id (integer) 채팅 ID
     """
-    CollectPrices(url_P)
-    CollectPrices(url_Q)
-    s = (u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'리노공업'], 14, "<", "_"), D[u'리노공업'], E[u'리노공업'], F[u'리노공업'])\
-        + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'한미반도체'], 14, "<", "_"), D[u'한미반도체'], E[u'한미반도체'], F[u'한미반도체'])\
-        + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'미창석유'], 14, "<", "_"), D[u'미창석유'], E[u'미창석유'], F[u'미창석유'])\
-        + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'동서'], 14, "<", "_"), D[u'동서'], E[u'동서'], F[u'동서'])\
-        + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'코텍'], 14, "<", "_"), D[u'코텍'], E[u'코텍'], F[u'코텍'])\
-        + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'금화피에스시'], 14, "<", "_"), D[u'금화피에스시'], E[u'금화피에스시'], F[u'금화피에스시'])\
-        + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'토비스'], 14, "<", "_"), D[u'토비스'], E[u'토비스'], F[u'토비스'])\
-        + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'KODEX 레버리지'], 14, "<", "_"), D[u'KODEX 레버리지'], E[u'KODEX 레버리지'], F[u'KODEX 레버리지'])\
-        + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'KODEX 인버스'], 14, "<", "_"), D[u'KODEX 인버스'], E[u'KODEX 인버스'], F[u'KODEX 인버스']))
+    s = CollectPrices(url_quote + '058470') +
+        CollectPrices(url_quote + '042700') +
+        CollectPrices(url_quote + '003650') +
+        CollectPrices(url_quote + '026960') +
+        CollectPrices(url_quote + '052330') +
+        CollectPrices(url_quote + '036190') +
+        CollectPrices(url_quote + '051360') +
+        CollectPrices(url_quote + '122630') +
+        CollectPrices(url_quote + '114800')
     send_msg(chat_id, s)
 
 def cmd_broadcast(chat_id, text):
@@ -326,17 +300,15 @@ class WebhookHandler1(webapp2.RequestHandler):
     @cron_method
     def get(self):
         urlfetch.set_default_fetch_deadline(60)
-        CollectPrices(url_P)
-        CollectPrices(url_Q)
-        s = (u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'리노공업'], 14, "<", "_"), D[u'리노공업'], E[u'리노공업'], F[u'리노공업'])\
-            + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'한미반도체'], 14, "<", "_"), D[u'한미반도체'], E[u'한미반도체'], F[u'한미반도체'])\
-            + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'미창석유'], 14, "<", "_"), D[u'미창석유'], E[u'미창석유'], F[u'미창석유'])\
-            + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'동서'], 14, "<", "_"), D[u'동서'], E[u'동서'], F[u'동서'])\
-            + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'코텍'], 14, "<", "_"), D[u'코텍'], E[u'코텍'], F[u'코텍'])\
-            + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'금화피에스시'], 14, "<", "_"), D[u'금화피에스시'], E[u'금화피에스시'], F[u'금화피에스시'])\
-            + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'토비스'], 14, "<", "_"), D[u'토비스'], E[u'토비스'], F[u'토비스'])\
-            + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'KODEX 레버리지'], 14, "<", "_"), D[u'KODEX 레버리지'], E[u'KODEX 레버리지'], F[u'KODEX 레버리지'])\
-            + u"{0} {1:8} {2:8} {3:6}\n".format(preformat_cjk(C[u'KODEX 인버스'], 14, "<", "_"), D[u'KODEX 인버스'], E[u'KODEX 인버스'], F[u'KODEX 인버스']))
+        s = CollectPrices(url_quote + '058470') +
+            CollectPrices(url_quote + '042700') +
+            CollectPrices(url_quote + '003650') +
+            CollectPrices(url_quote + '026960') +
+            CollectPrices(url_quote + '052330') +
+            CollectPrices(url_quote + '036190') +
+            CollectPrices(url_quote + '051360') +
+            CollectPrices(url_quote + '122630') +
+            CollectPrices(url_quote + '114800')
         broadcast(s)
 #        broadcast('Test Message')
 
