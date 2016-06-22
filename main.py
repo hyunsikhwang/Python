@@ -191,11 +191,13 @@ def cmd_add(chat_id):
     u"""cmd_add: 종목 추가
     chat_id: (integer) 채팅 ID
     """
+    send_msg(chat_id, u'추가할 종목 코드를 입력하세요.')
     
 def cmd_del(chat_id):
     u"""cmd_add: 종목 삭제
     chat_id: (integer) 채팅 ID
     """
+    send_msg(chat_id, u'삭제할 종목 코드를 입력하세요.')
 
 def cmd_help(chat_id):
     u"""cmd_help: 봇 사용법 메시지 발송
