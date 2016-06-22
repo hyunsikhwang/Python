@@ -96,9 +96,9 @@ MSG_STOP  = u'봇을 정지합니다.'
 
 # 커스텀 키보드
 CUSTOM_KEYBOARD = [
-        [[CMD_START], [CMD_STOP]],
-        [[CMD_ADD], [CMD_DEL]],
-        [[CMD_VIEW], [CMD_HELP]],
+        [CMD_START, CMD_STOP],
+        [CMD_ADD, CMD_DEL],
+        [CMD_VIEW, CMD_HELP],
         ]
 
 # 채팅별 로봇 활성화 상태
