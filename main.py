@@ -76,6 +76,8 @@ BASE_URL = 'https://api.telegram.org/bot' + TOKEN + '/'
 # 봇이 응답할 명령어
 CMD_START     = '/start'
 CMD_STOP      = '/stop'
+CMD_ADD       = '/add'
+CMD_DEL       = '/del'
 CMD_HELP      = '/help'
 CMD_VIEW      = '/view'
 CMD_BROADCAST = '/broadcast'
@@ -84,6 +86,8 @@ CMD_BROADCAST = '/broadcast'
 USAGE = u"""[사용법] 아래 명령어를 메시지로 보내거나 버튼을 누르시면 됩니다.
 /start - (로봇 활성화)
 /stop  - (로봇 비활성화)
+/add   - (종목 추가)
+/del   - (종목 삭제)
 /view  - (수동 실행)
 /help  - (이 도움말 보여주기)
 """
@@ -94,6 +98,8 @@ MSG_STOP  = u'봇을 정지합니다.'
 CUSTOM_KEYBOARD = [
         [CMD_START],
         [CMD_STOP],
+        [CMD_ADD],
+        [CMD_DEL],
         [CMD_VIEW],
         [CMD_HELP],
         ]
@@ -102,6 +108,8 @@ CUSTOM_KEYBOARD = [
 # 구글 앱 엔진의 Datastore(NDB)에 상태를 저장하고 읽음
 # 사용자가 /start 누르면 활성화
 # 사용자가 /stop  누르면 비활성화
+# 사용자가 /add   누르면 종목 추가
+# 사용자가 /del   누르면 종목 삭제
 class EnableStatus(ndb.Model):
     enabled = ndb.BooleanProperty(required=True, indexed=True, default=False,)
 
@@ -182,6 +190,16 @@ def cmd_stop(chat_id):
     set_enabled(chat_id, False)
     send_msg(chat_id, MSG_STOP)
 
+def cmd_add(chat_id):
+    u"""cmd_add: 종목 추가
+    chat_id: (integer) 채팅 ID
+    """
+    
+def cmd_del(chat_id):
+    u"""cmd_add: 종목 삭제
+    chat_id: (integer) 채팅 ID
+    """
+
 def cmd_help(chat_id):
     u"""cmd_help: 봇 사용법 메시지 발송
     chat_id: (integer) 채팅 ID
@@ -244,6 +262,12 @@ def process_cmds(msg):
         return
     if CMD_STOP == text:
         cmd_stop(chat_id)
+        return
+    if CMD_ADD == text:
+        cmd_add(chat_id)
+        return
+    if CMD_DEL == text:
+        cmd_del(chat_id)
         return
     if CMD_VIEW == text:
         cmd_view(chat_id)
