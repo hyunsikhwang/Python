@@ -78,6 +78,7 @@ CMD_START     = '/start'
 CMD_STOP      = '/stop'
 CMD_ADD       = '/add'
 CMD_DEL       = '/del'
+CMD_NONE      = '/none'
 CMD_HELP      = '/help'
 CMD_VIEW      = '/view'
 CMD_BROADCAST = '/broadcast'
@@ -88,6 +89,7 @@ USAGE = u"""[사용법] 아래 명령어를 메시지로 보내거나 버튼을 
 /stop  - (로봇 비활성화)
 /add   - (종목 추가)
 /del   - (종목 삭제)
+/none  - (종목 추가/삭제 종료)
 /view  - (수동 실행)
 /help  - (이 도움말 보여주기)
 """
@@ -97,7 +99,7 @@ MSG_STOP  = u'봇을 정지합니다.'
 # 커스텀 키보드
 CUSTOM_KEYBOARD = [
         [CMD_START, CMD_STOP],
-        [CMD_ADD, CMD_DEL],
+        [CMD_ADD, CMD_DEL, CMD_NONE],
         [CMD_VIEW, CMD_HELP],
         ]
 
@@ -209,10 +211,18 @@ def cmd_add(chat_id):
     send_msg(chat_id, u'추가할 종목 코드를 입력하세요.')
     
 def cmd_del(chat_id):
-    u"""cmd_add: 종목 삭제
+    u"""cmd_del: 종목 삭제
     chat_id: (integer) 채팅 ID
     """
+    set_status(chat_id, ST_DEL)
     send_msg(chat_id, u'삭제할 종목 코드를 입력하세요.')
+
+def cmd_none(chat_id):
+    u"""cmd_none: 종목 추가/삭제 모드 종료
+    chat_id: (integer) 채팅 ID
+    """
+    set_status(chat_id, ST_ECHO)
+    send_msg(chat_id, u'종목 추가/삭제가 종료되었습니다.')
 
 def cmd_help(chat_id):
     u"""cmd_help: 봇 사용법 메시지 발송
@@ -282,6 +292,9 @@ def process_cmds(msg):
         return
     if CMD_DEL == text:
         cmd_del(chat_id)
+        return
+    if CMD_NONE == text:
+        cmd_none(chat_id)
         return
     if CMD_VIEW == text:
         cmd_view(chat_id)
