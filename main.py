@@ -101,6 +101,8 @@ CUSTOM_KEYBOARD = [
         [CMD_VIEW, CMD_HELP],
         ]
 
+ST_ECHO, ST_ADD, ST_DEL = range(3)
+
 # 채팅별 로봇 활성화 상태
 # 구글 앱 엔진의 Datastore(NDB)에 상태를 저장하고 읽음
 # 사용자가 /start 누르면 활성화
@@ -110,6 +112,9 @@ CUSTOM_KEYBOARD = [
 class EnableStatus(ndb.Model):
     enabled = ndb.BooleanProperty(required=True, indexed=True, default=False,)
 
+class CommandStatus(ndb.Model):
+    command_status = ndb.IntegerProperty(required=True, indexed=True, default=False,)
+
 def set_enabled(chat_id, enabled):
     u"""set_enabled: 봇 활성화/비활성화 상태 변경
     chat_id:    (integer) 봇을 활성화/비활성화할 채팅 ID
@@ -118,6 +123,15 @@ def set_enabled(chat_id, enabled):
     es = EnableStatus.get_or_insert(str(chat_id))
     es.enabled = enabled
     es.put()
+
+def set_status(chat_id, cmd_status)
+    u"""set_status: 명령어 상태
+    chat_id:    (integer) 봇을 활성화/비활성화할 채팅 ID
+    cmd_status: (integer) 명령어 상태(add / del)
+    """
+    cs = CommandStatus.get_or_insert(str(chat_ir))
+    cs.command_status = cmd_status
+    cs.put()
 
 def get_enabled(chat_id):
     u"""get_enabled: 봇 활성화/비활성화 상태 반환
@@ -191,6 +205,7 @@ def cmd_add(chat_id):
     u"""cmd_add: 종목 추가
     chat_id: (integer) 채팅 ID
     """
+    set_status(chat_id, ST_ADD)
     send_msg(chat_id, u'추가할 종목 코드를 입력하세요.')
     
 def cmd_del(chat_id):
