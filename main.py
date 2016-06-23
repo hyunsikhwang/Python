@@ -139,6 +139,9 @@ def set_status(chat_id, cmd_status):
     cs.command_status = cmd_status
     cs.put()
 
+def create_quotelist(chat_id):
+    return
+
 def get_enabled(chat_id):
     u"""get_enabled: 봇 활성화/비활성화 상태 반환
     return: (boolean)
@@ -149,7 +152,7 @@ def get_enabled(chat_id):
     return False
 
 def get_status(chat_id):
-    u"""get_status: 봇 활성화/비활성화 상태 반환
+    u"""get_status: 종목 추가/삭제 상태 반환
     return: (boolean)
     """
     cs = CommandStatus.get_by_id(str(chat_id))
@@ -220,7 +223,8 @@ def cmd_init(chat_id):
     u"""cmd_init: 전체 종목 목록 수집 / NDB 저장
     chat_id: (integer) 채팅 ID
     """
-    pass
+    send_msg(chat_id, u'전체 종목 목록을 생성합니다.')
+    create_quotelist(chat_id)
 
 def cmd_add(chat_id):
     u"""cmd_add: 종목 추가 모드
