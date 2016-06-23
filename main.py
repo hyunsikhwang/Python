@@ -29,7 +29,14 @@ import unicodedata
 
 # 파싱 주소
 url_quote = "http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_ITEM:"  # 종목 시세 주소
+url_quotelist_KSP = "http://finance.daum.net/quote/all.daum?type=S&stype=P"  #type : U(업종순), S(가나다순)
+url_quotelist_KSD = "http://finance.daum.net/quote/all.daum?type=S&stype=Q"  #stype : P(유가증권), Q(코스닥)
 
+#전체 종목 리스트 저장할 dictionary
+global C
+global D
+C = {}
+D = {}
 
 def preformat_cjk (string, width, align='<', fill=' '):
     count = (width - sum(1 + (unicodedata.east_asian_width(c) in "WF")
@@ -51,6 +58,31 @@ class MyPrettyPrinter(pprint.PrettyPrinter):
             _object = unicode(_object,'utf8')
             return "'%s'" % _object.encode('utf8'), True, False
         return pprint.PrettyPrinter.format(self, _object, context, maxlevels, level)
+
+
+def CollectQuote(url):
+    f = urllib2.urlopen(url)
+    page = f.read().decode('utf-8', 'ignore')
+    f.close()
+
+    soup = BeautifulSoup(page, 'html.parser', from_encoding='utf-8')
+    editData_table = soup.find('table', {'class' : "gTable clr"})
+    editData_title = editData_table.findAll("tr")
+
+    i = 0
+
+    for li in editData_title:
+        editData_rec = li.findAll('td')
+        for li2 in editData_rec:
+            soup2 = BeautifulSoup(str(li2), 'html.parser', from_encoding='utf-8')
+            if soup2.text <> '':
+                i = i + 1
+                if i % 3 == 1:
+                    stock_name = soup2.text
+                    stock_code = soup2.find('a')['href']
+                    stock_code = stock_code[-6:]
+	            C[stock_name] = stock_name
+	            D[stock_name] = stock_code
 
 
 def CollectPrices(url):
@@ -144,6 +176,8 @@ def set_status(chat_id, cmd_status):
     cs.put()
 
 def create_quotelist(chat_id):
+    CollectQuote(url_quotelist_KSP)
+    CollectQuote(url_quotelist_KSD)
     return
 
 def get_enabled(chat_id):
