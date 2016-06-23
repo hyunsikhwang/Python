@@ -129,7 +129,7 @@ def set_status(chat_id, cmd_status):
     chat_id:    (integer) 봇을 활성화/비활성화할 채팅 ID
     cmd_status: (integer) 명령어 상태(add / del)
     """
-    cs = CommandStatus.get_or_insert(str(chat_ir))
+    cs = CommandStatus.get_or_insert(str(chat_id))
     cs.command_status = cmd_status
     cs.put()
 
