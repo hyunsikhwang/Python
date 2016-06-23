@@ -124,7 +124,7 @@ def set_enabled(chat_id, enabled):
     es.enabled = enabled
     es.put()
 
-def set_status(chat_id, cmd_status)
+def set_status(chat_id, cmd_status):
     u"""set_status: 명령어 상태
     chat_id:    (integer) 봇을 활성화/비활성화할 채팅 ID
     cmd_status: (integer) 명령어 상태(add / del)
