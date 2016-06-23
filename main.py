@@ -88,7 +88,7 @@ CMD_BROADCAST = '/broadcast'
 USAGE = u"""[사용법] 아래 명령어를 메시지로 보내거나 버튼을 누르시면 됩니다.
 /start - (로봇 활성화)
 /stop  - (로봇 비활성화)
-/init  - (종목목록 수집)
+/init  - (종목 목록 수집)
 /add   - (종목 추가)
 /del   - (종목 삭제)
 /none  - (종목 추가/삭제 종료)
