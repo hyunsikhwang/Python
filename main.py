@@ -263,6 +263,7 @@ def cmd_init(chat_id):
     """
     send_msg(chat_id, u'전체 종목 목록을 생성합니다.')
     create_quotelist(chat_id)
+    send_msg(chat_id, u'전체 종목 목록이 생성되었습니다.')
 
 def cmd_add(chat_id):
     u"""cmd_add: 종목 추가 모드
