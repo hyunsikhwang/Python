@@ -144,6 +144,15 @@ def get_enabled(chat_id):
         return es.enabled
     return False
 
+def get_status(chat_id):
+    u"""get_status: 봇 활성화/비활성화 상태 반환
+    return: (boolean)
+    """
+    cs = CommandStatus.get_by_id(str(chat_id))
+    if cs:
+        return cs.command_status
+    return False
+
 def get_enabled_chats():
     u"""get_enabled: 봇이 활성화된 채팅 리스트 반환
     return: (list of EnableStatus)
@@ -204,14 +213,14 @@ def cmd_stop(chat_id):
     send_msg(chat_id, MSG_STOP)
 
 def cmd_add(chat_id):
-    u"""cmd_add: 종목 추가
+    u"""cmd_add: 종목 추가 모드
     chat_id: (integer) 채팅 ID
     """
     set_status(chat_id, ST_ADD)
     send_msg(chat_id, u'추가할 종목 코드를 입력하세요.')
     
 def cmd_del(chat_id):
-    u"""cmd_del: 종목 삭제
+    u"""cmd_del: 종목 삭제 모드
     chat_id: (integer) 채팅 ID
     """
     set_status(chat_id, ST_DEL)
@@ -223,6 +232,18 @@ def cmd_none(chat_id):
     """
     set_status(chat_id, ST_ECHO)
     send_msg(chat_id, u'종목 추가/삭제가 종료되었습니다.')
+
+def cmd_addquote(chat_id, text):
+    u"""cmd_addquote: 종목 추가
+    chat_id: (integer) 채팅 ID
+    """
+    send_msg(chat_id, text)
+
+def cmd_delquote(chat_id, text):
+    u"""cmd_delquote: 종목 삭제
+    chat_id: (integer) 채팅 ID
+    """
+    send_msg(chat_id, text)
 
 def cmd_help(chat_id):
     u"""cmd_help: 봇 사용법 메시지 발송
@@ -301,6 +322,12 @@ def process_cmds(msg):
         return
     if CMD_HELP == text:
         cmd_help(chat_id)
+        return
+    if get_status(chat_id) == ST_ADD:
+        cmd_addquote(chat_id, text)
+        return
+    if get_status(chat_id) == ST_DEL:
+        cmd_delquote(chat_id, text)
         return
     cmd_broadcast_match = re.match('^' + CMD_BROADCAST + ' (.*)', text)
     if cmd_broadcast_match:
