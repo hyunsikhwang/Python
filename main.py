@@ -32,11 +32,6 @@ url_quote = "http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_ITE
 url_quotelist_KSP = "http://finance.daum.net/quote/all.daum?type=S&stype=P"  #type : U(업종순), S(가나다순)
 url_quotelist_KSD = "http://finance.daum.net/quote/all.daum?type=S&stype=Q"  #stype : P(유가증권), Q(코스닥)
 
-#전체 종목 리스트 저장할 사전
-global KSP
-global KSD
-KSP = {}
-KSD = {}
 
 def preformat_cjk (string, width, align='<', fill=' '):
     count = (width - sum(1 + (unicodedata.east_asian_width(c) in "WF")
@@ -83,10 +78,16 @@ def CollectQuote(url):
                     stock_name = soup2.text
                     stock_code = soup2.find('a')['href']
                     stock_code = stock_code[-6:]
-                    ql = QuoteList.get_or_insert(str(stock_code))
-                    ql.quote_code = stock_code.encode('utf-8')
-                    ql.quote_name = stock_name.encode('utf-8')
-                    ql.put()
+
+                    code2name = QuoteList.get_or_insert(str(stock_code))
+                    code2name.quote_code = stock_code.encode('utf-8')
+                    code2name.quote_name = stock_name.encode('utf-8')
+                    code2name.put()
+
+                    name2code = CompList.get_or_insert(str(stock_name))
+                    name2code.comp_code = stock_code.encode('utf-8')
+                    name2code.comp_name = stock_name.encode('utf-8')
+                    name2code.put()
     
 def CollectPrices(url):
     f = urllib2.urlopen(url)
@@ -159,6 +160,10 @@ class CommandStatus(ndb.Model):
 class QuoteList(ndb.Model):
     quote_code = ndb.StringProperty()
     quote_name = ndb.StringProperty()
+
+class CompList(ndb.Model):
+    comp_code = ndb.StringProperty()
+    comp_name = ndb.StringProperty()
 
 def set_enabled(chat_id, enabled):
     u"""set_enabled: 봇 활성화/비활성화 상태 변경
