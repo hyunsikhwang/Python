@@ -32,11 +32,11 @@ url_quote = "http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_ITE
 url_quotelist_KSP = "http://finance.daum.net/quote/all.daum?type=S&stype=P"  #type : U(업종순), S(가나다순)
 url_quotelist_KSD = "http://finance.daum.net/quote/all.daum?type=S&stype=Q"  #stype : P(유가증권), Q(코스닥)
 
-#전체 종목 리스트 저장할 배열
+#전체 종목 리스트 저장할 사전
 global KSP
 global KSD
-KSP = []
-KSD = []
+KSP = {}
+KSD = {}
 
 def preformat_cjk (string, width, align='<', fill=' '):
     count = (width - sum(1 + (unicodedata.east_asian_width(c) in "WF")
@@ -71,7 +71,7 @@ def CollectQuote(url):
 
     i = 0
     j = 0
-    temp = []
+    temp = {}
 
     for li in editData_title:
         editData_rec = li.findAll('td')
@@ -83,8 +83,7 @@ def CollectQuote(url):
                     stock_name = soup2.text
                     stock_code = soup2.find('a')['href']
                     stock_code = stock_code[-6:]
-                    temp[j][0] = stock_name
-                    temp[j][1] = stock_code
+                    temp[j] = [stock_name, stock_code]
                     j = j + 1
     
     return temp
