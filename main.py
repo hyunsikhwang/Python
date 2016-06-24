@@ -84,7 +84,7 @@ def CollectQuote(url):
                     code2name.quote_name = stock_name.encode('utf-8')
                     code2name.put()
 
-                    name2code = CompList.get_or_insert(str(stock_name).encode('utf-8'))
+                    name2code = CompList.get_or_insert(stock_name.encode('utf-8'))
                     name2code.comp_code = stock_code.encode('utf-8')
                     name2code.comp_name = stock_name.encode('utf-8')
                     name2code.put()
