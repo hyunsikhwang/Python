@@ -84,8 +84,8 @@ def CollectQuote(url):
                     stock_code = soup2.find('a')['href']
                     stock_code = stock_code[-6:]
                     ql = QuoteList.get_or_insert(str(stock_code))
-                    ql.quote_code = str(stock_code)
-                    ql.quote_name = str(stock_name)
+                    ql.quote_code = stock_code.encode('utf-8')
+                    ql.quote_name = stock_name.encode('utf-8')
                     ql.put()
     
 def CollectPrices(url):
