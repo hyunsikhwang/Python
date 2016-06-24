@@ -79,10 +79,10 @@ def CollectQuote(url):
                     stock_code = soup2.find('a')['href']
                     stock_code = stock_code[-6:]
 
-#                    code2name = QuoteList.get_or_insert(str(stock_code))
-#                    code2name.quote_code = stock_code.encode('utf-8')
-#                    code2name.quote_name = stock_name.encode('utf-8')
-#                    code2name.put()
+                    code2name = QuoteList.get_or_insert(str(stock_code))
+                    code2name.quote_code = stock_code.encode('utf-8')
+                    code2name.quote_name = stock_name.encode('utf-8')
+                    code2name.put()
 
 #                    name2code = CompList.get_or_insert(stock_name.encode('utf-8'))
 #                    name2code.comp_code = stock_code.encode('utf-8')
@@ -423,7 +423,7 @@ class SetWebhookHandler(webapp2.RequestHandler):
 # /webhook 요청시 (텔레그램 봇 API)
 class WebhookHandler(webapp2.RequestHandler):
     def post(self):
-        urlfetch.set_default_fetch_deadline(180)
+        urlfetch.set_default_fetch_deadline(60)
         body = json.loads(self.request.body)
         self.response.write(json.dumps(body))
         process_cmds(body['message'])
