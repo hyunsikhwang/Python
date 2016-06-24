@@ -83,11 +83,11 @@ def CollectQuote(url):
                     stock_name = soup2.text
                     stock_code = soup2.find('a')['href']
                     stock_code = stock_code[-6:]
-                    temp[j] = [stock_name, stock_code]
-                    j = j + 1
+                    ql = QuoteList.get_or_insert(str(stock_code))
+                    ql.quote_code = stock_code
+                    ql.quote_name = stock_name
+                    ql.put()
     
-    return temp
-
 
 def CollectPrices(url):
     f = urllib2.urlopen(url)
@@ -180,9 +180,8 @@ def set_status(chat_id, cmd_status):
     cs.put()
 
 def create_quotelist(chat_id):
-    KSP = CollectQuote(url_quotelist_KSP)
-    KSD = CollectQuote(url_quotelist_KSD)
-    return
+    CollectQuote(url_quotelist_KSP)
+    CollectQuote(url_quotelist_KSD)
 
 def get_enabled(chat_id):
     u"""get_enabled: 봇 활성화/비활성화 상태 반환
