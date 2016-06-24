@@ -37,8 +37,9 @@
 
 
 Reference
-	- http://bakyeono.net/post/2015-08-24-using-telegram-bot-api.html
-	- http://blog.gman.io/entry/%EC%8B%A4%EC%8B%9C%EA%B0%84-%EB%84%A4%EC%9D%B4%EB%B2%84-%EC%A3%BC%EC%8B%9D-%EC%8B%9C%EC%84%B8-xml
-	- https://opentutorials.org/course/811/3473
-	- http://gnoownow10.cafe24.com/cjk-formatting.html
-	- http://egloos.zum.com/mcchae/v/11076302
+
+	1) http://bakyeono.net/post/2015-08-24-using-telegram-bot-api.html
+	2) http://blog.gman.io/entry/%EC%8B%A4%EC%8B%9C%EA%B0%84-%EB%84%A4%EC%9D%B4%EB%B2%84-%EC%A3%BC%EC%8B%9D-%EC%8B%9C%EC%84%B8-xml
+	3) https://opentutorials.org/course/811/3473
+	4) http://gnoownow10.cafe24.com/cjk-formatting.html
+	5) http://egloos.zum.com/mcchae/v/11076302
