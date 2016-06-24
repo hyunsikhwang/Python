@@ -71,6 +71,7 @@ def CollectQuote(url):
 
     i = 0
     j = 0
+    temp = []
 
     for li in editData_title:
         editData_rec = li.findAll('td')
