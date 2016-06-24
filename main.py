@@ -423,7 +423,7 @@ class SetWebhookHandler(webapp2.RequestHandler):
 # /webhook 요청시 (텔레그램 봇 API)
 class WebhookHandler(webapp2.RequestHandler):
     def post(self):
-        urlfetch.set_default_fetch_deadline(60)
+        urlfetch.set_default_fetch_deadline(100)
         body = json.loads(self.request.body)
         self.response.write(json.dumps(body))
         process_cmds(body['message'])
