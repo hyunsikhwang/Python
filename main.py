@@ -79,10 +79,10 @@ def CollectQuote(url):
                     stock_code = soup2.find('a')['href']
                     stock_code = stock_code[-6:]
 
-                    code2name = QuoteList.get_or_insert(str(stock_code))
-                    code2name.quote_code = stock_code.encode('utf-8')
-                    code2name.quote_name = stock_name.encode('utf-8')
-                    code2name.put()
+#                    code2name = QuoteList.get_or_insert(str(stock_code))
+#                    code2name.quote_code = stock_code.encode('utf-8')
+#                    code2name.quote_name = stock_name.encode('utf-8')
+#                    code2name.put()
 
 #                    name2code = CompList.get_or_insert(stock_name.encode('utf-8'))
 #                    name2code.comp_code = stock_code.encode('utf-8')
