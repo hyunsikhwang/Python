@@ -157,8 +157,8 @@ class CommandStatus(ndb.Model):
     command_status = ndb.IntegerProperty(required=True, indexed=True, default=False,)
 
 class QuoteList(ndb.Model):
-    quote_code = ndb.StringProperty(required=True, indexed=True, default=False,)
-    quote_name = ndb.StringProperty(required=True, indexed=True, default=False,)
+    quote_code = ndb.StringProperty()
+    quote_name = ndb.StringProperty()
 
 def set_enabled(chat_id, enabled):
     u"""set_enabled: 봇 활성화/비활성화 상태 변경
