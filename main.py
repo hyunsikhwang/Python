@@ -65,6 +65,8 @@ def CollectQuote(url):
     editData_title = editData_table.findAll("tr")
 
     i = 0
+    j = 0
+    temp = []
 
     for li in editData_title:
         editData_rec = li.findAll('td')
@@ -75,7 +77,11 @@ def CollectQuote(url):
                     stock_name = li2.text
                     pos = str(li2).find("code=") + 5
                     stock_code = str(li2)[pos:(pos+6)]
-                    set_stocklist(stock_name, stock_code)
+                    temp[j][0] = stock_code
+                    temp[j][1] = stock_name
+                    j = j + 1
+    
+    set_stocklist(temp)
 
 
 #                    name2code = CompList.get_or_insert(stock_name.encode('utf-8'))
@@ -177,11 +183,11 @@ def set_status(chat_id, cmd_status):
     cs.command_status = cmd_status
     cs.put()
 
-def set_stocklist(s_name, s_code):
+def set_stocklist(stockarray):
     code2name = QuoteList.get_or_insert(str(s_code))
-    code2name.quote_code = s_code
-    code2name.quote_name = s_name.encode('utf-8')
-    code2name.put()
+#    code2name.quote_code = s_code
+#    code2name.quote_name = s_name.encode('utf-8')
+    code2name.put_multi(stockarray)
 
 def create_quotelist(chat_id):
     CollectQuote(url_quotelist_KSP)
