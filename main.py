@@ -66,7 +66,7 @@ def CollectQuote(url):
 
     i = 0
     j = 0
-    temp = []
+    temp = QuoteList
 
     for li in editData_title:
         editData_rec = li.findAll('td')
@@ -181,8 +181,7 @@ def set_status(chat_id, cmd_status):
 
 def set_stocklist(all_list):
     #code2name = QuoteList.get_or_insert(str(s_code))
-    code2name = QuoteList
-    code2name.put_multi(all_list)
+    ndb.put_multi(all_list)
 
 def create_quotelist(chat_id):
     set_stocklist(CollectQuote(url_quotelist_KSP))
