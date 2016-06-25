@@ -54,7 +54,7 @@ def CollectPrices(url):
                     #priit temp, temp2, temp3, temp4
 
 def PrintStock(quote):
-    print quote, MyPrettyPrinter().pformat(D[quote]), MyPrettyPrinter().pformat(E[quote]), MyPrettyPrinter().pformat(F[quote])
+    print quote, MyPrettyPrinter().pformat(D[quote])
 
 CollectPrices(url_P)
 CollectPrices(url_Q)
@@ -68,17 +68,6 @@ PrintStock(u'토비스')
 PrintStock(u'KODEX 레버리지')
 PrintStock(u'KODEX 인버스')
 
-#print u'리노공업', MyPrettyPrinter().pformat(D[u'리노공업']), MyPrettyPrinter().pformat(E[u'리노공업']), MyPrettyPrinter().pformat(F[u'리노공업'])
-#print u'한미반도체', MyPrettyPrinter().pformat(D[u'한미반도체']), MyPrettyPrinter().pformat(E[u'한미반도체']),MyPrettyPrinter().pformat(F[u'한미반도체'])
-#print u'미창석유', MyPrettyPrinter().pformat(D[u'미창석유']), MyPrettyPrinter().pformat(E[u'미창석유']), MyPrettyPrinter().pformat(F[u'미창석유'])
-#print u'동서', MyPrettyPrinter().pformat(D[u'동서']), MyPrettyPrinter().pformat(E[u'동서']), MyPrettyPrinter().pformat(F[u'동서'])
-#print u'코텍', MyPrettyPrinter().pformat(D[u'코텍']), MyPrettyPrinter().pformat(E[u'코텍']), MyPrettyPrinter().pformat(F[u'코텍'])
-#print u'금화피에스시', MyPrettyPrinter().pformat(D[u'금화피에스시']), MyPrettyPrinter().pformat(E[u'금화피에스시']), MyPrettyPrinter().pformat(F[u'금화피에스시'])
-#print u'토비스', MyPrettyPrinter().pformat(D[u'토비스']), MyPrettyPrinter().pformat(E[u'토비스']), MyPrettyPrinter().pformat(F[u'토비스'])
-#print u'KODEX 레버리지', MyPrettyPrinter().pformat(D[u'KODEX 레버리지']), MyPrettyPrinter().pformat(E[u'KODEX 레버리지']), MyPrettyPrinter().pformat(F[u'KODEX 레버리지'])
-#print u'KODEX 인버스', MyPrettyPrinter().pformat(D[u'KODEX 인버스']), MyPrettyPrinter().pformat(E[u'KODEX 인버스']), MyPrettyPrinter().pformat(F[u'KODEX 인버스'])
-#print MyPrettyPrinter().pformat(D)
-#print D
 
 #processing end
 end_time = time.time()
