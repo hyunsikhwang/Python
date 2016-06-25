@@ -3,6 +3,8 @@ import urllib2
 from bs4 import BeautifulSoup
 import time
 import pprint
+from google.appengine.api import urlfetch
+from google.appengine.ext import ndb
 
 #processing start
 start_time = time.time()
@@ -25,6 +27,16 @@ class MyPrettyPrinter(pprint.PrettyPrinter):
             return "'%s'" % _object.encode('utf8'), True, False
         return pprint.PrettyPrinter.format(self, _object, context, maxlevels, level)
 
+class QuoteList(ndb.Model):
+    quote_code = ndb.StringProperty()
+    quote_name = ndb.StringProperty()
+
+def set_stocklist(s_name, s_code):
+    code2name = QuoteList.get_or_insert(str(s_code))
+    code2name.quote_code = s_code
+    code2name.quote_name = s_name
+    code2name.put()
+    
 def CollectPrices(url):
     f = urllib2.urlopen(url)
     page = f.read().decode('utf-8', 'ignore')
@@ -52,9 +64,10 @@ def CollectPrices(url):
                     temp = li2.text
                     pos = str(li2).find("code=") + 5
                     temp2 = str(li2)[pos:(pos+6)]
-	            C[temp] = temp
-	            D[temp] = temp2
+	            #C[temp] = temp
+	            #D[temp] = temp2
                     #print li2, temp2
+                    set_stocklist(temp, temp2)
 
     end_time = time.time()
     print end_time - start_time
@@ -65,15 +78,6 @@ def PrintStock(quote):
 
 CollectPrices(url_P)
 CollectPrices(url_Q)
-PrintStock(u'리노공업')
-PrintStock(u'한미반도체')
-PrintStock(u'미창석유')
-PrintStock(u'동서')
-PrintStock(u'코텍')
-PrintStock(u'금화피에스시')
-PrintStock(u'토비스')
-PrintStock(u'KODEX 레버리지')
-PrintStock(u'KODEX 인버스')
 
 
 #processing end
