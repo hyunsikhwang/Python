@@ -3,7 +3,7 @@ import urllib2
 from bs4 import BeautifulSoup
 import time
 import pprint
-#from google.appengine.ext import ndb
+from google.appengine.ext import ndb
 
 #processing start
 start_time = time.time()
