@@ -78,10 +78,10 @@ def CollectQuote(url):
                     pos = str(li2).find("code=") + 5
                     stock_code = str(li2)[pos:(pos+6)]
 
-#                    code2name = QuoteList.get_or_insert(str(stock_code))
-#                    code2name.quote_code = stock_code.encode('utf-8')
-#                    code2name.quote_name = stock_name.encode('utf-8')
-#                    code2name.put()
+                    code2name = QuoteList.get_or_insert(str(stock_code))
+                    code2name.quote_code = stock_code.encode('utf-8')
+                    code2name.quote_name = stock_name.encode('utf-8')
+                    code2name.put()
 
 #                    name2code = CompList.get_or_insert(stock_name.encode('utf-8'))
 #                    name2code.comp_code = stock_code.encode('utf-8')
