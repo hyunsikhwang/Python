@@ -75,7 +75,7 @@ def CollectQuote(url):
                     stock_name = li2.text
                     pos = str(li2).find("code=") + 5
                     stock_code = str(li2)[pos:(pos+6)]
-                    set_stocklist(s_name, s_code)
+                    set_stocklist(stock_name, stock_code)
 
 
 #                    name2code = CompList.get_or_insert(stock_name.encode('utf-8'))
