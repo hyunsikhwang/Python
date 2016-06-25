@@ -44,7 +44,7 @@ def CollectPrices(url):
         editData_rec = li.findAll('td')
         for li2 in editData_rec:
             #soup2 = BeautifulSoup(str(li2), 'lxml', from_encoding='utf-8')
-            #print i, soup2.text
+            print i, li2.text
 
             if str(li2) <> '':
                 i = i + 1
