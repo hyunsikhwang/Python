@@ -77,7 +77,7 @@ def CollectQuote(url):
                     stock_name = li2.text
                     pos = str(li2).find("code=") + 5
                     stock_code = str(li2)[pos:(pos+6)]
-                    temp.append(stock_code, stock_name)
+                    temp.insert(stock_code, stock_name)
 
     set_stocklist(temp)
 
@@ -182,7 +182,7 @@ def set_status(chat_id, cmd_status):
     cs.put()
 
 def set_stocklist(stockarray):
-    code2name = QuoteList.get_or_insert(str(s_code))
+#    code2name = QuoteList.get_or_insert(str(s_code))
 #    code2name.quote_code = s_code
 #    code2name.quote_name = s_name.encode('utf-8')
     code2name.put_multi(stockarray)
