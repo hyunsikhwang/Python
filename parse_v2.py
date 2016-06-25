@@ -3,7 +3,6 @@ import urllib2
 from bs4 import BeautifulSoup
 import time
 import pprint
-import lxml
 
 #processing start
 start_time = time.time()
