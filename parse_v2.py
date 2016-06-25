@@ -51,7 +51,7 @@ def CollectPrices(url):
                 if i % 3 == 1:
                     temp = str(li2)
                     pos = str(li2).find("=0")
-                    temp2 = str(li2)[pos:6]
+                    temp2 = str(li2)[pos:(pos+6)]
 	            C[temp] = temp
 	            D[temp] = temp2
                     print li2, temp2
