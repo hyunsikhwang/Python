@@ -66,7 +66,8 @@ def CollectQuote(url):
 
     i = 0
     j = 0
-    temp = list()
+    t_list = list()
+    t_class = QuoteList
 
     for li in editData_title:
         editData_rec = li.findAll('td')
@@ -77,7 +78,9 @@ def CollectQuote(url):
                     stock_name = li2.text
                     pos = str(li2).find("code=") + 5
                     stock_code = str(li2)[pos:(pos+6)]
-                    temp.append([stock_name, stock_code])
+                    t_class.quote_name = stock_name
+                    t_class.quote_code = stock_code
+                    temp.append(t_class)
     return temp
 
 #                    name2code = CompList.get_or_insert(stock_name.encode('utf-8'))
