@@ -3,7 +3,7 @@ import urllib2
 from bs4 import BeautifulSoup
 import time
 import pprint
-from google.appengine.ext import ndb
+#from google.appengine.ext import ndb
 
 #processing start
 start_time = time.time()
@@ -30,12 +30,7 @@ class QuoteList(ndb.Model):
     quote_code = ndb.StringProperty()
     quote_name = ndb.StringProperty()
 
-def set_stocklist(s_name, s_code):
-    code2name = QuoteList.get_or_insert(str(s_code))
-    code2name.quote_code = s_code
-    code2name.quote_name = s_name
-    code2name.put()
-    
+
 def CollectPrices(url):
     f = urllib2.urlopen(url)
     page = f.read().decode('utf-8', 'ignore')
@@ -66,7 +61,7 @@ def CollectPrices(url):
 	            #C[temp] = temp
 	            #D[temp] = temp2
                     #print li2, temp2
-                    set_stocklist(temp, temp2)
+                    #set_stocklist(temp, temp2)
 
     end_time = time.time()
     print end_time - start_time
