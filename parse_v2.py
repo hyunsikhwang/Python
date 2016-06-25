@@ -46,10 +46,10 @@ def CollectPrices(url):
             #soup2 = BeautifulSoup(str(li2), 'lxml', from_encoding='utf-8')
             #print i, soup2.text
 
-            if str(li2).text <> '':
+            if str(li2) <> '':
                 i = i + 1
                 if i % 3 == 1:
-                    temp = str(li2).text
+                    temp = str(li2)
                     temp2 = str(li2).find('a')['href']
                     temp2 = temp2[-6:]
 	            C[temp] = temp
