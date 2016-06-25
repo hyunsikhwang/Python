@@ -36,6 +36,9 @@ def CollectPrices(url):
     editData_title = editData_table.findAll("tr")
 
     i = 0
+    
+    end_time = time.time()
+    print end_time - start_time
 
     for li in editData_title:
         editData_rec = li.findAll('td')
@@ -52,6 +55,10 @@ def CollectPrices(url):
 	            C[temp] = temp
 	            D[temp] = temp2
                     #priit temp, temp2, temp3, temp4
+
+    end_time = time.time()
+    print end_time - start_time
+
 
 def PrintStock(quote):
     print quote, MyPrettyPrinter().pformat(D[quote])
@@ -71,6 +78,4 @@ PrintStock(u'KODEX 인버스')
 
 #processing end
 end_time = time.time()
-
-#
 print end_time - start_time
