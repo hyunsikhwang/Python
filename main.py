@@ -60,7 +60,7 @@ def CollectQuote(url):
     page = f.read().decode('utf-8', 'ignore')
     f.close()
 
-    soup = BeautifulSoup(page, 'lxml', from_encoding='utf-8')
+    soup = BeautifulSoup(page, 'html.parser', from_encoding='utf-8')
     editData_table = soup.find('table', {'class' : "gTable clr"})
     editData_title = editData_table.findAll("tr")
 
