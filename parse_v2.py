@@ -50,11 +50,11 @@ def CollectPrices(url):
                 i = i + 1
                 if i % 3 == 1:
                     temp = str(li2)
-                    temp2 = li2.find("a")
+                    temp2 = str(li2).find("a")
                     #temp2 = temp2[-6:]
 	            C[temp] = temp
 	            D[temp] = temp2
-                    print temp, temp2
+                    print str(li2), temp2
 
     end_time = time.time()
     print end_time - start_time
