@@ -77,10 +77,8 @@ def CollectQuote(url):
                     stock_name = li2.text
                     pos = str(li2).find("code=") + 5
                     stock_code = str(li2)[pos:(pos+6)]
-                    temp[j][0] = stock_code
-                    temp[j][1] = stock_name
-                    j = j + 1
-    
+                    temp.append(stock_code, stock_name)
+
     set_stocklist(temp)
 
 
