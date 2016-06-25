@@ -75,11 +75,8 @@ def CollectQuote(url):
                     stock_name = li2.text
                     pos = str(li2).find("code=") + 5
                     stock_code = str(li2)[pos:(pos+6)]
+                    set_stocklist(s_name, s_code)
 
-#                    code2name = QuoteList.get_or_insert(str(stock_code))
-                    code2name.quote_code = stock_code.encode('utf-8')
-                    code2name.quote_name = stock_name.encode('utf-8')
-                    code2name.put()
 
 #                    name2code = CompList.get_or_insert(stock_name.encode('utf-8'))
 #                    name2code.comp_code = stock_code.encode('utf-8')
@@ -179,6 +176,12 @@ def set_status(chat_id, cmd_status):
     cs = CommandStatus.get_or_insert(str(chat_id))
     cs.command_status = cmd_status
     cs.put()
+
+def set_stocklist(s_name, s_code):
+    code2name = QuoteList.get_or_insert(str(s_code))
+    code2name.quote_code = s_code.encode('utf-8')
+    code2name.quote_name = s_name.encode('utf-8')
+    code2name.put()
 
 def create_quotelist(chat_id):
     CollectQuote(url_quotelist_KSP)
