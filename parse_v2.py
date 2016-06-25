@@ -3,7 +3,6 @@ import urllib2
 from bs4 import BeautifulSoup
 import time
 import pprint
-from google.appengine.api import urlfetch
 from google.appengine.ext import ndb
 
 #processing start
