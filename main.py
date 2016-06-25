@@ -187,8 +187,8 @@ def set_stocklist(all_list):
     ndb.put_multi(all_list)
 
 def create_quotelist(chat_id):
-    set_stocklist(CollectQuote(url_quotelist_KSP))
-    set_stocklist(CollectQuote(url_quotelist_KSD))
+    CollectQuote(url_quotelist_KSP)
+    CollectQuote(url_quotelist_KSD)
 
 def get_enabled(chat_id):
     u"""get_enabled: 봇 활성화/비활성화 상태 반환
