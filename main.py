@@ -181,8 +181,7 @@ def set_status(chat_id, cmd_status):
 
 def set_stocklist(s_name, s_code):
     #code2name = QuoteList.get_or_insert(str(s_code))
-    code2name.quote_code = s_code
-    code2name.quote_name = s_name
+    code2name = QuoteList(quote_code = s_code, quote_name = s_name)
     code2name.put()
 
 def create_quotelist(chat_id):
