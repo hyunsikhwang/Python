@@ -152,8 +152,8 @@ class CommandStatus(ndb.Model):
     command_status = ndb.IntegerProperty(required=True, indexed=True, default=False,)
 
 class QuoteList(ndb.Model):
-    quote_code = ndb.StringProperty(required=True, indexed=True, default=False,)
-    quote_name = ndb.StringProperty(required=True, indexed=True, default=False,)
+    quote_code = ndb.StringProperty()
+    quote_name = ndb.StringProperty()
 
 class CompList(ndb.Model):
     comp_code = ndb.StringProperty(required=True, indexed=True, default=False,)
