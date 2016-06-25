@@ -53,7 +53,7 @@ def CollectPrices(url):
                     #temp2 = li2.find('a')['href']
                     #temp2 = temp2[-6:]
 	            C[temp] = temp
-	            D[temp] = temp2
+	            #D[temp] = temp2
                     #priit temp, temp2, temp3, temp4
 
     end_time = time.time()
