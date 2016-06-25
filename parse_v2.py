@@ -44,7 +44,7 @@ def CollectPrices(url):
         editData_rec = li.findAll('td')
         for li2 in editData_rec:
             #soup2 = BeautifulSoup(str(li2), 'lxml', from_encoding='utf-8')
-            print i, str(li2)
+            #print i, str(li2)
 
             if str(li2) <> '':
                 i = i + 1
@@ -54,7 +54,7 @@ def CollectPrices(url):
                     #temp2 = temp2[-6:]
 	            C[temp] = temp
 	            D[temp] = temp2
-                    #priit temp, temp2, temp3, temp4
+                    print temp, temp2
 
     end_time = time.time()
     print end_time - start_time
