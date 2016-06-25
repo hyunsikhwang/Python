@@ -71,13 +71,12 @@ def CollectQuote(url):
     for li in editData_title:
         editData_rec = li.findAll('td')
         for li2 in editData_rec:
-            soup2 = BeautifulSoup(str(li2), 'html.parser', from_encoding='utf-8')
-            if soup2.text <> '':
+            if li2.text <> '':
                 i = i + 1
                 if i % 3 == 1:
-                    stock_name = soup2.text
-                    stock_code = soup2.find('a')['href']
-                    stock_code = stock_code[-6:]
+                    stock_name = li2.text
+                    pos = str(li2).find("code=") + 5
+                    stock_code = str(li2)[pos:(pos+6)]
 
 #                    code2name = QuoteList.get_or_insert(str(stock_code))
 #                    code2name.quote_code = stock_code.encode('utf-8')
