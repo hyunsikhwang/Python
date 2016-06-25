@@ -12,12 +12,8 @@ url_Q = "http://finance.daum.net/quote/all.daum?type=S&stype=Q"  #stype : P(ìœ ê
 
 global C
 global D
-global E
-global F
 C = {}
 D = {}
-E = {}
-F = {}
 
 
 class MyPrettyPrinter(pprint.PrettyPrinter):
@@ -55,12 +51,6 @@ def CollectPrices(url):
                     temp2 = temp2[-6:]
 	            C[temp] = temp
 	            D[temp] = temp2
-                elif i % 3 == 2:
-                    temp3 = soup2.text
-	            E[temp] = temp3
-                elif i % 3 == 0:
-                    temp4 = soup2.text
-	            F[temp] = temp4
                     #priit temp, temp2, temp3, temp4
 
 def PrintStock(quote):
