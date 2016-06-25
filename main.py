@@ -178,7 +178,7 @@ def set_status(chat_id, cmd_status):
     cs.put()
 
 def set_stocklist(s_name, s_code):
-    code2name = QuoteList.get_or_insert(str(s_code))
+    code2name = QuoteList.get_or_insert(str(s_code.encode('utf-8')))
     code2name.quote_code = s_code.encode('utf-8')
     code2name.quote_name = s_name.encode('utf-8')
     code2name.put()
