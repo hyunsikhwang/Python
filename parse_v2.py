@@ -47,10 +47,10 @@ def CollectPrices(url):
 
             if li2.text <> '':
                 i = i + 1
-            	print i, str(li2)
+            	#print i, str(li2)
                 if i % 3 == 1:
                     temp = str(li2)
-                    temp2 = str(li2).find("a")
+                    temp2 = str(li2).find("code=")
                     #temp2 = temp2[-6:]
 	            C[temp] = temp
 	            D[temp] = temp2
