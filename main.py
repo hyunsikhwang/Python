@@ -94,7 +94,7 @@ def CollectIndex(url):
     price_t = js['result']['areas'][0]['datas'][0]['nv']
     price_diff = js['result']['areas'][0]['datas'][0]['cv']
     price_ud = price_diff / float(price_t + price_diff) * 100.0
-    return u"<code>{0} {1:.2f} {2:.2f}%</code>\n".format(name, price_t/100.0, price_ud)
+    return u"<code>{0:16} {1:.2f} {2:.2f}%</code>\n".format(name, price_t/100.0, price_ud)
 
     
 def CollectPrices(url):
@@ -110,7 +110,7 @@ def CollectPrices(url):
     price_ud = (price_t - price_y) / float(price_y) * 100.0
     price_t = format(price_t, ",")
 #    return u"<code>{0} {1:8} {2:8} {3:.2f}%</code>\n".format(preformat_cjk(name, 14, "<", "_"), quote, price_t, price_ud)
-    return u"<code>{0} {1:8} {2:8} {3:.2f}%</code>\n".format(name, quote, price_t, price_ud)
+    return u"<code>{0:16} {1:8} {2:8} {3:.2f}%</code>\n".format(name, quote, price_t, price_ud)
 
 
 # 봇 토큰, 봇 API 주소
