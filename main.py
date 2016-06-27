@@ -310,7 +310,7 @@ def cmd_view(chat_id):
     #s = CollectPrices(url_index)
     s = CollectIndex(url_index + 'KOSPI')
     s = s + CollectIndex(url_index + 'KOSDAQ')
-    s = s + CollectPrices(url_quote + '058470')
+    s = s + "<code>" + CollectPrices(url_quote + '058470') + "</code>"
     s = s + CollectPrices(url_quote + '042700')
     s = s + CollectPrices(url_quote + '003650')
     s = s + CollectPrices(url_quote + '026960')
