@@ -112,7 +112,6 @@ BASE_URL = 'https://api.telegram.org/bot' + TOKEN + '/'
 # 봇이 응답할 명령어
 CMD_START     = '/start'
 CMD_STOP      = '/stop'
-CMD_INIT      = '/init'
 CMD_ADD       = '/add'
 CMD_DEL       = '/del'
 CMD_NONE      = '/none'
@@ -124,7 +123,6 @@ CMD_BROADCAST = '/broadcast'
 USAGE = u"""[사용법] 아래 명령어를 메시지로 보내거나 버튼을 누르시면 됩니다.
 /start - (로봇 활성화)
 /stop  - (로봇 비활성화)
-/init  - (종목 목록 수집)
 /add   - (종목 추가)
 /del   - (종목 삭제)
 /none  - (종목 추가/삭제 종료)
@@ -136,7 +134,7 @@ MSG_STOP  = u'봇을 정지합니다.'
 
 # 커스텀 키보드
 CUSTOM_KEYBOARD = [
-        [CMD_START, CMD_STOP, CMD_INIT],
+        [CMD_START, CMD_STOP],
         [CMD_ADD, CMD_DEL, CMD_NONE],
         [CMD_VIEW, CMD_HELP],
         ]
@@ -147,7 +145,6 @@ ST_ECHO, ST_ADD, ST_DEL = range(3)
 # 구글 앱 엔진의 Datastore(NDB)에 상태를 저장하고 읽음
 # 사용자가 /start 누르면 활성화
 # 사용자가 /stop  누르면 비활성화
-# 사용자가 /init  누르면 전체종목목록 수집
 # 사용자가 /add   누르면 종목 추가 모드 진입
 # 사용자가 /del   누르면 종목 삭제 모드 진입
 # 사용자가 /none  누르면 종목 추가/삭제모드 종료
@@ -182,14 +179,6 @@ def set_status(chat_id, cmd_status):
     cs = CommandStatus.get_or_insert(str(chat_id))
     cs.command_status = cmd_status
     cs.put()
-
-def set_stocklist(all_list):
-    #code2name = QuoteList.get_or_insert(str(s_code))
-    ndb.put_multi(all_list)
-
-def create_quotelist(chat_id):
-    CollectQuote(url_quotelist_KSP)
-    CollectQuote(url_quotelist_KSD)
 
 def get_enabled(chat_id):
     u"""get_enabled: 봇 활성화/비활성화 상태 반환
@@ -267,14 +256,6 @@ def cmd_stop(chat_id):
     """
     set_enabled(chat_id, False)
     send_msg(chat_id, MSG_STOP)
-
-def cmd_init(chat_id):
-    u"""cmd_init: 전체 종목 목록 수집 / NDB 저장
-    chat_id: (integer) 채팅 ID
-    """
-    send_msg(chat_id, u'전체 종목 목록을 생성합니다.')
-    create_quotelist(chat_id)
-    send_msg(chat_id, u'전체 종목 목록이 생성되었습니다.')
 
 def cmd_add(chat_id):
     u"""cmd_add: 종목 추가 모드
@@ -373,9 +354,6 @@ def process_cmds(msg):
         return
     if CMD_STOP == text:
         cmd_stop(chat_id)
-        return
-    if CMD_INIT == text:
-        cmd_init(chat_id)
         return
     if CMD_ADD == text:
         cmd_add(chat_id)
