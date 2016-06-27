@@ -29,6 +29,7 @@ import unicodedata
 
 # 파싱 주소
 url_quote = "http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_ITEM:"  # 종목 시세 주소
+url_index = "http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_INDEX:KOSPI"
 url_quotelist_KSP = "http://finance.daum.net/quote/all.daum?type=S&stype=P"  #type : U(업종순), S(가나다순)
 url_quotelist_KSD = "http://finance.daum.net/quote/all.daum?type=S&stype=Q"  #stype : P(유가증권), Q(코스닥)
 
@@ -318,13 +319,15 @@ def cmd_view(chat_id):
     u"""cmd_view: 봇 수동 실행
     chat_id (integer) 채팅 ID
     """
-    s = CollectPrices(url_quote + '058470')
+    s = CollectPrices(url_index)
+    s = s + CollectPrices(url_quote + '058470')
     s = s + CollectPrices(url_quote + '042700')
     s = s + CollectPrices(url_quote + '003650')
     s = s + CollectPrices(url_quote + '026960')
     s = s + CollectPrices(url_quote + '052330')
     s = s + CollectPrices(url_quote + '036190')
     s = s + CollectPrices(url_quote + '051360')
+    s = s + CollectPrices(url_quote + '114090')
     s = s + CollectPrices(url_quote + '122630')
     s = s + CollectPrices(url_quote + '114800')
     send_msg(chat_id, s)
@@ -435,13 +438,15 @@ class WebhookHandler1(webapp2.RequestHandler):
     @cron_method
     def get(self):
         urlfetch.set_default_fetch_deadline(60)
-        s = CollectPrices(url_quote + '058470')
+        s = CollectPrices(url_index)
+        s = s + CollectPrices(url_quote + '058470')
         s = s + CollectPrices(url_quote + '042700')
         s = s + CollectPrices(url_quote + '003650')
         s = s + CollectPrices(url_quote + '026960')
         s = s + CollectPrices(url_quote + '052330')
         s = s + CollectPrices(url_quote + '036190')
         s = s + CollectPrices(url_quote + '051360')
+        s = s + CollectPrices(url_quote + '114090')
         s = s + CollectPrices(url_quote + '122630')
         s = s + CollectPrices(url_quote + '114800')
         broadcast(s)
