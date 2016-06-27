@@ -17,9 +17,9 @@ def CollectPrices(url):
     name = js['result']['areas'][0]['datas'][0]['cd']
     quote = url[-6:]
     price_t = js['result']['areas'][0]['datas'][0]['nv']
-    price_y = js['result']['areas'][0]['datas'][0]['cv']
-    price_ud = price_y / float(price_y) * 100.0
-    print "%s %s %.2f%% %.2f%%" % (name, quote, price_t/100.0, price_ud/100.0)
+    price_diff = js['result']['areas'][0]['datas'][0]['cv']
+    price_ud = price_diff / float(pricd_t + price_diff) * 100.0
+    print "%s %s %.2f %.2f%%" % (name, quote, price_t/100.0, price_ud)
 
 CollectPrices(url_quote + "KOSPI")
 CollectPrices(url_quote + "KOSDAQ")
