@@ -319,8 +319,8 @@ def cmd_view(chat_id):
     u"""cmd_view: 봇 수동 실행
     chat_id (integer) 채팅 ID
     """
-    s = CollectPrices(url_index)
-    s = s + CollectPrices(url_quote + '058470')
+    #s = CollectPrices(url_index)
+    s = CollectPrices(url_quote + '058470')
     s = s + CollectPrices(url_quote + '042700')
     s = s + CollectPrices(url_quote + '003650')
     s = s + CollectPrices(url_quote + '026960')
@@ -438,8 +438,8 @@ class WebhookHandler1(webapp2.RequestHandler):
     @cron_method
     def get(self):
         urlfetch.set_default_fetch_deadline(60)
-        s = CollectPrices(url_index)
-        s = s + CollectPrices(url_quote + '058470')
+        #s = CollectPrices(url_index)
+        s = CollectPrices(url_quote + '058470')
         s = s + CollectPrices(url_quote + '042700')
         s = s + CollectPrices(url_quote + '003650')
         s = s + CollectPrices(url_quote + '026960')
