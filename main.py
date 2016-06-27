@@ -29,7 +29,7 @@ import unicodedata
 
 # 파싱 주소
 url_quote = "http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_ITEM:"  # 종목 시세 주소
-url_index = "http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_INDEX:KOSPI"
+url_index = "http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_INDEX:" # 인덱스 조회 주소
 url_quotelist_KSP = "http://finance.daum.net/quote/all.daum?type=S&stype=P"  #type : U(업종순), S(가나다순)
 url_quotelist_KSD = "http://finance.daum.net/quote/all.daum?type=S&stype=Q"  #stype : P(유가증권), Q(코스닥)
 
@@ -84,10 +84,18 @@ def CollectQuote(url):
                     t_list.append(t_class)
     return t_list
 
-#                    name2code = CompList.get_or_insert(stock_name.encode('utf-8'))
-#                    name2code.comp_code = stock_code.encode('utf-8')
-#                    name2code.comp_name = stock_name.encode('utf-8')
-#                    name2code.put()
+def CollectIndex(url):
+    f = urllib2.urlopen(url)
+    page = f.read().decode('euc-kr', 'ignore')
+    f.close()
+    js = json.loads(page)
+    
+    name = js['result']['areas'][0]['datas'][0]['cd']
+    price_t = js['result']['areas'][0]['datas'][0]['nv']
+    price_diff = js['result']['areas'][0]['datas'][0]['cv']
+    price_ud = price_diff / float(price_t + price_diff) * 100.0
+    print "%s %.2f %.2f%%" % (name, price_t/100.0, price_ud)
+
     
 def CollectPrices(url):
     f = urllib2.urlopen(url)
@@ -301,7 +309,9 @@ def cmd_view(chat_id):
     chat_id (integer) 채팅 ID
     """
     #s = CollectPrices(url_index)
-    s = CollectPrices(url_quote + '058470')
+    s = CollectIndex(url_index + "KOSPI")
+    s = s + CollectIndex(url_index + "KOSDAQ")
+    s = s + CollectPrices(url_quote + '058470')
     s = s + CollectPrices(url_quote + '042700')
     s = s + CollectPrices(url_quote + '003650')
     s = s + CollectPrices(url_quote + '026960')
@@ -416,8 +426,9 @@ class WebhookHandler1(webapp2.RequestHandler):
     @cron_method
     def get(self):
         urlfetch.set_default_fetch_deadline(60)
-        #s = CollectPrices(url_index)
-        s = CollectPrices(url_quote + '058470')
+        s = CollectIndex(url_index + "KOSPI")
+        s = s + CollectIndex(url_index + "KOSDAQ")
+        s = s + CollectPrices(url_quote + '058470')
         s = s + CollectPrices(url_quote + '042700')
         s = s + CollectPrices(url_quote + '003650')
         s = s + CollectPrices(url_quote + '026960')
