@@ -94,7 +94,7 @@ def CollectIndex(url):
     price_t = js['result']['areas'][0]['datas'][0]['nv']
     price_diff = js['result']['areas'][0]['datas'][0]['cv']
     price_ud = price_diff / float(price_t + price_diff) * 100.0
-    print "%s %.2f %.2f%%" % (name, price_t/100.0, price_ud)
+    return u"{0} {1:.2f} {2:.2f}%\n".format(name, price_t/100.0, price_ud)
 
     
 def CollectPrices(url):
@@ -108,7 +108,6 @@ def CollectPrices(url):
     price_t = js['result']['areas'][0]['datas'][0]['nv']
     price_y = js['result']['areas'][0]['datas'][0]['sv']
     price_ud = (price_t - price_y) / float(price_y) * 100.0
-    #print "%s %s %s %.2f%%" % (name, quote, price_t, price_ud)
     price_t = format(price_t, ",")
     return u"{0} {1:8} {2:8} {3:.2f}%\n".format(preformat_cjk(name, 14, "<", "_"), quote, price_t, price_ud)
 
@@ -309,8 +308,8 @@ def cmd_view(chat_id):
     chat_id (integer) 채팅 ID
     """
     #s = CollectPrices(url_index)
-    s = CollectIndex(url_index + "KOSPI")
-    s = s + CollectIndex(url_index + "KOSDAQ")
+    s = CollectIndex(url_index + 'KOSPI')
+    s = s + CollectIndex(url_index + 'KOSDAQ')
     s = s + CollectPrices(url_quote + '058470')
     s = s + CollectPrices(url_quote + '042700')
     s = s + CollectPrices(url_quote + '003650')
