@@ -17,9 +17,12 @@ def FindCodeAPI(APIKey, stock_name):
   #print page
 
   soup = BeautifulSoup(page, 'html.parser', from_encoding='utf-8')
+  
+  i = 0
 
   for li in soup.findAll('item'):
-    print li.korsecnnm
+    i = i + 1
+    print i, li.korsecnnm.string
 
     
   
