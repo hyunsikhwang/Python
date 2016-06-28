@@ -94,7 +94,7 @@ def CollectIndex(url):
     price_t = js['result']['areas'][0]['datas'][0]['nv']
     price_diff = js['result']['areas'][0]['datas'][0]['cv']
     price_ud = price_diff / float(price_t + price_diff) * 100.0
-    return u"{0:16} {1:.2f} {2:.2f}%\n".format(name, price_t/100.0, price_ud)
+    return u"<code>{0:16} {1:8.2f} {2:8.2f}%</code>\n".format(name, price_t/100.0, price_ud)
 
     
 def CollectPrices(url):
