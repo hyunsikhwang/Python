@@ -17,5 +17,11 @@ def FindCodeAPI(APIKey, stock_name):
   print page
 
   soup = BeautifulSoup(page, 'html.parser', from_encoding='utf-8')
+  editData_list = soup.find('secnKacdNm')
+  
+  for editData_name in editData_list:
+    print editData_name
+    
+  
 
 FindCodeAPI(APIKey, '삼성')
