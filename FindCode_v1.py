@@ -20,7 +20,7 @@ def FindCodeAPI(APIKey, stock_name):
   editData_list = soup.findAll('korSecnNm')
   
   for editData_name in editData_list:
-    print editData_name
+    print editData_name.text
     
   
 
