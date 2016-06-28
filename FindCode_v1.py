@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from urllib2 import Request, urlopen
 from urllib import urlencode, quote_plus
 
