@@ -427,7 +427,7 @@ class WebhookHandler1(webapp2.RequestHandler):
         now = time.localtime()
         if now.tm_wday == 5 or now.tw_wday == 6:
             return
-        else
+        else:
             urlfetch.set_default_fetch_deadline(60)
             s = CollectIndex(url_index + "KOSPI")
             s = s + CollectIndex(url_index + "KOSDAQ")
