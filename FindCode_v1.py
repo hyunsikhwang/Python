@@ -14,7 +14,7 @@ def FindCodeAPI(APIKey, stock_name):
   request.get_method = lambda: 'GET'
   page = urlopen(request).read()
   
-  print page
+  #print page
 
   soup = BeautifulSoup(page, 'html.parser', from_encoding='utf-8')
   editData_list = soup.findAll('secnKacdNm')
