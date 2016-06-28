@@ -19,7 +19,7 @@ def FindCodeAPI(APIKey, stock_name):
   soup = BeautifulSoup(page, 'html.parser', from_encoding='utf-8')
 
   for li in soup.findAll('item'):
-    print li.korSecnNm.text
+    print li
 
     
   
