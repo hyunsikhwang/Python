@@ -14,4 +14,4 @@ def FindCodeAPI(APIKey, stock_name):
   response_body = urlopen(request).read()
   print response_body
 
-FindCodeAPI(APIKey, u'삼성')
+FindCodeAPI(APIKey, '삼성')
