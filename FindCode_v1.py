@@ -2,6 +2,7 @@
 
 from urllib2 import Request, urlopen
 from urllib import urlencode, quote_plus
+from bs4 import BeautifulSoup
 
 APIKey = "CJL9jdtz5gsb4z4PpjFpCDjdz/UIk8cFAGgHbJvgLEJxPWLZaTx3wIcBNPkGu/KIKsI1zAy1XtfQJLG0VV0vVg=="
 
@@ -11,7 +12,10 @@ def FindCodeAPI(APIKey, stock_name):
 
   request = Request(url + queryParams)
   request.get_method = lambda: 'GET'
-  response_body = urlopen(request).read()
-  print response_body
+  page = urlopen(request).read()
+  
+  print page
+
+  soup = BeautifulSoup(page, 'html.parser', from_encoding='utf-8')
 
 FindCodeAPI(APIKey, '삼성')
