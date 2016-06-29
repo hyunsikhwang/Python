@@ -73,11 +73,16 @@ def FindCodeAPI(APIKey, stock_name):
   
   i = 0
   retlist = []
+  retlist1 = []
+  retlist2 = []
 
   for li in soup.findAll('item'):
     i = i + 1
-    retlist[0].append(li.korsecnnm.string)
-    retlist[1].append(li.shotnisin.string)
+    #print i, li.korsecnnm.string, li.shotnisin.string
+    retlist1.append(li.korsecnnm.string)
+    retlist2.append(li.shotnisin.string)
+    
+  retlist = [retlist1, retlist2]
   return retlist
 
 
@@ -417,7 +422,7 @@ def process_cmds(msg):
         return
     if get_status(chat_id) == ST_ADD:
         result_list = FindCodeAPI(APIKey, text)
-        cmd_addquote(chat_id, text)
+        cmd_addquote(chat_id, text, keyboard=result_list[1])
         return
     if get_status(chat_id) == ST_DEL:
         cmd_delquote(chat_id, text)
