@@ -30,16 +30,20 @@ def FindCodeAPI(APIKey, stock_name):
   
   i = 0
   retlist = []
+  retlist1 = []
+  retlist2 = []
 
   for li in soup.findAll('item'):
     i = i + 1
     #print i, li.korsecnnm.string, li.shotnisin.string
-    retlist.append([li.korsecnnm.string, li.shotnisin.string])
+    retlist1.append(li.korsecnnm.string)
+    retlist2.append(li.shotnisin.string)
     
+  retlist = [retlist1, retlist2]
   return retlist
 
 temp = FindCodeAPI(APIKey, '삼성')
 
-for slist in temp:
-    MyPrettyPrinter().pprint(slist[0])
+for slist in temp[0]:
+    MyPrettyPrinter().pprint(slist)
   
