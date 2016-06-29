@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
 from urllib2 import Request, urlopen
 from urllib import urlencode, quote_plus
@@ -43,5 +40,5 @@ def FindCodeAPI(APIKey, stock_name):
 
 temp = FindCodeAPI(APIKey, '삼성')
 for slist in temp:
-  print str(unicode(slist))
+  print str(slist.encode('utf-8'))
   
