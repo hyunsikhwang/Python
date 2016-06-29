@@ -38,7 +38,7 @@ def FindCodeAPI(APIKey, stock_name):
     
   return retlist
 
-temp = FindCodeAPI(APIKey, '삼성')
+temp = FindCodeAPI(APIKey, '삼성
 for slist in temp:
-  print str(slist.encode('utf-8'))
+    MyPrettyPrinter().pprint(slist)
   
