@@ -60,7 +60,7 @@ class MyPrettyPrinter(pprint.PrettyPrinter):
 
 def FindCodeAPI(APIKey, stock_name):
   url = 'http://api.seibro.or.kr/openapi/service/StockSvc/getStkIsinByNm'
-  queryParams = '?' + urlencode({ quote_plus('ServiceKey') : APIKey, quote_plus('secnNm') : stock_name, quote_plus('pageNo') : '1', quote_plus('numOfRows') : '10' })
+  queryParams = '?' + urlencode({ quote_plus(u'ServiceKey') : APIKey, quote_plus(u'secnNm') : stock_name, quote_plus(u'pageNo') : u'1', quote_plus(u'numOfRows') : u'10' })
 
   request = Request(url + queryParams)
   request.get_method = lambda: 'GET'
