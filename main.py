@@ -18,7 +18,10 @@ import json
 import logging
 import re
 import time
+
+# 종목명 찾기 API 관련 라이브러리 로드
 from urllib import urlencode, quote_plus
+from urllib2 import Request, urlopen
 
 # 파싱 관련 라이브러리 로드
 import urllib2
