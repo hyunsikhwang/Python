@@ -19,12 +19,16 @@ def FindCodeAPI(APIKey, stock_name):
   soup = BeautifulSoup(page, 'html.parser', from_encoding='utf-8')
   
   i = 0
+  retlist = []
 
   for li in soup.findAll('item'):
     i = i + 1
     print i, li.korsecnnm.string, li.shotnisin.string
-
+    retlist.append = [li.korsecnnm.string, li.shotnisin.string]
     
-  
+  return retlist
 
-FindCodeAPI(APIKey, '삼성')
+temp = FindCodeAPI(APIKey, '삼성')
+for slist in temp:
+  print slist
+  
