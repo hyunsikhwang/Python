@@ -326,10 +326,11 @@ def cmd_none(chat_id):
     set_status(chat_id, ST_ECHO)
     send_msg(chat_id, u'종목 추가/삭제가 종료되었습니다.')
 
-def cmd_addquote(chat_id, text):
+def cmd_addquote(chat_id, text, result_list):
     u"""cmd_addquote: 종목 추가
     chat_id: (integer) 채팅 ID
     """
+    send_msg(chat_id, u'키보드 목록이 활성화되었습니다.', keyboard=result_list[0]) 
     send_msg(chat_id, text + u' 종목이 추가되었습니다.')
 
 def cmd_delquote(chat_id, text):
@@ -422,7 +423,7 @@ def process_cmds(msg):
         return
     if get_status(chat_id) == ST_ADD:
         result_list = FindCodeAPI(APIKey, text)
-        cmd_addquote(chat_id, text, keyboard=result_list[1])
+        cmd_addquote(chat_id, text, result_list)
         return
     if get_status(chat_id) == ST_DEL:
         cmd_delquote(chat_id, text)
