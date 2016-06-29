@@ -1,10 +1,22 @@
 # -*- coding: utf-8 -*-
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 from urllib2 import Request, urlopen
 from urllib import urlencode, quote_plus
 from bs4 import BeautifulSoup
 
 APIKey = "CJL9jdtz5gsb4z4PpjFpCDjdz/UIk8cFAGgHbJvgLEJxPWLZaTx3wIcBNPkGu/KIKsI1zAy1XtfQJLG0VV0vVg=="
+
+class MyPrettyPrinter(pprint.PrettyPrinter):
+    def format(self, _object, context, maxlevels, level):
+        if isinstance(_object, unicode):
+            return "'%s'" % _object.encode('utf8'), True, False
+        elif isinstance(_object, str):
+            _object = unicode(_object,'utf8')
+            return "'%s'" % _object.encode('utf8'), True, False
+        return pprint.PrettyPrinter.format(self, _object, context, maxlevels, level)
 
 def FindCodeAPI(APIKey, stock_name):
   url = 'http://api.seibro.or.kr/openapi/service/StockSvc/getStkIsinByNm'
@@ -30,5 +42,5 @@ def FindCodeAPI(APIKey, stock_name):
 
 temp = FindCodeAPI(APIKey, '삼성')
 for slist in temp:
-  print slist
+  print str(unicode(slist))
   
