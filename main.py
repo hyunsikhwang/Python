@@ -425,23 +425,23 @@ class WebhookHandler1(webapp2.RequestHandler):
     @cron_method
     def get(self):
         now = time.localtime()
-        if now.tm_wday == 5 or now.tw_wday == 6:
-            return
-        else:
-            urlfetch.set_default_fetch_deadline(60)
-            s = CollectIndex(url_index + "KOSPI")
-            s = s + CollectIndex(url_index + "KOSDAQ")
-            s = s + CollectPrices(url_quote + '058470')
-            s = s + CollectPrices(url_quote + '042700')
-            s = s + CollectPrices(url_quote + '003650')
-            s = s + CollectPrices(url_quote + '026960')
-            s = s + CollectPrices(url_quote + '052330')
-            s = s + CollectPrices(url_quote + '036190')
-            s = s + CollectPrices(url_quote + '051360')
-            s = s + CollectPrices(url_quote + '114090')
-            s = s + CollectPrices(url_quote + '122630')
-            s = s + CollectPrices(url_quote + '114800')
-            broadcast(s)
+#        if now.tm_wday == 5 or now.tw_wday == 6:
+#            return
+#        else:
+        urlfetch.set_default_fetch_deadline(60)
+        s = CollectIndex(url_index + "KOSPI")
+        s = s + CollectIndex(url_index + "KOSDAQ")
+        s = s + CollectPrices(url_quote + '058470')
+        s = s + CollectPrices(url_quote + '042700')
+        s = s + CollectPrices(url_quote + '003650')
+        s = s + CollectPrices(url_quote + '026960')
+        s = s + CollectPrices(url_quote + '052330')
+        s = s + CollectPrices(url_quote + '036190')
+        s = s + CollectPrices(url_quote + '051360')
+        s = s + CollectPrices(url_quote + '114090')
+        s = s + CollectPrices(url_quote + '122630')
+        s = s + CollectPrices(url_quote + '114800')
+        broadcast(s)
 #        broadcast('Test Message')
 
 # 구글 앱 엔진에 웹 요청 핸들러 지정
