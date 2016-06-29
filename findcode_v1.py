@@ -33,7 +33,7 @@ def FindCodeAPI(APIKey, stock_name):
 
   for li in soup.findAll('item'):
     i = i + 1
-    print i, li.korsecnnm.string, li.shotnisin.string
+    #print i, li.korsecnnm.string, li.shotnisin.string
     retlist.append([li.korsecnnm.string, li.shotnisin.string])
     
   return retlist
