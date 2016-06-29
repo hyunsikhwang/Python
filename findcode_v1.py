@@ -46,4 +46,6 @@ temp = FindCodeAPI(APIKey, '삼성')
 
 for slist in temp[0]:
     MyPrettyPrinter().pprint(slist)
-  
+
+for slist in temp[1]:
+    MyPrettyPrinter().pprint(slist)  
