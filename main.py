@@ -33,6 +33,7 @@ url_index = "http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_IND
 url_quotelist_KSP = "http://finance.daum.net/quote/all.daum?type=S&stype=P"  #type : U(업종순), S(가나다순)
 url_quotelist_KSD = "http://finance.daum.net/quote/all.daum?type=S&stype=Q"  #stype : P(유가증권), Q(코스닥)
 
+APIKey = "CJL9jdtz5gsb4z4PpjFpCDjdz/UIk8cFAGgHbJvgLEJxPWLZaTx3wIcBNPkGu/KIKsI1zAy1XtfQJLG0VV0vVg=="
 
 def preformat_cjk (string, width, align='<', fill=' '):
     count = (width - sum(1 + (unicodedata.east_asian_width(c) in "WF")
@@ -44,6 +45,36 @@ def preformat_cjk (string, width, align='<', fill=' '):
                        + s
                        + fill * (count / 2 + count % 2)
 }[align](string)
+
+
+class MyPrettyPrinter(pprint.PrettyPrinter):
+    def format(self, _object, context, maxlevels, level):
+        if isinstance(_object, unicode):
+            return "'%s'" % _object.encode('utf8'), True, False
+        elif isinstance(_object, str):
+            _object = unicode(_object,'utf8')
+            return "'%s'" % _object.encode('utf8'), True, False
+        return pprint.PrettyPrinter.format(self, _object, context, maxlevels, level)
+
+
+def FindCodeAPI(APIKey, stock_name):
+  url = 'http://api.seibro.or.kr/openapi/service/StockSvc/getStkIsinByNm'
+  queryParams = '?' + urlencode({ quote_plus('ServiceKey') : APIKey, quote_plus('secnNm') : stock_name, quote_plus('pageNo') : '1', quote_plus('numOfRows') : '10' })
+
+  request = Request(url + queryParams)
+  request.get_method = lambda: 'GET'
+  page = urlopen(request).read()
+  
+  soup = BeautifulSoup(page, 'html.parser', from_encoding='utf-8')
+  
+  i = 0
+  retlist = []
+
+  for li in soup.findAll('item'):
+    i = i + 1
+    retlist[0].append(li.korsecnnm.string)
+    retlist[1].append(li.shotnisin.string)
+  return retlist
 
 
 class MyPrettyPrinter(pprint.PrettyPrinter):
@@ -83,6 +114,7 @@ def CollectQuote(url):
                     t_class.quote_code = stock_code
                     t_list.append(t_class)
     return t_list
+
 
 def CollectIndex(url):
     f = urllib2.urlopen(url)
@@ -380,7 +412,8 @@ def process_cmds(msg):
         cmd_help(chat_id)
         return
     if get_status(chat_id) == ST_ADD:
-        cmd_addquote(chat_id, text)
+        result_list = FindCodeAPI(APIKey, text)
+        cmd_addquote(chat_id, result_list)
         return
     if get_status(chat_id) == ST_DEL:
         cmd_delquote(chat_id, text)
