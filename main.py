@@ -330,8 +330,8 @@ def cmd_addquote(chat_id, text, result_list):
     u"""cmd_addquote: 종목 추가
     chat_id: (integer) 채팅 ID
     """
-    send_msg(chat_id, u'키보드 목록이 활성화되었습니다.', keyboard=result_list[0]) 
-    send_msg(chat_id, text + u' 종목이 추가되었습니다.')
+    send_msg(chat_id, u'종목을 선택해주세요.', keyboard=result_list[1]) 
+    send_msg(chat_id, text + u' 종목이 추가되었습니다.', keyboard=result_list[1])
 
 def cmd_delquote(chat_id, text):
     u"""cmd_delquote: 종목 삭제
