@@ -18,6 +18,7 @@ import json
 import logging
 import re
 import time
+from urllib import urlencode, quote_plus
 
 # 파싱 관련 라이브러리 로드
 import urllib2
