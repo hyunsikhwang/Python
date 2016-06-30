@@ -82,7 +82,7 @@ def FindCodeAPI(APIKey, stock_name):
         retlist2.append(li.shotnisin.string)
     
     retlist = [retlist1, retlist2]
-    return retlist2
+    return retlist
 
 
 class MyPrettyPrinter(pprint.PrettyPrinter):
@@ -421,7 +421,7 @@ def process_cmds(msg):
         return
     if get_status(chat_id) == ST_ADD:
         result_list = FindCodeAPI(APIKey, text)
-        cmd_addquote(chat_id, result_list[0], result_list)
+        cmd_addquote(chat_id, result_list[0][0], result_list[0])
         return
     if get_status(chat_id) == ST_DEL:
         cmd_delquote(chat_id, text)
