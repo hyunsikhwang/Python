@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 #
 # original:    https://github.com/yukuku/telebot
-# modified by: Bak Yeon O @ http://bakyeono.net
+# modified by: Bak Yeon O @ http://bakyeono.netu
 # description: http://bakyeono.net/post/2015-08-24-using-telegram-bot-api.html
 # github:      https://github.com/bakyeono/using-telegram-bot-api
 #
@@ -436,7 +436,7 @@ def process_cmds(msg):
             return
         else:
             merge_list = MergeList(result_list[0])
-            cmd_addquote(chat_id, merge_list, result_list[0])
+            cmd_addquote(chat_id, merge_list, result_list)
         return
     if get_status(chat_id) == ST_DEL:
         cmd_delquote(chat_id, text)
