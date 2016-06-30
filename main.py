@@ -62,28 +62,27 @@ class MyPrettyPrinter(pprint.PrettyPrinter):
 
 
 def FindCodeAPI(APIKey, stock_name):
-  url = 'http://api.seibro.or.kr/openapi/service/StockSvc/getStkIsinByNm'
-  queryParams = '?' + urlencode({ quote_plus('ServiceKey') : APIKey, quote_plus('secnNm') : stock_name.encode('utf-8'), quote_plus('pageNo') : '1', quote_plus(u'numOfRows') : '10' })
-
-  request = Request(url + queryParams)
-  request.get_method = lambda: 'GET'
-  page = urlopen(request).read()
-  
-  soup = BeautifulSoup(page, 'html.parser', from_encoding='utf-8')
-  
-  i = 0
-  retlist = []
-  retlist1 = []
-  retlist2 = []
-
-  for li in soup.findAll('item'):
-    i = i + 1
-    #print i, li.korsecnnm.string, li.shotnisin.string
-    retlist1.append(li.korsecnnm.string)
-    retlist2.append(li.shotnisin.string)
+    url = 'http://api.seibro.or.kr/openapi/service/StockSvc/getStkIsinByNm'
+    queryParams = '?' + urlencode({ quote_plus('ServiceKey') : APIKey, quote_plus('secnNm') : stock_name.encode('utf-8'), quote_plus('pageNo') : '1', quote_plus(u'numOfRows') : '10' })
     
-  retlist = [retlist1, retlist2]
-  return retlist2
+    request = Request(url + queryParams)
+    request.get_method = lambda: 'GET'
+    page = urlopen(request).read()
+    
+    soup = BeautifulSoup(page, 'html.parser', from_encoding='utf-8')
+    
+    i = 0
+    retlist = []
+    retlist1 = []
+    retlist2 = []
+    
+    for li in soup.findAll('item'):
+        i = i + 1
+        retlist1.append(li.korsecnnm.string)
+        retlist2.append(li.shotnisin.string)
+    
+    retlist = [retlist1, retlist2]
+    return retlist2
 
 
 class MyPrettyPrinter(pprint.PrettyPrinter):
@@ -422,7 +421,7 @@ def process_cmds(msg):
         return
     if get_status(chat_id) == ST_ADD:
         result_list = FindCodeAPI(APIKey, text)
-        cmd_addquote(chat_id, text, result_list)
+        cmd_addquote(chat_id, result_list[0][0], result_list)
         return
     if get_status(chat_id) == ST_DEL:
         cmd_delquote(chat_id, text)
