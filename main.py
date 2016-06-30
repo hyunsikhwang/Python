@@ -83,7 +83,7 @@ def FindCodeAPI(APIKey, stock_name):
     retlist2.append(li.shotnisin.string)
     
   retlist = [retlist1, retlist2]
-  return retlist
+  return retlist1
 
 
 class MyPrettyPrinter(pprint.PrettyPrinter):
@@ -330,7 +330,7 @@ def cmd_addquote(chat_id, text, result_list):
     u"""cmd_addquote: 종목 추가
     chat_id: (integer) 채팅 ID
     """
-    send_msg(chat_id, text + u' 종목이 추가되었습니다.')
+    send_msg(chat_id, text + u' 종목이 추가되었습니다.', keyboard=result_list)
 
 def cmd_delquote(chat_id, text):
     u"""cmd_delquote: 종목 삭제
