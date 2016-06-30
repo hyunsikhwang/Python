@@ -83,7 +83,7 @@ def FindCodeAPI(APIKey, stock_name):
     retlist2.append(li.shotnisin.string)
     
   retlist = [retlist1, retlist2]
-  return retlist1
+  return retlist2
 
 
 class MyPrettyPrinter(pprint.PrettyPrinter):
