@@ -194,6 +194,8 @@ CUSTOM_KEYBOARD = [
         [CMD_VIEW, CMD_HELP],
         ]
 
+USER_KEYBOARD = []
+
 ST_ECHO, ST_ADD, ST_DEL = range(3)
 
 # 채팅별 로봇 활성화 상태
@@ -337,7 +339,8 @@ def cmd_addquote(chat_id, text, result_list):
     u"""cmd_addquote: 종목 추가
     chat_id: (integer) 채팅 ID
     """
-    send_msg(chat_id, text + u'종목중에서 선택해주십시오.', keyboard=result_list)
+    USER_KEYBOARD = result_list
+    send_msg(chat_id, text + u'종목중에서 선택해주십시오.', keyboard=USER_KEYBOARD)
 
 def cmd_delquote(chat_id, text):
     u"""cmd_delquote: 종목 삭제
