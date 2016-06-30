@@ -421,7 +421,7 @@ def process_cmds(msg):
         return
     if get_status(chat_id) == ST_ADD:
         result_list = FindCodeAPI(APIKey, text)
-        if is_empty(result_list):
+        if len(result_list) == 0:
             return
         else:
             cmd_addquote(chat_id, result_list[0][0], result_list[0])
