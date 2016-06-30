@@ -152,6 +152,13 @@ def CollectPrices(url):
     return u"{0} {1:8} {2:8} {3:.2f}%\n".format(preformat_cjk(name, 14, "<", "_"), quote, price_t, price_ud)
 
 
+def MergeList(reflist):
+    for il in reflist:
+        ml = ml + il + "\n"
+    
+    return ml
+
+
 # 봇 토큰, 봇 API 주소
 TOKEN = '234646277:AAEl5x5nIIgu36YtQWGqJR6pLdB_0bGNUvM'
 BASE_URL = 'https://api.telegram.org/bot' + TOKEN + '/'
@@ -424,7 +431,8 @@ def process_cmds(msg):
         if not result_list[0]:
             return
         else:
-            cmd_addquote(chat_id, result_list[0][0], result_list[0])
+            merge_list = MergeList(result_list[0])
+            cmd_addquote(chat_id, merge_list, result_list[0])
         return
     if get_status(chat_id) == ST_DEL:
         cmd_delquote(chat_id, text)
