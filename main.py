@@ -319,14 +319,14 @@ def cmd_add(chat_id):
     chat_id: (integer) 채팅 ID
     """
     set_status(chat_id, ST_ADD)
-    send_msg(chat_id, u'추가할 종목 코드를 입력하세요.')
+    send_msg(chat_id, u'추가할 종목 이름을 입력하세요.')
     
 def cmd_del(chat_id):
     u"""cmd_del: 종목 삭제 모드
     chat_id: (integer) 채팅 ID
     """
     set_status(chat_id, ST_DEL)
-    send_msg(chat_id, u'삭제할 종목 코드를 입력하세요.')
+    send_msg(chat_id, u'삭제할 종목 이름을 입력하세요.')
 
 def cmd_none(chat_id):
     u"""cmd_none: 종목 추가/삭제 모드 종료
@@ -340,7 +340,7 @@ def cmd_addquote(chat_id, text, result_list):
     chat_id: (integer) 채팅 ID
     """
     USER_KEYBOARD = result_list
-    send_msg(chat_id, text + u'종목중에서 선택해주십시오.', keyboard=USER_KEYBOARD)
+    send_msg(chat_id, u'종목을 선택해주십시오.\n선택 작업 종료는 /none 을 선택해주세요.', keyboard=USER_KEYBOARD)
 
 def cmd_delquote(chat_id, text):
     u"""cmd_delquote: 종목 삭제
