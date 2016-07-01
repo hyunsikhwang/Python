@@ -155,7 +155,7 @@ def CollectPrices(url):
 def MergeList(reflist):
     ml = ""
     for il in reflist:
-        ml += il + "\n"
+        ml += il[0] + "\n"
     
     return ml
 
