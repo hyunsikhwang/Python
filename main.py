@@ -435,7 +435,7 @@ def process_cmds(msg):
         if not result_list[0]:
             return
         else:
-            merge_list = MergeList(result_list[0])
+            merge_list = MergeList(result_list[0].append('/None'))
             cmd_addquote(chat_id, merge_list, [result_list[0]])
         return
     if get_status(chat_id) == ST_DEL:
