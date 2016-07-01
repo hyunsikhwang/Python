@@ -439,6 +439,7 @@ def process_cmds(msg):
         else:
             merge_list = MergeList(result_list[0])
             result_list[0].append([CMD_NONE])
+            result_list[0].append([str(len(result_list[0]))])
             cmd_addquote(chat_id, merge_list, result_list[0])
         return
     if get_status(chat_id) == ST_DEL:
