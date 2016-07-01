@@ -433,6 +433,7 @@ def process_cmds(msg):
     if get_status(chat_id) == ST_ADD:
         result_list = FindCodeAPI(APIKey, text)
         if not result_list[0]:
+            send_msg(chat_id, u'종목명을 검색할 수 없습니다. 다시 확인 후 입력해주세요.')
             return
         else:
             merge_list = MergeList(result_list[0])
