@@ -434,11 +434,11 @@ def process_cmds(msg):
         result_list = FindCodeAPI(APIKey, text)
         if not result_list[0]:
             send_msg(chat_id, u'종목명을 검색할 수 없습니다. 다시 확인 후 입력해주세요.')
-            return
+        elif len(result_list[0]) == 1 and result_list[0][0] == text:
+            send_msg(chat_id, text + u' 종목이 추가되었습니다.')
         else:
             merge_list = MergeList(result_list[0])
             result_list[0].append([CMD_NONE])
-            result_list[0].append([str(len(result_list[0]))])
             cmd_addquote(chat_id, merge_list, result_list[0])
         return
     if get_status(chat_id) == ST_DEL:
