@@ -333,7 +333,7 @@ def cmd_none(chat_id):
     chat_id: (integer) 채팅 ID
     """
     set_status(chat_id, ST_ECHO)
-    send_msg(chat_id, u'종목 추가/삭제가 종료되었습니다.')
+    send_msg(chat_id, u'종목 추가/삭제가 종료되었습니다.', keyboard=CUSTOM_KEYBOARD)
 
 def cmd_addquote(chat_id, text, result_list):
     u"""cmd_addquote: 종목 추가
