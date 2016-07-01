@@ -389,7 +389,7 @@ def cmd_echo(chat_id, text, reply_to):
     """
     send_msg(chat_id, text, reply_to=reply_to)
 
-def cron_method(handler):
+def cron_method(handleer):
     def check_if_cron(self, *args, **kwargs):
         if self.request.headers.get('X-AppEngine-Cron') is None:
             self.error(403)
@@ -435,7 +435,7 @@ def process_cmds(msg):
         if not result_list[0]:
             send_msg(chat_id, u'종목명을 검색할 수 없습니다. 다시 확인 후 입력해주세요.')
         elif len(result_list[0]) == 1:
-            send_msg(chat_id, text + u' 종목이 추가되었습니다.', keyboard=CUSTOM_KEYBOARD)
+            send_msg(chat_id, result_list[0][0] + u' 종목이 추가되었습니다.', keyboard=CUSTOM_KEYBOARD)
         else:
             merge_list = MergeList(result_list[0])
             result_list[0].append([CMD_NONE])
