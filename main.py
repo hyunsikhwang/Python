@@ -263,7 +263,7 @@ def get_enabled_chats():
     return query.fetch()
 
 # 메시지 발송 관련 함수들
-def send_msg(chat_id, text, reply_to=None, no_preview=True, keyboard=None):
+def send_msg(chat_id, text, reply_to=None, no_preview=True, keyboard=None, one_time_keyboard=False):
     u"""send_msg: 메시지 발송
     chat_id:    (integer) 메시지를 보낼 채팅 ID
     text:       (string)  메시지 내용
@@ -283,7 +283,7 @@ def send_msg(chat_id, text, reply_to=None, no_preview=True, keyboard=None):
         reply_markup = json.dumps({
             'keyboard': keyboard,
             'resize_keyboard': True,
-            'one_time_keyboard': False,
+            'one_time_keyboard': one_time_keyboard,
             'selective': (reply_to == True),
             })
         params['reply_markup'] = reply_markup
@@ -435,7 +435,7 @@ def process_cmds(msg):
         if not result_list[0]:
             send_msg(chat_id, u'종목명을 검색할 수 없습니다. 다시 확인 후 입력해주세요.')
         elif len(result_list[0]) == 1:
-            send_msg(chat_id, text + u' 종목이 추가되었습니다.')
+            send_msg(chat_id, text + u' 종목이 추가되었습니다.', keyboard=None, one_time_keyboard=True)
         else:
             merge_list = MergeList(result_list[0])
             result_list[0].append([CMD_NONE])
