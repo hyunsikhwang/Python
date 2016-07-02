@@ -389,7 +389,7 @@ def cmd_echo(chat_id, text, reply_to):
     """
     send_msg(chat_id, text, reply_to=reply_to)
 
-def cron_method(handleer):
+def cron_method(handler):
     def check_if_cron(self, *args, **kwargs):
         if self.request.headers.get('X-AppEngine-Cron') is None:
             self.error(403)
