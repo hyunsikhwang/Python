@@ -434,7 +434,7 @@ def process_cmds(msg):
         result_list = FindCodeAPI(APIKey, text)
         if not result_list[0]:
             send_msg(chat_id, u'종목명을 검색할 수 없습니다. 다시 확인 후 입력해주세요.')
-        elif len(result_list[0]) == 1:
+        elif len(result_list[0]) == 1 and result_list[0][0][0] == text:
             send_msg(chat_id, result_list[0][0][0] + u' 종목이 추가되었습니다.', keyboard=CUSTOM_KEYBOARD)
         else:
             merge_list = MergeList(result_list[0])
