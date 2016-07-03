@@ -215,9 +215,20 @@ class QuoteList(ndb.Model):
     quote_code = ndb.StringProperty(required=True, indexed=True, default=False,)
     quote_name = ndb.StringProperty(required=True, indexed=True, default=False,)
 
-class CompList(ndb.Model):
-    comp_code = ndb.StringProperty(required=True, indexed=True, default=False,)
-    comp_name = ndb.StringProperty(required=True, indexed=True, default=False,)
+# ShareInfo 보유주식 정보 에 대한 NDB structured property
+# stockname 주식명
+# stockcode 종목코드
+# noofshare 보유주식수
+# avgprice 매수평단가
+class ShareInfo(ndb.Model):
+    stockname = ndb.StringProperty()
+    stockcode = ndb.StringProperty()
+    noofshare = ndb.IntegerProperty()
+    avgprice = ndb.IntegerProperty()
+
+class StockList(ndb.Model):
+    info = ndb.StructuredProperty(ShareInfo, repeated=True)
+
 
 def set_enabled(chat_id, enabled):
     u"""set_enabled: 봇 활성화/비활성화 상태 변경
@@ -489,6 +500,7 @@ class WebhookHandler1(webapp2.RequestHandler):
     @cron_method
     def get(self):
         now = time.gmtime() + 3600 * 9
+        # 토요일이나 일요일인 경우엔 알림 중지
         if now.tm_wday == 5 or now.tm_wday == 6:
             return
         else:
