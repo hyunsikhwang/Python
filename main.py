@@ -372,7 +372,7 @@ def cmd_view(chat_id):
     s = s + CollectPrices(url_quote + '122630')
     s = s + CollectPrices(url_quote + '114800')
     now = time.localtime()
-    s = s + now.tm_wday + ' ' + now.tm_mday + ' ' + now.tm_hour + ' ' + now.tm_min
+    s = s + str(now.tm_wday) + ' ' + str(now.tm_mday) + ' ' + str(now.tm_hour) + ' ' + str(now.tm_min)
     send_msg(chat_id, s)
 
 def cmd_broadcast(chat_id, text):
