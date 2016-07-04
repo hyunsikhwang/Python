@@ -501,7 +501,7 @@ class WebhookHandler(webapp2.RequestHandler):
 class WebhookHandler1(webapp2.RequestHandler):
     @cron_method
     def get(self):
-        now = time.gmtime() + 3600 * 9
+        now = time.gmtime(time.time() + 3600 * 9)
         # 토요일이나 일요일인 경우엔 알림 중지
         if now.tm_wday == 5 or now.tm_wday == 6:
             return
