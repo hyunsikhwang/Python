@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 #
-# original:    https://github.com/yukuku/telebot
+# original:    https://github.com/yukuku/telebotuseri
 # modified by: Bak Yeon O @ http://bakyeono.netu
 # description: http://bakyeono.net/post/2015-08-24-using-telegram-bot-api.html
 # github:      https://github.com/bakyeono/using-telegram-bot-api
@@ -226,8 +226,11 @@ class ShareInfo(ndb.Model):
     noofshare = ndb.IntegerProperty()
     avgprice = ndb.IntegerProperty()
 
+class ChatId(ndb.model):
+    name = ndb.StringProperty()
+
 class StockList(ndb.Model):
-    userid = ndb.KeyProperty()
+    userid = ndb.KeyProperty(kind=ChatId)
     info = ndb.StructuredProperty(ShareInfo, repeated=True)
 
 
