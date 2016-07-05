@@ -230,7 +230,7 @@ class ChatId(ndb.Model):
     name = ndb.StringProperty()
 
 class StockList(ndb.Model):
-    userid = ndb.KeyProperty(kind=ChatId)
+    userid = ndb.KeyProperty(kind=ChatId, repeated=True)
     info = ndb.StructuredProperty(ShareInfo, repeated=True)
 
 
