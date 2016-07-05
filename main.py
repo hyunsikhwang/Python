@@ -230,7 +230,7 @@ class ChatId(ndb.Model):
     name = ndb.StringProperty()
 
 class StockList(ndb.Model):
-    userid = ndb.KeyProperty(kind=ChatId, repeated=True)
+    userid = ndb.KeyProperty(kind=ChatId)
     info = ndb.StructuredProperty(ShareInfo, repeated=True)
 
 
@@ -258,7 +258,7 @@ def set_stocklist(chat_id, stockinfo):
     stocklist:  (string)  종목명, 종목코드, 보유주식수, 평균매수단가
     """
     sl = StockList.get_or_insert(str(chat_id))
-    sl = StockList(userid = str(chat_id), info = [ShareInfo(stockname = stockinfo)])
+    sl = StockList(userid = 'id'+str(chat_id), info = [ShareInfo(stockname = stockinfo)])
     sl.put()
 
 def get_enabled(chat_id):
