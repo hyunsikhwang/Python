@@ -227,7 +227,6 @@ class ShareInfo(ndb.Model):
     avgprice = ndb.IntegerProperty()
 
 class StockList(ndb.Model):
-    userid = ndb.KeyProperty()
     info = ndb.StructuredProperty(ShareInfo, repeated=True)
 
 
@@ -254,8 +253,7 @@ def set_stocklist(chat_id, stockinfo):
     chat_id:    (integer) 채팅 ID
     stocklist:  (string)  종목명, 종목코드, 보유주식수, 평균매수단가
     """
-    sl = StockList.get_or_insert(key_name=str(chat_id))
-    sl.userid.append(str(chat_id))
+    sl = StockList.get_or_insert(str(chat_id))
     sl = StockList(info = [ShareInfo(stockname = stockinfo)])
     sl.put()
 
