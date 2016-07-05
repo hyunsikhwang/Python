@@ -226,7 +226,7 @@ class ShareInfo(ndb.Model):
     noofshare = ndb.IntegerProperty()
     avgprice = ndb.IntegerProperty()
 
-class ChatId(ndb.model):
+class ChatId(ndb.Model):
     name = ndb.StringProperty()
 
 class StockList(ndb.Model):
