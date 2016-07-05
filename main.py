@@ -241,12 +241,21 @@ def set_enabled(chat_id, enabled):
 
 def set_status(chat_id, cmd_status):
     u"""set_status: 명령어 상태
-    chat_id:    (integer) 봇을 활성화/비활성화할 채팅 ID
+    chat_id:    (integer) 채팅 ID
     cmd_status: (integer) 명령어 상태(add/del)
     """
     cs = CommandStatus.get_or_insert(str(chat_id))
     cs.command_status = cmd_status
     cs.put()
+
+def set_stocklist(chat_id, stockinfo):
+    u"""set_stocklist: 사용자별 종목 등록
+    chat_id:    (integer) 채팅 ID
+    stocklist:  (string)  종목명, 종목코드, 보유주식수, 평균매수단가
+    """
+    sl = StockList.get_or_insert(str(chat_id))
+    sl.info.stockname = stockinfo
+    sl.put()
 
 def get_enabled(chat_id):
     u"""get_enabled: 봇 활성화/비활성화 상태 반환
@@ -448,6 +457,7 @@ def process_cmds(msg):
         if not result_list[0]:
             send_msg(chat_id, u'종목명을 검색할 수 없습니다. 다시 확인 후 입력해주세요.')
         elif len(result_list[0]) == 1 and result_list[0][0][0] == text:
+            set_stocklist(chat_id, text)
             send_msg(chat_id, result_list[0][0][0] + u' 종목이 추가되었습니다.', keyboard=CUSTOM_KEYBOARD)
         else:
             for li in result_list[0]:
