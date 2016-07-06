@@ -258,7 +258,7 @@ def set_stocklist(chat_id, stockinfo):
     stocklist:  (string)  종목명, 종목코드, 보유주식수, 평균매수단가
     """
     sl = StockList.get_or_insert(str(chat_id))
-    sl.info.append([ShareInfo(stockname = stockinfo)])
+    sl.info = [ShareInfo(stockname = stockinfo)]
     sl.put()
 
 def get_enabled(chat_id):
