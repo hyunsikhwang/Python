@@ -259,11 +259,7 @@ def set_stocklist(chat_id, stockinfo):
     """
     sl = StockList.get_or_insert(str(chat_id))
     sltemp = sl.info
-    sl.info.index(ShareInfo(stockinfo))
-    try:
-        sl.info.index(ShareInfo(stockinfo))
-    except:
-        sltemp.append(ShareInfo(stockname = stockinfo))
+    sltemp.append(ShareInfo(stockname = stockinfo))
     sl.info = sltemp
     #sl.info = [ShareInfo(stockname = stockinfo)]
     sl.put()
