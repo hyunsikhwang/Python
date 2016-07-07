@@ -259,9 +259,9 @@ def set_stocklist(chat_id, stockinfo):
     """
     sl = StockList.get_or_insert(str(chat_id))
     sltemp = sl.info
-    sltemp.stockname.index(stockinfo)
+        sl.info.index(ShareInfo(stockinfo))
     try:
-        sl.info.stockname.index(stockinfo)
+        sl.info.index(ShareInfo(stockinfo))
     except:
         sltemp.append(ShareInfo(stockname = stockinfo))
     sl.info = sltemp
