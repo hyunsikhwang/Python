@@ -3,6 +3,18 @@ cron:
   url: /broadcast-news
   schedule: every 10 mins from 09:00 to 15:00
   timezone: Asia/Seoul
+- description: broadcast stock real-time opening prices #1
+  url: /broadcast-news
+  schedule: every day 09:01
+  timezone: Asia/Seoul
+- description: broadcast stock real-time opening prices #2
+  url: /broadcast-news
+  schedule: every day 09:02
+  timezone: Asia/Seoul
+- description: broadcast stock real-time opening prices #3
+  url: /broadcast-news
+  schedule: every day 09:03
+  timezone: Asia/Seoul
 - description: broadcast stock real-time closed prices #1
   url: /broadcast-news
   schedule: every day 15:01
