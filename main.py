@@ -259,6 +259,12 @@ def set_stocklist(chat_id, stockinfo):
     """
     sl = StockList.get_or_insert(str(chat_id))
     sltemp = sl.info
+    # 기존에 없던 종목명일때에만 추가하는 조건문
+    # sl : StockList 클래스
+    # sltemp : StockList.info (NDB Structured Property, 즉 리스트) 그러면 sltemp[0], [1] 이런게 되나?
+    for aaa in sltemp:
+        if aaa == stockinfo:
+            return
     sltemp.append(ShareInfo(stockname = stockinfo))
     sl.info = sltemp
     #sl.info = [ShareInfo(stockname = stockinfo)]
