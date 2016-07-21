@@ -263,7 +263,7 @@ def set_stocklist(chat_id, stockinfo):
     # sl : StockList 클래스
     # sltemp : StockList.info (NDB Structured Property, 즉 리스트) 그러면 sltemp[0], [1] 이런게 되나?
     for aaa in sltemp:
-        if aaa == stockinfo:
+        if aaa.stockname == stockinfo:
             return
     sltemp.append(ShareInfo(stockname = stockinfo))
     sl.info = sltemp
