@@ -252,7 +252,7 @@ def set_status(chat_id, cmd_status):
     cs.command_status = cmd_status
     cs.put()
 
-def set_stocklist(chat_id, stockinfo):
+def set_stocklist(chat_id, sname, scode):
     u"""set_stocklist: 사용자별 종목 등록
     chat_id:    (integer) 채팅 ID
     stocklist:  (string)  종목명, 종목코드, 보유주식수, 평균매수단가
@@ -263,9 +263,9 @@ def set_stocklist(chat_id, stockinfo):
     # sl : StockList 클래스
     # sltemp : StockList.info (NDB Structured Property, 즉 리스트) 그러면 sltemp[0], [1] 이런게 되나?
     for aaa in sltemp:
-        if aaa.stockname == stockinfo:
+        if aaa.stockname == sname:
             return
-    sltemp.append(ShareInfo(stockname = stockinfo))
+    sltemp.append(ShareInfo(stockname = sname, stockcode = scode))
     sl.info = sltemp
     #sl.info = [ShareInfo(stockname = stockinfo)]
     sl.put()
@@ -470,7 +470,7 @@ def process_cmds(msg):
         if not result_list[0]:
             send_msg(chat_id, u'종목명을 검색할 수 없습니다. 다시 확인 후 입력해주세요.')
         elif len(result_list[0]) == 1 and result_list[0][0][0] == text:
-            set_stocklist(chat_id, text)
+            set_stocklist(chat_id, text, result_list[0][0][1])
             send_msg(chat_id, result_list[0][0][0] + u' 종목이 추가되었습니다.', keyboard=CUSTOM_KEYBOARD)
         else:
             for li in result_list[0]:
