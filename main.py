@@ -169,6 +169,7 @@ CMD_START     = '/start'
 CMD_STOP      = '/stop'
 CMD_ADD       = '/add'
 CMD_DEL       = '/del'
+CMD_LIST      = '/list'
 CMD_NONE      = '/none'
 CMD_HELP      = '/help'
 CMD_VIEW      = '/view'
@@ -180,6 +181,7 @@ USAGE = u"""[사용법] 아래 명령어를 메시지로 보내거나 버튼을 
 /stop  - (로봇 비활성화)
 /add   - (종목 추가)
 /del   - (종목 삭제)
+/list  - (종목 열람)
 /none  - (종목 추가/삭제 종료)
 /view  - (수동 실행)
 /help  - (이 도움말 보여주기)
@@ -190,7 +192,7 @@ MSG_STOP  = u'봇을 정지합니다.'
 # 커스텀 키보드
 CUSTOM_KEYBOARD = [
         [CMD_START, CMD_STOP],
-        [CMD_ADD, CMD_DEL, CMD_NONE],
+        [CMD_ADD, CMD_DEL, CMD_LIST, CMD_NONE],
         [CMD_VIEW, CMD_HELP],
         ]
 
@@ -252,10 +254,21 @@ def set_status(chat_id, cmd_status):
     cs.command_status = cmd_status
     cs.put()
 
+def view_list(chat_id):
+    u"""view_list: 등록된 종목 리스트 출력
+    chat_id:    (integer) 채팅 ID
+    """
+    sl = StockList.get(str(chat_id))
+    sltemp = sl.info
+    for aaa in sltemp:
+        send_msg(chat_id, aaa.stockname)
+
+
 def set_stocklist(chat_id, sname, scode):
     u"""set_stocklist: 사용자별 종목 등록
     chat_id:    (integer) 채팅 ID
-    stocklist:  (string)  종목명, 종목코드, 보유주식수, 평균매수단가
+    sname:      (string)  종목명(보유주식수, 평균매수단가는 향후 추가)
+    scode:      (string)  종목코드
     """
     sl = StockList.get_or_insert(str(chat_id))
     sltemp = sl.info
@@ -362,6 +375,12 @@ def cmd_del(chat_id):
     set_status(chat_id, ST_DEL)
     send_msg(chat_id, u'삭제할 종목 이름을 입력하세요.')
 
+def cmd_list(chat_id):
+    u"""cmd_del: 종목 삭제 모드
+    chat_id: (integer) 채팅 ID
+    """
+    view_list(chat_id)
+
 def cmd_none(chat_id):
     u"""cmd_none: 종목 추가/삭제 모드 종료
     chat_id: (integer) 채팅 ID
@@ -456,6 +475,9 @@ def process_cmds(msg):
         return
     if CMD_DEL == text:
         cmd_del(chat_id)
+        return
+    if CMD_LIST == text:
+        cmd_list(chat_id)
         return
     if CMD_NONE == text:
         cmd_none(chat_id)
