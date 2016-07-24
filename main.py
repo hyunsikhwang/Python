@@ -258,7 +258,7 @@ def view_list(chat_id):
     u"""view_list: 등록된 종목 리스트 출력
     chat_id:    (integer) 채팅 ID
     """
-    sl = StockList.get(str(chat_id))
+    sl = StockList.get_by_id(str(chat_id))
     sltemp = sl.info
     for aaa in sltemp:
         send_msg(chat_id, aaa.stockname)
