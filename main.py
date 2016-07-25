@@ -260,10 +260,10 @@ def view_list(chat_id):
     """
     sl = StockList.get_by_id(str(chat_id))
     sltemp = sl.info
-    entireList = MergeList(sltemp)
+    for aaa in sltemp:
+        entireList = aaa + "\n"
+        #send_msg(chat_id, aaa.stockname)
     send_msg(chat_id, entireList)
-    #for aaa in sltemp:
-    #    send_msg(chat_id, aaa.stockname)
 
 
 def set_stocklist(chat_id, sname, scode):
