@@ -260,6 +260,7 @@ def view_list(chat_id):
     """
     sl = StockList.get_by_id(str(chat_id))
     sltemp = sl.info
+    entireList = ""
     for aaa in sltemp:
         entireList += aaa.stockname + "\n"
         #send_msg(chat_id, aaa.stockname)
