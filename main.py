@@ -376,7 +376,7 @@ def cmd_del(chat_id):
     send_msg(chat_id, u'삭제할 종목 이름을 입력하세요.')
 
 def cmd_list(chat_id):
-    u"""cmd_del: 종목 삭제 모드
+    u"""cmd_list: 등록된 종목 열람
     chat_id: (integer) 채팅 ID
     """
     view_list(chat_id)
@@ -507,6 +507,11 @@ def process_cmds(msg):
             cmd_addquote(chat_id, merge_list, result_list[0])
         return
     if get_status(chat_id) == ST_DEL:
+        # NDB 에서 입력된 text 와 일치하는 종목명이 있는지 검색
+        # get_by_id 로 클래스를 받은 후에 Structured Property 를 for loop 로 검색
+        # 있으면 (확인 후)삭제 실행(cmd_delquote)
+        # 삭제시에 모든 필드들을 함께 삭제해야 함
+        # 없으면 없다는 메시지 출력
         cmd_delquote(chat_id, text)
         return
     cmd_broadcast_match = re.match('^' + CMD_BROADCAST + ' (.*)', text)
