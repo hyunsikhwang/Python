@@ -245,6 +245,7 @@ def set_enabled(chat_id, enabled):
     es.enabled = enabled
     es.put()
 
+
 def set_status(chat_id, cmd_status):
     u"""set_status: 명령어 상태
     chat_id:    (integer) 채팅 ID
@@ -253,6 +254,7 @@ def set_status(chat_id, cmd_status):
     cs = CommandStatus.get_or_insert(str(chat_id))
     cs.command_status = cmd_status
     cs.put()
+
 
 def view_list(chat_id):
     u"""view_list: 등록된 종목 리스트 출력
@@ -265,6 +267,18 @@ def view_list(chat_id):
         entireList += aaa.stockname + "\t" + aaa.stockcode + "\n"
         #send_msg(chat_id, aaa.stockname)
     send_msg(chat_id, entireList)
+
+
+def del_list(chat_id):
+    u"""del_list: 종목 리스트 출력 (삭제 목적)
+    chat_id:    (integer) 채팅 ID
+    """
+    sl = StockList.get_by_id(str(chat_id))
+    sltemp = sl.info
+    entireList = []
+    for aaa in sltemp:
+        entireList.append([aaa.stockname])
+    return entireList
 
 
 def set_stocklist(chat_id, sname, scode):
@@ -402,7 +416,9 @@ def cmd_delquote(chat_id, text):
     u"""cmd_delquote: 종목 삭제
     chat_id: (integer) 채팅 ID
     """
-    send_msg(chat_id, text + u' 종목이 삭제되었습니다.')
+    DelKBD = del_list(chat_id)
+    USER_KEYBOARD = DelKBD
+    send_msg(chat_id, text + u' 종목이 삭제되었습니다.', keyboard=USER_KEYBOARD)
 
 def cmd_help(chat_id):
     u"""cmd_help: 봇 사용법 메시지 발송
