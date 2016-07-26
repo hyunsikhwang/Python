@@ -419,7 +419,10 @@ def cmd_delquote(chat_id, text):
     u"""cmd_delquote: 종목 삭제
     chat_id: (integer) 채팅 ID
     """
-    send_msg(chat_id, text + u' 종목이 삭제되었습니다.')
+    DelKBD = del_list(chat_id)
+    DelKBD.append([CMD_NONE])
+    USER_KEYBOARD = DelKBD
+    send_msg(chat_id, text + u' 종목이 삭제되었습니다.', keyboard=USER_KEYBOARD)
 
 def cmd_help(chat_id):
     u"""cmd_help: 봇 사용법 메시지 발송
