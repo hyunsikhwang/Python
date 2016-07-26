@@ -391,7 +391,8 @@ def cmd_del(chat_id):
     """
     set_status(chat_id, ST_DEL)
     DelKBD = del_list(chat_id)
-    USER_KEYBOARD = DelKBD.append([CMD_NONE])
+    DelKBD.append([CMD_NONE])
+    USER_KEYBOARD = DelKBD
     send_msg(chat_id, u'삭제할 종목 이름을 입력하세요.', keyboard=USER_KEYBOARD)
 
 def cmd_list(chat_id):
