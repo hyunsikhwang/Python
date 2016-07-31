@@ -431,10 +431,10 @@ def cmd_delquote(chat_id, text):
             sltemp.pop(sindex)
             sl.info = sltemp
             sl.put()
+            send_msg(chat_id, text + u' 종목이 삭제되었습니다.', keyboard=USER_KEYBOARD)
             return
-    sindex = sindex + 1
+        sindex = sindex + 1
     
-    send_msg(chat_id, text + u' 종목이 삭제되었습니다.', keyboard=USER_KEYBOARD)
 
 def cmd_help(chat_id):
     u"""cmd_help: 봇 사용법 메시지 발송
