@@ -393,7 +393,7 @@ def cmd_del(chat_id):
     DelKBD = del_list(chat_id)
     DelKBD.append([CMD_NONE])
     USER_KEYBOARD = DelKBD
-    send_msg(chat_id, u'삭제할 종목 이름을 입력하세요.', keyboard=USER_KEYBOARD)
+    send_msg(chat_id, u'삭제할 종목 이름을 입력(선택)하세요.', keyboard=USER_KEYBOARD)
 
 def cmd_list(chat_id):
     u"""cmd_list: 등록된 종목 열람
@@ -422,6 +422,14 @@ def cmd_delquote(chat_id, text):
     DelKBD = del_list(chat_id)
     DelKBD.append([CMD_NONE])
     USER_KEYBOARD = DelKBD
+    
+    sl = StockList.get_or_insert(str(chat_id))
+    sltemp = sl.info
+    sindex = sltemp.index(ShareInfo(stockname = text))
+    sltemp.remove(sindex)
+    sl.info = sltemp
+    sl.put()    
+    
     send_msg(chat_id, text + u' 종목이 삭제되었습니다.', keyboard=USER_KEYBOARD)
 
 def cmd_help(chat_id):
@@ -530,7 +538,7 @@ def process_cmds(msg):
             cmd_addquote(chat_id, merge_list, result_list[0])
         return
     if get_status(chat_id) == ST_DEL:
-        # NDB 에서 입력된 text 와 일치하는 종목명이 있는지 검색
+        # NDB 에서 입력된 text 와 일치하는 종목명이 있는지 검색 : 목록에서 선택하기 때문에 생략 가능
         # get_by_id 로 클래스를 받은 후에 Structured Property 를 for loop 로 검색
         # 있으면 (확인 후)삭제 실행(cmd_delquote)
         # 삭제시에 모든 필드들을 함께 삭제해야 함
