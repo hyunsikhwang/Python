@@ -425,10 +425,14 @@ def cmd_delquote(chat_id, text):
     
     sl = StockList.get_or_insert(str(chat_id))
     sltemp = sl.info
-    sindex = sltemp.index(ShareInfo(stockname = text.encode('utf-8')))
-    sltemp.remove(sindex)
-    sl.info = sltemp
-    sl.put()    
+    sindex = 0
+    for aaa in sltemp:
+        if aaa.stockname == text:
+            sltemp.remove(sindex)
+            sl.info = sltemp
+            sl.put()
+            return
+    sindex = sindex + 1
     
     send_msg(chat_id, text + u' 종목이 삭제되었습니다.', keyboard=USER_KEYBOARD)
 
