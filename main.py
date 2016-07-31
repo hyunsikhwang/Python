@@ -419,9 +419,6 @@ def cmd_delquote(chat_id, text):
     u"""cmd_delquote: 종목 삭제
     chat_id: (integer) 채팅 ID
     """
-    DelKBD = del_list(chat_id)
-    DelKBD.append([CMD_NONE])
-    USER_KEYBOARD = DelKBD
     
     sl = StockList.get_or_insert(str(chat_id))
     sltemp = sl.info
@@ -431,6 +428,10 @@ def cmd_delquote(chat_id, text):
             sltemp.pop(sindex)
             sl.info = sltemp
             sl.put()
+            #사용자정의키보드(종목리스트) refresh
+            DelKBD = del_list(chat_id)
+            DelKBD.append([CMD_NONE])
+            USER_KEYBOARD = DelKBD
             send_msg(chat_id, text + u' 종목이 삭제되었습니다.', keyboard=USER_KEYBOARD)
             return
         sindex = sindex + 1
