@@ -428,7 +428,7 @@ def cmd_delquote(chat_id, text):
     sindex = 0
     for aaa in sltemp:
         if aaa.stockname == text:
-            sltemp.remove(sindex)
+            sltemp.pop(sindex)
             sl.info = sltemp
             sl.put()
             return
