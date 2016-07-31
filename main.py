@@ -425,7 +425,7 @@ def cmd_delquote(chat_id, text):
     
     sl = StockList.get_or_insert(str(chat_id))
     sltemp = sl.info
-    sindex = sltemp.index(ShareInfo(stockname = text))
+    sindex = sltemp.index(ShareInfo(stockname.encode('utf-8') = text))
     sltemp.remove(sindex)
     sl.info = sltemp
     sl.put()    
