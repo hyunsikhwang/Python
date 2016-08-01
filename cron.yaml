@@ -17,13 +17,13 @@ cron:
   timezone: Asia/Seoul
 - description: broadcast stock real-time closed prices #1
   url: /broadcast-news
-  schedule: every day 15:01
+  schedule: every day 15:31
   timezone: Asia/Seoul
 - description: broadcast stock real-time closed prices #2
   url: /broadcast-news
-  schedule: every day 15:02
+  schedule: every day 15:32
   timezone: Asia/Seoul
 - description: broadcast stock real-time closed prices #3
   url: /broadcast-news
-  schedule: every day 15:03
+  schedule: every day 15:33
   timezone: Asia/Seoul
