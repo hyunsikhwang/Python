@@ -169,6 +169,8 @@ CMD_START     = '/start'
 CMD_STOP      = '/stop'
 CMD_ADD       = '/add'
 CMD_DEL       = '/del'
+CMD_EDITP     = '/ep'
+CMD_EDITQ     = '/eq'
 CMD_LIST      = '/list'
 CMD_NONE      = '/none'
 CMD_HELP      = '/help'
@@ -181,6 +183,8 @@ USAGE = u"""[사용법] 아래 명령어를 메시지로 보내거나 버튼을 
 /stop  - (로봇 비활성화)
 /add   - (종목 추가)
 /del   - (종목 삭제)
+/ep    - (종목 가격 수정)
+/eq    - (종목 수량 수정)
 /list  - (종목 열람)
 /none  - (종목 추가/삭제 종료)
 /view  - (수동 실행)
@@ -193,12 +197,12 @@ MSG_STOP  = u'봇을 정지합니다.'
 CUSTOM_KEYBOARD = [
         [CMD_START, CMD_STOP],
         [CMD_ADD, CMD_DEL, CMD_LIST, CMD_NONE],
-        [CMD_VIEW, CMD_HELP],
+        [CMD_EDITP, CMD_EDITQ, CMD_VIEW, CMD_HELP],
         ]
 
 USER_KEYBOARD = []
 
-ST_ECHO, ST_ADD, ST_DEL = range(3)
+ST_ECHO, ST_ADD, ST_DEL, ST_EDITP, ST_EDITQ = range(5)
 
 # 채팅별 로봇 활성화 상태
 # 구글 앱 엔진의 Datastore(NDB)에 상태를 저장하고 읽음
@@ -206,7 +210,10 @@ ST_ECHO, ST_ADD, ST_DEL = range(3)
 # 사용자가 /stop  누르면 비활성화
 # 사용자가 /add   누르면 종목 추가 모드 진입
 # 사용자가 /del   누르면 종목 삭제 모드 진입
-# 사용자가 /none  누르면 종목 추가/삭제모드 종료
+# 사용자가 /ep    누르면 종목 가격수정 모드 진입
+# 사용자가 /eq    누르면 종목 수량수정 모드 진입
+# 사용자가 /list  누르면 종목 열람 
+# 사용자가 /none  누르면 종목 추가/삭제/수정 모드 종료
 class EnableStatus(ndb.Model):
     enabled = ndb.BooleanProperty(required=True, indexed=True, default=False,)
 
@@ -395,6 +402,26 @@ def cmd_del(chat_id):
     USER_KEYBOARD = DelKBD
     send_msg(chat_id, u'삭제할 종목 이름을 입력(선택)하세요.', keyboard=USER_KEYBOARD)
 
+def cmd_editp(chat_id):
+    u"""cmd_editp: 종목 가격 수정 모드
+    chat_id: (integer) 채팅 ID
+    """
+    set_status(chat_id, ST_EDITP)
+    EditKBD = del_list(chat_id)
+    EditKBD.append([CMD_NONE])
+    USER_KEYBOARD = EditKBD
+    send_msg(chat_id, u'가격을 수정할 종목 이름을 입력(선택)하세요.', keyboard=USER_KEYBOARD)
+
+def cmd_editq(chat_id):
+    u"""cmd_editq: 종목 수량 수정 모드
+    chat_id: (integer) 채팅 ID
+    """
+    set_status(chat_id, ST_EDITQ)
+    EditKBD = del_list(chat_id)
+    EditKBD.append([CMD_NONE])
+    USER_KEYBOARD = EditKBD
+    send_msg(chat_id, u'수량을 수정할 종목 이름을 입력(선택)하세요.', keyboard=USER_KEYBOARD)
+
 def cmd_list(chat_id):
     u"""cmd_list: 등록된 종목 열람
     chat_id: (integer) 채팅 ID
@@ -511,6 +538,12 @@ def process_cmds(msg):
         return
     if CMD_DEL == text:
         cmd_del(chat_id)
+        return
+    if CMD_EDITP == text:
+        cmd_editp(chat_id)
+        return
+    if CMD_EDITQ == text:
+        cmd_editq(chat_id)
         return
     if CMD_LIST == text:
         cmd_list(chat_id)
