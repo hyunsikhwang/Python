@@ -276,9 +276,9 @@ def view_list(chat_id):
     send_msg(chat_id, entireList)
 
 
-def del_list(chat_id):
-    u"""del_list: 종목 리스트 출력 (삭제 목적)
-    chat_id:    (integer) 채팅 ID
+def extract_list(chat_id):
+    u"""extract_list: 종목 리스트 출력 (삭제 목적)
+    chat_id:          (integer) 채팅 ID
     """
     sl = StockList.get_by_id(str(chat_id))
     sltemp = sl.info
@@ -397,7 +397,7 @@ def cmd_del(chat_id):
     chat_id: (integer) 채팅 ID
     """
     set_status(chat_id, ST_DEL)
-    DelKBD = del_list(chat_id)
+    DelKBD = extract_list(chat_id)
     DelKBD.append([CMD_NONE])
     USER_KEYBOARD = DelKBD
     send_msg(chat_id, u'삭제할 종목 이름을 입력(선택)하세요.', keyboard=USER_KEYBOARD)
@@ -407,7 +407,7 @@ def cmd_editp(chat_id):
     chat_id: (integer) 채팅 ID
     """
     set_status(chat_id, ST_EDITP)
-    EditKBD = del_list(chat_id)
+    EditKBD = extract_list(chat_id)
     EditKBD.append([CMD_NONE])
     USER_KEYBOARD = EditKBD
     send_msg(chat_id, u'가격을 수정할 종목 이름을 입력(선택)하세요.', keyboard=USER_KEYBOARD)
@@ -417,7 +417,7 @@ def cmd_editq(chat_id):
     chat_id: (integer) 채팅 ID
     """
     set_status(chat_id, ST_EDITQ)
-    EditKBD = del_list(chat_id)
+    EditKBD = extract_list(chat_id)
     EditKBD.append([CMD_NONE])
     USER_KEYBOARD = EditKBD
     send_msg(chat_id, u'수량을 수정할 종목 이름을 입력(선택)하세요.', keyboard=USER_KEYBOARD)
@@ -456,13 +456,24 @@ def cmd_delquote(chat_id, text):
             sl.info = sltemp
             sl.put()
             #사용자정의키보드(종목리스트) refresh
-            DelKBD = del_list(chat_id)
+            DelKBD = extract_list(chat_id)
             DelKBD.append([CMD_NONE])
             USER_KEYBOARD = DelKBD
             send_msg(chat_id, text + u' 종목이 삭제되었습니다.', keyboard=USER_KEYBOARD)
             return
         sindex = sindex + 1
-    
+
+def cmd_editprice(chat_id, text):
+    u"""cmd_editprice: 종목 가격 수정
+    chat_id: (integer) 채팅 ID
+    """
+    return
+
+def cmd_editquantity(chat_id, text):
+    u"""cmd_editquantity: 종목 수량 수정
+    chat_id: (integer) 채팅 ID
+    """
+    return
 
 def cmd_help(chat_id):
     u"""cmd_help: 봇 사용법 메시지 발송
@@ -582,6 +593,14 @@ def process_cmds(msg):
         # 삭제시에 모든 필드들을 함께 삭제해야 함
         # 없으면 없다는 메시지 출력
         cmd_delquote(chat_id, text)
+        return
+    if get_status(chat_id) == ST_EDITP:
+        # 가격 수정을 위해서 종목입력이 된 다음 처리할 로직
+        cmd_editprice(chat_id, text)
+        return
+    if get_status(chat_id) == ST_EDITQ:
+        # 수량 수정을 위해서 종목입력이 된 다음 처리할 로직
+        cmd_editquantity(chat_id, text)
         return
     cmd_broadcast_match = re.match('^' + CMD_BROADCAST + ' (.*)', text)
     if cmd_broadcast_match:
