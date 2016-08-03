@@ -467,12 +467,14 @@ def cmd_editprice(chat_id, text):
     u"""cmd_editprice: 종목 가격 수정
     chat_id: (integer) 채팅 ID
     """
+    send_msg(chat_id, u'가격 수정 모드입니다.)
     return
 
 def cmd_editquantity(chat_id, text):
     u"""cmd_editquantity: 종목 수량 수정
     chat_id: (integer) 채팅 ID
     """
+    send_msg(chat_id, u'수량 수정 모드입니다.)
     return
 
 def cmd_help(chat_id):
