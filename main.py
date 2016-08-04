@@ -242,6 +242,8 @@ class StockList(ndb.Model):
     userid = ndb.KeyProperty(kind=ChatId)
     info = ndb.StructuredProperty(ShareInfo, repeated=True)
 
+class EditStock(ndb.Model):
+    name = ndb.StringProperty()
 
 def set_enabled(chat_id, enabled):
     u"""set_enabled: 봇 활성화/비활성화 상태 변경
@@ -262,6 +264,16 @@ def set_status(chat_id, cmd_status):
     cs.command_status = cmd_status
     cs.put()
 
+
+def set_editstock(chat_id, text):
+    u"""set_editstock: 가격/수량 수정
+    chat_id: (integer) 채팅 ID
+    text:    (char) 종목명
+    """
+    se = EditStock.get_or_insert(str(text))
+    se.name = text
+    se.put()
+    
 
 def view_list(chat_id):
     u"""view_list: 등록된 종목 리스트 출력
@@ -477,10 +489,30 @@ def cmd_editprice(chat_id, text):
             #sl.info = sltemp
             #sl.put()
             set_status(chat_id, ST_EDITP_VAL)
+            set_editstock(chat_id, text)
             send_msg(chat_id, text + u'의 평균매수단가를 입력해주세요.')
             return
         #sindex = sindex + 1
     send_msg(chat_id, u'종목명을 다시 확인해주세요.')
+    return
+
+def cmd_editprice_val(chat_id, text):
+    u"""cmd_editprice: 종목별 평균매수단가 입력
+    chat_id: (integer) 채팅 ID
+    text   : (char)    매수단가
+    """
+    sl = StockList.get_by_id(str(chat_id))
+    esname = EditStock.get_by_id(str(chat_id))
+    sltemp = sl.info
+    #sindex = 0
+    for aaa in sltemp:
+        if aaa.stockname == esname.name:
+            sltemp[sindex].avgprice = text
+            sl.info = sltemp
+            sl.put()
+            send_msg(chat_id, esname.name + u'의 매수 단가가 ' + text + u'원으로 수정되었습니다.')
+            return
+        sindex = sindex + 1
     return
 
 def cmd_editquantity(chat_id, text):
@@ -612,6 +644,9 @@ def process_cmds(msg):
     if get_status(chat_id) == ST_EDITP:
         # 가격 수정을 위해서 종목입력이 된 다음 처리할 로직
         cmd_editprice(chat_id, text)
+        return
+    if get_status(chat_id) == ST_EDITP_VAL:
+        cmd_editprice_val(chat_id, text)
         return
     if get_status(chat_id) == ST_EDITQ:
         # 수량 수정을 위해서 종목입력이 된 다음 처리할 로직
