@@ -270,7 +270,7 @@ def set_editstock(chat_id, text):
     chat_id: (integer) 채팅 ID
     text:    (char) 종목명
     """
-    se = EditStock.get_or_insert(str(text))
+    se = EditStock.get_or_insert(str(chat_id))
     se.name = text
     se.put()
     
