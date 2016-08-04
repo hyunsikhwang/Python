@@ -504,7 +504,7 @@ def cmd_editprice_val(chat_id, text):
     sl = StockList.get_by_id(str(chat_id))
     esname = EditStock.get_by_id(str(chat_id))
     sltemp = sl.info
-    #sindex = 0
+    sindex = 0
     for aaa in sltemp:
         if aaa.stockname == esname.name:
             sltemp[sindex].avgprice = text
