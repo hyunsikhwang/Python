@@ -507,7 +507,7 @@ def cmd_editprice_val(chat_id, text):
     sindex = 0
     for aaa in sltemp:
         if aaa.stockname == esname.name:
-            sltemp[sindex].avgprice = text
+            sltemp[sindex].avgprice = int(text)
             sl.info = sltemp
             sl.put()
             send_msg(chat_id, esname.name + u'의 매수 단가가 ' + text + u'원으로 수정되었습니다.')
