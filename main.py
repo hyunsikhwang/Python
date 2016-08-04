@@ -497,7 +497,7 @@ def cmd_editprice(chat_id, text):
     return
 
 def cmd_editprice_val(chat_id, text):
-    u"""cmd_editprice: 종목별 평균매수단가 입력
+    u"""cmd_editprice_val: 종목별 평균매수단가 입력
     chat_id: (integer) 채팅 ID
     text   : (char)    매수단가
     """
