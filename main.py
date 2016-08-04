@@ -488,9 +488,9 @@ def cmd_editprice(chat_id, text):
             #sltemp[sindex].avgprice = text
             #sl.info = sltemp
             #sl.put()
-            set_status(chat_id, ST_EDITP_VAL)
             set_editstock(chat_id, text)
             send_msg(chat_id, text + u'의 평균매수단가를 입력해주세요.')
+            set_status(chat_id, ST_EDITP_VAL)
             return
         #sindex = sindex + 1
     send_msg(chat_id, u'종목명을 다시 확인해주세요.')
