@@ -464,20 +464,22 @@ def cmd_delquote(chat_id, text):
         sindex = sindex + 1
 
 def cmd_editprice(chat_id, text):
-    u"""cmd_editprice: 종목 가격 수정
+    u"""cmd_editprice: 가격 수정할 종목명 입력
     chat_id: (integer) 채팅 ID
+    text   : (char)    종목명
     """
     sl = StockList.get_by_id(str(chat_id))
     sltemp = sl.info
-    sindex = 0
+    #sindex = 0
     for aaa in sltemp:
         if aaa.stockname == text:
-            sltemp[sindex].avgprice = text
-            sl.info = sltemp
-            sl.put()
-            send_msg(chat_id, text + u' 종목 가격이 수정되었습니다.')
+            #sltemp[sindex].avgprice = text
+            #sl.info = sltemp
+            #sl.put()
+            send_msg(chat_id, text + u' 의 평균매수단가를 입력해주세요.')
             return
-        sindex = sindex + 1
+        #sindex = sindex + 1
+    send_msg(chat_id, u'종목명을 다시 확인해주세요.')
     return
 
 def cmd_editquantity(chat_id, text):
