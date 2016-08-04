@@ -202,7 +202,7 @@ CUSTOM_KEYBOARD = [
 
 USER_KEYBOARD = []
 
-ST_ECHO, ST_ADD, ST_DEL, ST_EDITP, ST_EDITQ = range(5)
+ST_ECHO, ST_ADD, ST_DEL, ST_EDITP, ST_EDITQ, ST_EDITP_VAL, ST_EDITQ_VAL = range(7)
 
 # 채팅별 로봇 활성화 상태
 # 구글 앱 엔진의 Datastore(NDB)에 상태를 저장하고 읽음
