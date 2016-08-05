@@ -307,8 +307,7 @@ def extract_quote(chat_id):
     sltemp = sl.info
     entireList = []
     for aaa in sltemp:
-        entireList.append(aaa.stockcode)
-    send_msg(chat_id, entireList)
+        entireList.append(str(aaa.stockcode))
     return entireList
 
 
@@ -580,7 +579,6 @@ def cmd_view(chat_id):
     quote_list = extract_quote(chat_id)
     s = CollectIndex(url_index + 'KOSPI')
     s = s + CollectIndex(url_index + 'KOSDAQ')
-    count = 0
     for aaa in quote_list:
         s += CollectPrices(url_quote + aaa)
 #    s = s + CollectPrices(url_quote + '058470')
