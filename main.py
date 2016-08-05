@@ -511,6 +511,7 @@ def cmd_editprice_val(chat_id, text):
             sl.info = sltemp
             sl.put()
             send_msg(chat_id, esname.name + u'의 매수 단가가 ' + text + u'원으로 수정되었습니다.')
+            set_status(chat_id, ST_EDITP)
             return
         sindex = sindex + 1
     return
@@ -518,8 +519,39 @@ def cmd_editprice_val(chat_id, text):
 def cmd_editquantity(chat_id, text):
     u"""cmd_editquantity: 종목 수량 수정
     chat_id: (integer) 채팅 ID
+    text:    (chat)    종목명
     """
-    send_msg(chat_id, u'수량 수정 모드입니다.')
+    sl = StockList.get_by_id(str(chat_id))
+    sltemp = sl.info
+    #sindex = 0
+    for aaa in sltemp:
+        if aaa.stockname == text:
+            set_editstock(chat_id, text)
+            send_msg(chat_id, text + u'의 보유수량을 입력해주세요.')
+            set_status(chat_id, ST_EDITQ_VAL)
+            return
+        #sindex = sindex + 1
+    send_msg(chat_id, u'종목명을 다시 확인해주세요.')
+    return
+
+def cmd_editquantity_val(chat_id, text):
+    u"""cmd_editprice_val: 종목별 평균매수단가 입력
+    chat_id: (integer) 채팅 ID
+    text   : (char)    보유 주식수
+    """
+    sl = StockList.get_by_id(str(chat_id))
+    esname = EditStock.get_by_id(str(chat_id))
+    sltemp = sl.info
+    sindex = 0
+    for aaa in sltemp:
+        if aaa.stockname == esname.name:
+            sltemp[sindex].noofshare = int(text)
+            sl.info = sltemp
+            sl.put()
+            send_msg(chat_id, esname.name + u'의 보유 주식수가 ' + text + u' 으로 수정되었습니다.')
+            set_status(chat_id, ST_EDITQ)
+            return
+        sindex = sindex + 1
     return
 
 def cmd_help(chat_id):
@@ -651,6 +683,9 @@ def process_cmds(msg):
     if get_status(chat_id) == ST_EDITQ:
         # 수량 수정을 위해서 종목입력이 된 다음 처리할 로직
         cmd_editquantity(chat_id, text)
+        return
+    if get_status(chat_id) == ST_EDITQ_VAL:
+        cmd_editquantity_val(chat_id, text)
         return
     cmd_broadcast_match = re.match('^' + CMD_BROADCAST + ' (.*)', text)
     if cmd_broadcast_match:
