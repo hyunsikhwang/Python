@@ -671,6 +671,7 @@ def process_cmds(msg):
             send_msg(chat_id, result_list[0][0][0] + u' 종목이 추가되었습니다.', keyboard=CUSTOM_KEYBOARD)
         else:
             for li in result_list[0]:
+                send_msg(chat_id, li[0])
                 if li[0] == text:
                     send_msg(chat_id, u'동일한 종목이 발견되었습니다.')
                     set_stocklist(chat_id, text, result_list[1][0][0])
