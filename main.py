@@ -308,6 +308,7 @@ def extract_quote(chat_id):
     entireList = []
     for aaa in sltemp:
         entireList.append(aaa.stockcode)
+    send_msg(chat_id, entireList)
     return entireList
 
 
