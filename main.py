@@ -670,13 +670,14 @@ def process_cmds(msg):
             set_stocklist(chat_id, text, result_list[1][0][0])
             send_msg(chat_id, result_list[0][0][0] + u' 종목이 추가되었습니다.', keyboard=CUSTOM_KEYBOARD)
         else:
+            count = 0
             for li in result_list[0]:
-                send_msg(chat_id, li[0])
                 if li[0] == text:
                     send_msg(chat_id, u'동일한 종목이 발견되었습니다.')
-                    set_stocklist(chat_id, text, result_list[1][0][0])
+                    set_stocklist(chat_id, text, result_list[1][0][count])
                     send_msg(chat_id, text + u' 종목이 추가되었습니다.', keyboard=CUSTOM_KEYBOARD)
                     return
+                count += 1
             merge_list = MergeList(result_list[0])
             result_list[0].append([CMD_NONE])
             cmd_addquote(chat_id, merge_list, result_list[0])
