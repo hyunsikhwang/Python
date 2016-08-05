@@ -580,7 +580,7 @@ def cmd_view(chat_id):
     s = CollectIndex(url_index + 'KOSPI')
     s = s + CollectIndex(url_index + 'KOSDAQ')
     for aaa in quote_list:
-        send_msg(chat_id, aaa)
+        send_msg(chat_id, url_quote + aaa)
 #        s += CollectPrices(url_quote + aaa)
 #    s = s + CollectPrices(url_quote + '058470')
 #    s = s + CollectPrices(url_quote + '042700')
