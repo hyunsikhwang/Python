@@ -668,8 +668,9 @@ def process_cmds(msg):
     if CMD_VIEW == text:
         cmd_view(chat_id)
         return
-    if CMD_RERORD == text:
+    if CMD_REORD == text:
         cmd_reord(chat_id)
+        return
     if CMD_HELP == text:
         cmd_help(chat_id)
         return
