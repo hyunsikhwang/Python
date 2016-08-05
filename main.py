@@ -311,7 +311,6 @@ def extract_quote(chat_id):
     return entireList
 
 
-
 def set_stocklist(chat_id, sname, scode):
     u"""set_stocklist: 사용자별 종목 등록
     chat_id:    (integer) 채팅 ID
@@ -582,8 +581,7 @@ def cmd_view(chat_id):
     s = s + CollectIndex(url_index + 'KOSDAQ')
     count = 0
     for aaa in quote_list:
-        s += CollectPrices(url_quote + quote_list[count])
-        count += 1
+        s += CollectPrices(url_quote + aaa)
 #    s = s + CollectPrices(url_quote + '058470')
 #    s = s + CollectPrices(url_quote + '042700')
 #    s = s + CollectPrices(url_quote + '003650')
