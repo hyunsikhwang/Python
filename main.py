@@ -674,7 +674,7 @@ def process_cmds(msg):
             for li in result_list[0]:
                 if li[0] == text:
                     send_msg(chat_id, u'동일한 종목이 발견되었습니다.')
-                    set_stocklist(chat_id, text, result_list[1][0][count])
+                    set_stocklist(chat_id, text, result_list[1][count][0])
                     send_msg(chat_id, text + u' 종목이 추가되었습니다.', keyboard=CUSTOM_KEYBOARD)
                     return
                 count += 1
