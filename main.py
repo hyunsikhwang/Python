@@ -204,7 +204,7 @@ CUSTOM_KEYBOARD = [
 
 USER_KEYBOARD = []
 
-ST_ECHO, ST_ADD, ST_DEL, ST_EDITP, ST_EDITQ, ST_EDITP_VAL, ST_EDITQ_VAL, ST_REORD = range(8)
+ST_ECHO, ST_ADD, ST_DEL, ST_EDITP, ST_EDITQ, ST_EDITP_VAL, ST_EDITQ_VAL, ST_REORD, ST_REORD_RANK = range(9)
 
 # 채팅별 로봇 활성화 상태
 # 구글 앱 엔진의 Datastore(NDB)에 상태를 저장하고 읽음
@@ -569,6 +569,11 @@ def cmd_editquantity_val(chat_id, text):
         sindex = sindex + 1
     return
 
+def cmd_reord_rank(chat_id, text):
+    set_status(chat_id, ST_REORD_RANK)
+    send_msg(chat_id, u'바꿀 위치에 해당하는 숫자를 입력해주세요.')
+    return
+
 def cmd_help(chat_id):
     u"""cmd_help: 봇 사용법 메시지 발송
     chat_id: (integer) 채팅 ID
@@ -718,6 +723,9 @@ def process_cmds(msg):
         return
     if get_status(chat_id) == ST_EDITQ_VAL:
         cmd_editquantity_val(chat_id, text)
+        return
+    if get_status(chat_id) == ST_REORD:
+        cmd_reord_rank(chat_id, text)
         return
     cmd_broadcast_match = re.match('^' + CMD_BROADCAST + ' (.*)', text)
     if cmd_broadcast_match:
