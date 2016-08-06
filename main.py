@@ -249,6 +249,9 @@ class StockList(ndb.Model):
 class EditStock(ndb.Model):
     name = ndb.StringProperty()
 
+class OrderNumber(ndb.Model):
+    ordnum = ndb.IntegerProperty()
+
 def set_enabled(chat_id, enabled):
     u"""set_enabled: 봇 활성화/비활성화 상태 변경
     chat_id:    (integer) 봇을 활성화/비활성화할 채팅 ID
@@ -570,8 +573,28 @@ def cmd_editquantity_val(chat_id, text):
     return
 
 def cmd_reord_rank(chat_id, text):
+    u"""cmd_reord_rank: 등록된 종목의 순서 변경
+    chat_id: (integer) 채팅 ID
+    text   : (char)    종목 이름
+    """
     set_status(chat_id, ST_REORD_RANK)
     send_msg(chat_id, u'바꿀 위치에 해당하는 숫자를 입력해주세요.')
+    return
+
+def cmd_reord_execute(chat_id, text):
+    u"""cmd_reord_execute: 등록된 종목의 순서 변경
+    chat_id: (integer) 채팅 ID
+    text   : (char)    바꾸려고 하는 위치(숫자)
+    """
+    sl = StockList.get_by_id(str(chat_id))
+    sltemp = sl.info
+    sindex = 0
+    for aaa in sltemp:
+        if sindex == int(text):
+            send_msg(chat_id, aaa.stockname)
+            return
+        sindex = sindex + 1
+    send_msg(chat_id, u'순서를 잘 못 입력하셨습니다. 다시 확인해주세요.')    
     return
 
 def cmd_help(chat_id):
@@ -726,6 +749,9 @@ def process_cmds(msg):
         return
     if get_status(chat_id) == ST_REORD:
         cmd_reord_rank(chat_id, text)
+        return
+    if get_status(chat_id) == ST_REORD_RANK:
+        cmd_reord_execute(chat_id, text)
         return
     cmd_broadcast_match = re.match('^' + CMD_BROADCAST + ' (.*)', text)
     if cmd_broadcast_match:
