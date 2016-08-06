@@ -588,7 +588,7 @@ def cmd_reord_execute(chat_id, text):
     """
     sl = StockList.get_by_id(str(chat_id))
     sltemp = sl.info
-    sindex = 0
+    sindex = 1
     for aaa in sltemp:
         if sindex == int(text):
             send_msg(chat_id, aaa.stockname)
