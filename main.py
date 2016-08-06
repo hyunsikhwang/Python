@@ -602,8 +602,11 @@ def cmd_view(chat_id):
     send_msg(chat_id, s)
 
 def cmd_reord(chat_id):
-    send_msg(chat_id, u'종목 순서 재배치 모드입니다.')
-    
+    set_status(chat_id, ST_REORD)
+    ReOrdKBD = extract_list(chat_id)
+    ReOrdKBD.append([CMD_NONE])
+    USER_KEYBOARD = ReOrdKBD
+    send_msg(chat_id, u'재배치할 종목 이름을 입력(선택)하세요.', keyboard=USER_KEYBOARD)
 
 def cmd_broadcast(chat_id, text):
     u"""cmd_broadcast: 봇이 활성화된 모든 채팅에 메시지 방송
