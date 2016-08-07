@@ -603,21 +603,12 @@ def cmd_reord_execute(chat_id, text):
     sltemp = sl.info
     sindex = 1
     ReOrdKBD = extract_list(chat_id)
-    NewStockList = []
-    for aaa in ReOrdKBD:
-        if oldrank < newrank:
-            if sindex < oldrank or sindex > newrank:
-                NewStockList[sindex-1] = aaa[0]
-            elif sindex <= newrank:
-                NewStockList[sindex-2] = aaa[0]
-            else:
-                NewStockList[oldrank] = aaa[0]
-#        if sindex == newrank:
-#            send_msg(chat_id, aaa.stockname)
-#            return
-        sindex = sindex + 1
+    NewStockList = ReOrdKBD
+    NewStockList[newrank] = ReOrdKDB[oldrank]
+    for idx in range(oldrank, newrank-1):
+        NewStockList[idx-1] = RdOrdKDB[idx]
     for aaa in NewStockList:
-        send_msg(chat_id, aaa)
+        send_msg(chat_id, aaa[0])
     send_msg(chat_id, u'순서를 잘못 입력하셨습니다. 다시 확인해주세요.')    
     return
 
