@@ -609,7 +609,7 @@ def cmd_reord_execute(chat_id, text):
     NewStockList = []
     for aaa in sltemp:
         if oldrank < newrank:
-            if sindex < oldrank || sindex > newindex:
+            if sindex < oldrank or sindex > newindex:
                 NewStockList[sindex-1] = aaa[0]
             elif sindex <= newindex:
                 NewStockList[sindex-2] = aaa[0]
