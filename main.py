@@ -581,7 +581,7 @@ def cmd_reord_rank(chat_id, text):
     stockall = ''
     stocknumber = 0
     ReOrdKBD = extract_list(chat_id)
-    for aaa in ReOrdKDB:
+    for aaa in ReOrdKBD:
         ++stocknumber
         stockall = stockall + '[' + stocknumber + '] ' + aaa + '\n'
     send_msg(chat_id, stocklist)
