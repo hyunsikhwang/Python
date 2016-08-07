@@ -587,6 +587,7 @@ def cmd_reord_rank(chat_id, text):
         if aaa[0] == text:
             on = OrderNumber.get_or_insert(str(chat_id))
             on.ordnum = stocknumber - 1
+            on.put()
     send_msg(chat_id, stockall)
     send_msg(chat_id, u'바꿀 위치에 해당하는 숫자를 입력해주세요.')
     return
