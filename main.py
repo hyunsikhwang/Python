@@ -608,6 +608,8 @@ def cmd_reord_execute(chat_id, text):
     for idx in range(oldrank, newrank):
         NewStockList[idx-1] = ReOrdKBD[idx]
     NewStockList[newrank-1] = ReOrdKBD[oldrank-1]
+    for aaa in ReOrdKBD:
+        send_msg(chat_id, aaa[0])
     for aaa in NewStockList:
         send_msg(chat_id, aaa[0])
 #    send_msg(chat_id, u'순서를 잘못 입력하셨습니다. 다시 확인해주세요.')    
