@@ -598,7 +598,7 @@ def cmd_reord_execute(chat_id, text):
     text   : (char)    바꾸려고 하는 위치(숫자)
     """
     sl = StockList.get_by_id(str(chat_id))
-    on = OrderNumber.get_by_id(str(chat_id)))
+    on = OrderNumber.get_by_id(str(chat_id))
     oldrank = on.ordnum
     newrank = int(text)
     sltemp = sl.info
