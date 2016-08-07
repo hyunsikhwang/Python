@@ -592,7 +592,7 @@ def cmd_reord_execute(chat_id, text):
     for aaa in sltemp:
         if sindex == int(text):
             send_msg(chat_id, aaa.stockname)
-            set_status_chat_id, ST_REORD)
+            set_status(chat_id, ST_REORD)
             return
         sindex = sindex + 1
     send_msg(chat_id, u'순서를 잘 못 입력하셨습니다. 다시 확인해주세요.')    
