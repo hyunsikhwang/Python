@@ -605,7 +605,7 @@ def cmd_reord_execute(chat_id, text):
     sindex = 1
     ReOrdKBD = extract_list(chat_id)
     NewStockList = ReOrdKBD
-    NewStockList[newrank] = ReOrdKBD[oldrank]
+    NewStockList[newrank-1] = ReOrdKBD[oldrank-1]
     for idx in range(oldrank, newrank-1):
         NewStockList[idx-1] = ReOrdKBD[idx]
     for aaa in NewStockList:
