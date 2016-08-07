@@ -597,9 +597,6 @@ def cmd_reord_execute(chat_id, text):
     chat_id: (integer) 채팅 ID
     text   : (char)    바꾸려고 하는 위치(숫자)
     """
-    if int(text) < 1:
-        send_msg(chat_id, u'순서를 잘못 입력하셨습니다. 다시 확인해주세요.')
-        return
     sl = StockList.get_by_id(str(chat_id))
     oldrank = OrderNumber.get_by_id(str(chat_id))
     newrank = int(text)
