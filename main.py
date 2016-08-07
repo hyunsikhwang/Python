@@ -578,6 +578,13 @@ def cmd_reord_rank(chat_id, text):
     text   : (char)    종목 이름
     """
     set_status(chat_id, ST_REORD_RANK)
+    stockall = ''
+    stocknumber = 0
+    ReOrdKBD = extract_list(chat_id)
+    for aaa in ReOrdKDB:
+        ++stocknumber
+        stockall = stockall + '[' + stocknumber + '] ' + aaa + '\n'
+    send_msg(chat_id, stocklist)
     send_msg(chat_id, u'바꿀 위치에 해당하는 숫자를 입력해주세요.')
     return
 
@@ -633,12 +640,6 @@ def cmd_view(chat_id):
 def cmd_reord(chat_id):
     set_status(chat_id, ST_REORD)
     ReOrdKBD = extract_list(chat_id)
-    stocklist = ''
-    stocknumber = 0
-    for aaa in ReOrdKDB:
-        ++stocknumber
-        stocklist = stocklist + '[' + stocknumber + '] ' + aaa + '\n'
-    send_msg(chat_id, stocklist)
     ReOrdKBD.append([CMD_NONE])
     USER_KEYBOARD = ReOrdKBD
     send_msg(chat_id, u'재배치할 종목 이름을 입력(선택)하세요.', keyboard=USER_KEYBOARD)
