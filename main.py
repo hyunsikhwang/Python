@@ -633,6 +633,12 @@ def cmd_view(chat_id):
 def cmd_reord(chat_id):
     set_status(chat_id, ST_REORD)
     ReOrdKBD = extract_list(chat_id)
+    stocklist = ''
+    stocknumber = 0
+    for aaa in ReOrdKDB:
+        ++stocknumber
+        stocklist = stocklist + '[' + stocknumber + '] ' + aaa + '\n'
+    send_msg(chat_id, stocklist)
     ReOrdKBD.append([CMD_NONE])
     USER_KEYBOARD = ReOrdKBD
     send_msg(chat_id, u'재배치할 종목 이름을 입력(선택)하세요.', keyboard=USER_KEYBOARD)
