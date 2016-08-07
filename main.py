@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 #
 # original:    https://github.com/yukuku/telebotuseri
-# modified by: Bak Yeon O @ http://bakyeono.netu
+# modified by: Bak Yeon O @ http://bakyeono.net
 # description: http://bakyeono.net/post/2015-08-24-using-telegram-bot-api.html
 # github:      https://github.com/bakyeono/using-telegram-bot-api
 #
@@ -586,7 +586,7 @@ def cmd_reord_rank(chat_id, text):
         stockall = stockall + '[' + str(stocknumber) + '] ' + aaa[0] + '\n'
         if aaa[0] == text:
             on = OrderNumber.get_or_insert(str(chat_id))
-            on.ordnum = stocknumber - 1
+            on.ordnum = stocknumber
             on.put()
     send_msg(chat_id, stockall)
     send_msg(chat_id, u'바꿀 위치에 해당하는 숫자를 입력해주세요.')
@@ -601,15 +601,26 @@ def cmd_reord_execute(chat_id, text):
         send_msg(chat_id, u'순서를 잘못 입력하셨습니다. 다시 확인해주세요.')
         return
     sl = StockList.get_by_id(str(chat_id))
+    oldrank = OrderNumber.get_by_id(str(chat_id))
+    newrank = int(text)
     sltemp = sl.info
     sindex = 1
     ReOrdKBD = extract_list(chat_id)
     NewStockList = []
     for aaa in sltemp:
-        if sindex == int(text):
-            send_msg(chat_id, aaa.stockname)
-            return
+        if oldrank < newrank:
+            if sindex < oldrank || sindex > newindex:
+                NewStockList[sindex-1] = aaa[0]
+            elif sindex <= newindex:
+                NewStockList[sindex-2] = aaa[0]
+            else:
+                NewStockList[oldrank] = aaa[0]
+#        if sindex == newrank:
+#            send_msg(chat_id, aaa.stockname)
+#            return
         sindex = sindex + 1
+    for aaa in NewStockList:
+        send_msg(chat_id, aaa)
     send_msg(chat_id, u'순서를 잘못 입력하셨습니다. 다시 확인해주세요.')    
     return
 
