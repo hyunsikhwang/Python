@@ -583,7 +583,7 @@ def cmd_reord_rank(chat_id, text):
     ReOrdKBD = extract_list(chat_id)
     for aaa in ReOrdKBD:
         stocknumber += 1
-        stockall = stockall + '[' + stocknumber + '] ' + aaa + '\n'
+        stockall = stockall + '[' + str(stocknumber) + '] ' + aaa + '\n'
     send_msg(chat_id, stockall)
     send_msg(chat_id, u'바꿀 위치에 해당하는 숫자를 입력해주세요.')
     return
