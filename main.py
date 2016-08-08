@@ -532,6 +532,7 @@ def cmd_editprice_val(chat_id, text):
             set_status(chat_id, ST_EDITP)
             return
         sindex = sindex + 1
+    cmd_editp(chat_id)
     return
 
 def cmd_editquantity(chat_id, text):
@@ -570,6 +571,7 @@ def cmd_editquantity_val(chat_id, text):
             set_status(chat_id, ST_EDITQ)
             return
         sindex = sindex + 1
+    cmd_editq(chat_id)
     return
 
 def cmd_reord_rank(chat_id, text):
