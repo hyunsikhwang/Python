@@ -610,7 +610,7 @@ def cmd_reord_execute(chat_id, text):
             NewStockList[idx-1] = ReOrdKBD[idx]
     else:
         for idx in range(newrank+1, oldrank+1):
-            NewStockList[idx-1] = ReOrdKBD[idx]
+            NewStockList[idx-1] = ReOrdKBD[idx-2]
     NewStockList[newrank-1] = ReOrdKBD[oldrank-1]
     for aaa in NewStockList:
         send_msg(chat_id, aaa[0])
