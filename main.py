@@ -291,7 +291,7 @@ def view_list(chat_id):
     entireList = ""
 
     for aaa in sltemp:
-        entireList += aaa.stockname + "\t" + aaa.stockcode + "\t" + aaa.avgprice + "\t" + aaa.noofshare +"\n"
+        entireList += aaa.stockname + "\t" + aaa.stockcode + "\t" + str(aaa.avgprice) + "\t" + str(aaa.noofshare) +"\n"
 
     send_msg(chat_id, entireList)
 
