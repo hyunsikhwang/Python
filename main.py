@@ -615,6 +615,7 @@ def cmd_reord_execute(chat_id, text):
     for aaa in NewStockList:
         send_msg(chat_id, aaa[0])
 #    send_msg(chat_id, u'순서를 잘못 입력하셨습니다. 다시 확인해주세요.')    
+    cmd_reord(chat_id)
     return
 
 def cmd_help(chat_id):
