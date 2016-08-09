@@ -677,11 +677,12 @@ def cmd_view(chat_id):
 
     s = CollectIndex(url_index + 'KOSPI')
     s = s + CollectIndex(url_index + 'KOSDAQ')
-    
+    vtotal = 0
     for aaa in quote_list:
 #        send_msg(chat_id, url_quote + aaa)
         temp = CollectPrices(url_quote + aaa[0])
         s += temp[0] + "\t" + format(aaa[1] * temp[1], ",") + "\n"
+        vtotal += aaa[1] * temp[1]
 #    s = s + CollectPrices(url_quote + '058470')
 #    s = s + CollectPrices(url_quote + '042700')
 #    s = s + CollectPrices(url_quote + '003650')
@@ -695,6 +696,7 @@ def cmd_view(chat_id):
 #    요일 식별을 위한 테스트 목적으로 아래의 두 줄이 추가되었음
 #    now = time.gmtime(time.time() + 3600 * 9)
 #    s = s + str(now.tm_wday)
+    s = s + "오늘의 총 변동금액은 " + format(vtotal, ",") + " 원 입니다."
     send_msg(chat_id, s)
 
 def cmd_reord(chat_id):
