@@ -309,6 +309,7 @@ def extract_list(chat_id):
         entireList.append([aaa.stockname])
     return entireList
 
+
 def extract_quote(chat_id):
     u"""extract_quote: 종목 리스트 출력 (삭제 목적)
     chat_id:          (integer) 채팅 ID
@@ -317,9 +318,19 @@ def extract_quote(chat_id):
     sltemp = sl.info
     entireList = []
     for aaa in sltemp:
-        entireList.append(str(aaa.stockcode))
+        entireList.append([str(aaa.stockcode), aaa.noofshare])
     return entireList
 
+def extract_quantuty(chat_id):
+    u"""extract_quantity: 종목 수량 추출
+    chat_id:    (integer) 채팅 ID
+    """
+    sl = StockList.get_by_id(str(chat_id))
+    sltemp = sl.info
+    entireList = []
+    for aaa in sltemp:
+        entireList.append([aaa.noofshare])
+    return entireList
 
 def set_stocklist(chat_id, sname, scode):
     u"""set_stocklist: 사용자별 종목 등록
@@ -663,11 +674,14 @@ def cmd_view(chat_id):
     """
     #s = CollectPrices(url_index)
     quote_list = extract_quote(chat_id)
+
     s = CollectIndex(url_index + 'KOSPI')
     s = s + CollectIndex(url_index + 'KOSDAQ')
+    
     for aaa in quote_list:
 #        send_msg(chat_id, url_quote + aaa)
-        s += CollectPrices(url_quote + aaa)[0]
+        temp = CollectPrices(url_quote + aaa[0])
+        s += temp[0] + "\t" + aaa[1] * temp[1]
 #    s = s + CollectPrices(url_quote + '058470')
 #    s = s + CollectPrices(url_quote + '042700')
 #    s = s + CollectPrices(url_quote + '003650')
