@@ -629,13 +629,13 @@ def cmd_reord_execute(chat_id, text):
         for idx in range(newrank+1, oldrank+1):
             #NewStockList[idx-1] = ReOrdKBD[idx-2]
             NewStockList[idx-1].stockname = sltemp[idx-2].stockname
-            NewStockList[idx-1].stockcode = sltemp[idx-2].stockcore
+            NewStockList[idx-1].stockcode = sltemp[idx-2].stockcode
             NewStockList[idx-1].noofshare = sltemp[idx-2].noofshare
             NewStockList[idx-1].avgprice = sltemp[idx-2].avgprice
 
     #NewStockList[newrank-1] = ReOrdKBD[oldrank-1]
     NewStockList[newrank-1].stockname = sltemp[oldrank-1].stockname
-    NewStockList[newrank-1].stockcore = sltemp[oldrank-1].stockcode
+    NewStockList[newrank-1].stockcode = sltemp[oldrank-1].stockcode
     NewStockList[newrank-1].noofshare = sltemp[oldrank-1].noofshare
     NewStockList[newrank-1].avgprice = sltemp[oldrank-1].avgprice
 
