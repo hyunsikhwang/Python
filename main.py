@@ -622,15 +622,28 @@ def cmd_reord_execute(chat_id, text):
         for idx in range(oldrank, newrank):
             #NewStockList[idx-1] = ReOrdKBD[idx]
             NewStockList[idx-1].stockname = sltemp[idx].stockname
+            NewStockList[idx-1].stockcode = sltemp[idx].stockcode
+            NewStockList[idx-1].noofshare = sltemp[idx].noofshare
+            NewStockList[idx-1].avgprice = sltemp[idx].avgprice
     else:
         for idx in range(newrank+1, oldrank+1):
             #NewStockList[idx-1] = ReOrdKBD[idx-2]
             NewStockList[idx-1].stockname = sltemp[idx-2].stockname
+            NewStockList[idx-1].stockcode = sltemp[idx-2].stockcore
+            NewStockList[idx-1].noofshare = sltemp[idx-2].noofshare
+            NewStockList[idx-1].avgprice = sltemp[idx-2].avgprice
+
     #NewStockList[newrank-1] = ReOrdKBD[oldrank-1]
     NewStockList[newrank-1].stockname = sltemp[oldrank-1].stockname
+    NewStockList[newrank-1].stockcore = sltemp[oldrank-1].stockcode
+    NewStockList[newrank-1].noofshare = sltemp[oldrank-1].noofshare
+    NewStockList[newrank-1].avgprice = sltemp[oldrank-1].avgprice
 
-    for aaa in NewStockList:
-        send_msg(chat_id, aaa.stockname)
+    sl.info = NewStockList
+    sl.put()
+
+#    for aaa in NewStockList:
+#        send_msg(chat_id, aaa.stockname)
 #    send_msg(chat_id, u'순서를 잘못 입력하셨습니다. 다시 확인해주세요.')    
     cmd_reord(chat_id)
     return
