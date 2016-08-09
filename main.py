@@ -151,7 +151,7 @@ def CollectPrices(url):
     price_ud = price_t - price_y
     price_udrate = price_ud / float(price_y) * 100.0
     price_t = format(price_t, ",")
-    return [u"{0} {1:8} {2:8} {3:.2f}%\n".format(preformat_cjk(name, 14, "<", "_"), quote, price_t, price_udrate), price_ud]
+    return [u"{0} {1:8} {2:8} {3:.2f}%".format(preformat_cjk(name, 14, "<", "_"), quote, price_t, price_udrate), price_ud]
 
 
 def MergeList(reflist):
@@ -681,7 +681,7 @@ def cmd_view(chat_id):
     for aaa in quote_list:
 #        send_msg(chat_id, url_quote + aaa)
         temp = CollectPrices(url_quote + aaa[0])
-        s += temp[0] + "\t" + str(aaa[1] * temp[1])
+        s += temp[0] + "\t" + str(aaa[1] * temp[1]) + "\n"
 #    s = s + CollectPrices(url_quote + '058470')
 #    s = s + CollectPrices(url_quote + '042700')
 #    s = s + CollectPrices(url_quote + '003650')
