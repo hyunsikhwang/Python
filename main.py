@@ -696,7 +696,7 @@ def cmd_view(chat_id):
 #    요일 식별을 위한 테스트 목적으로 아래의 두 줄이 추가되었음
 #    now = time.gmtime(time.time() + 3600 * 9)
 #    s = s + str(now.tm_wday)
-    s = s + "오늘의 총 변동금액은 " + format(vtotal, ",") + " 원 입니다."
+    s = s + u'오늘의 총 변동금액은 ' + format(vtotal, ",") + u' 원 입니다.'
     send_msg(chat_id, s)
 
 def cmd_reord(chat_id):
