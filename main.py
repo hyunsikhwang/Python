@@ -613,6 +613,9 @@ def cmd_reord_execute(chat_id, text):
     #NewStockList = ReOrdKBD[:]
     NewStockList = sltemp[:]
 
+    for aaa in NewStockList:
+        send_msg(chat_id, aaa.stockname)
+
     if oldrank < newrank:
         for idx in range(oldrank, newrank):
             #NewStockList[idx-1] = ReOrdKBD[idx]
