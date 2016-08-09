@@ -148,9 +148,10 @@ def CollectPrices(url):
     quote = url[-6:]
     price_t = js['result']['areas'][0]['datas'][0]['nv']
     price_y = js['result']['areas'][0]['datas'][0]['sv']
-    price_ud = (price_t - price_y) / float(price_y) * 100.0
+    price_ud = price_t - price_y
+    price_udrate = price_ud / float(price_y) * 100.0
     price_t = format(price_t, ",")
-    return [u"{0} {1:8} {2:8} {3:.2f}%\n".format(preformat_cjk(name, 14, "<", "_"), quote, price_t, price_ud)]
+    return [u"{0} {1:8} {2:8} {3:.2f}%\n".format(preformat_cjk(name, 14, "<", "_"), quote, price_t, price_udrate), price_ud]
 
 
 def MergeList(reflist):
@@ -292,7 +293,7 @@ def view_list(chat_id):
     entireList = ""
 
     for aaa in sltemp:
-        entireList += aaa.stockname + "\t" + aaa.stockcode + "\t" + str(aaa.avgprice) + "\t" + str(aaa.noofshare) +"\n"
+        entireList += aaa.stockname + "\t" + aaa.stockcode + "\t" + format(str(aaa.avgprice), ",") + "\t" + format(str(aaa.noofshare), ",") +"\n"
 
     send_msg(chat_id, entireList)
 
