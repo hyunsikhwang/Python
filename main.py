@@ -584,11 +584,15 @@ def cmd_reord_rank(chat_id, text):
     set_status(chat_id, ST_REORD_RANK)
     stockall = ''
     stocknumber = 0
-    ReOrdKBD = extract_list(chat_id)
-    for aaa in ReOrdKBD:
+
+    #ReOrdKBD = extract_list(chat_id)
+    sl = StockList.get_by_id(str(chat_id))
+    sltemp = sl.info
+
+    for aaa in sltemp:
         stocknumber += 1
-        stockall = stockall + '[' + str(stocknumber) + '] ' + aaa[0] + '\n'
-        if aaa[0] == text:
+        stockall = stockall + '[' + str(stocknumber) + '] ' + aaa[0].stockname + '\n'
+        if aaa[0].stockname == text:
             on = OrderNumber.get_or_insert(str(chat_id))
             on.ordnum = stocknumber
             on.put()
@@ -610,12 +614,9 @@ def cmd_reord_execute(chat_id, text):
 
     sindex = 1
 
-    ReOrdKBD = extract_list(chat_id)
+    #ReOrdKBD = extract_list(chat_id)
     #NewStockList = ReOrdKBD[:]
     NewStockList = copy.deepcopy(sltemp)
-
-    for aaa in NewStockList:
-        send_msg(chat_id, aaa.stockname)
 
     if oldrank < newrank:
         for idx in range(oldrank, newrank):
@@ -668,8 +669,17 @@ def cmd_view(chat_id):
 
 def cmd_reord(chat_id):
     set_status(chat_id, ST_REORD)
-    ReOrdKBD = extract_list(chat_id)
+
+    #ReOrdKBD = extract_list(chat_id)
+
+    sl = StockList.get_by_id(str(chat_id))
+    sltemp = sl.info
+
+    ReOrdKBD = []
+    for aaa in sltemp:
+        ReOrdKBD.append([aaa.stockname])
     ReOrdKBD.append([CMD_NONE])
+    
     USER_KEYBOARD = ReOrdKBD
     send_msg(chat_id, u'재배치할 종목 이름을 입력(선택)하세요.', keyboard=USER_KEYBOARD)
 
