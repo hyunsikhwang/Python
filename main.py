@@ -30,6 +30,7 @@ import time
 import pprint
 
 import unicodedata
+import copy
 
 # 파싱 주소
 url_quote = "http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_ITEM:"  # 종목 시세 주소
@@ -611,7 +612,7 @@ def cmd_reord_execute(chat_id, text):
 
     ReOrdKBD = extract_list(chat_id)
     #NewStockList = ReOrdKBD[:]
-    NewStockList = sltemp[:]
+    NewStockList = copy.deepcopy(sltemp)
 
     for aaa in NewStockList:
         send_msg(chat_id, aaa.stockname)
