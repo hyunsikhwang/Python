@@ -625,7 +625,7 @@ def cmd_reord_execute(chat_id, text):
     NewStockList[newrank-1].stockname = sltemp[oldrank-1].stockname
 
     for aaa in NewStockList:
-        send_msg(chat_id, aaa[0].stockname)
+        send_msg(chat_id, aaa.stockname)
 #    send_msg(chat_id, u'순서를 잘못 입력하셨습니다. 다시 확인해주세요.')    
     cmd_reord(chat_id)
     return
