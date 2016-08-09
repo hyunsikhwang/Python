@@ -591,8 +591,8 @@ def cmd_reord_rank(chat_id, text):
 
     for aaa in sltemp:
         stocknumber += 1
-        stockall = stockall + '[' + str(stocknumber) + '] ' + aaa[0].stockname + '\n'
-        if aaa[0].stockname == text:
+        stockall = stockall + '[' + str(stocknumber) + '] ' + aaa.stockname + '\n'
+        if aaa.stockname == text:
             on = OrderNumber.get_or_insert(str(chat_id))
             on.ordnum = stocknumber
             on.put()
