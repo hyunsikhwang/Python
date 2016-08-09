@@ -532,6 +532,7 @@ def cmd_editprice_val(chat_id, text):
             sl.put()
             send_msg(chat_id, esname.name + u'의 매수 단가가 ' + text + u'원으로 수정되었습니다.')
             set_status(chat_id, ST_EDITP)
+            cmd_editp(chat_id)
             return
         sindex = sindex + 1
     cmd_editp(chat_id)
@@ -571,6 +572,7 @@ def cmd_editquantity_val(chat_id, text):
             sl.put()
             send_msg(chat_id, esname.name + u'의 보유 주식수가 ' + text + u' 으로 수정되었습니다.')
             set_status(chat_id, ST_EDITQ)
+            cmd_editq(chat_id)
             return
         sindex = sindex + 1
     cmd_editq(chat_id)
