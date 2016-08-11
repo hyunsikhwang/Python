@@ -151,7 +151,7 @@ def CollectPrices(url):
     price_ud = price_t - price_y
     price_udrate = price_ud / float(price_y) * 100.0
     price_t = format(price_t, ",")
-    return [u"{0} {1:8} {2:8} {3:.2f}%".format(preformat_cjk(name, 14, "<", "_"), quote, price_t, price_udrate), price_ud]
+    return [u"{0} {1:8} {2:8} {3:.2f}%".format(preformat_cjk(name, 14, "<", "_"), quote, price_t, price_udrate), price_ud, price_t, price_y]
 
 
 def MergeList(reflist):
@@ -678,13 +678,15 @@ def cmd_view(chat_id):
     s = CollectIndex(url_index + 'KOSPI')
     s = s + CollectIndex(url_index + 'KOSDAQ')
     vtotal = 0
-    stotal = 0
+    ttotal = 0
+    ytotal = 0
     for aaa in quote_list:
 #        send_msg(chat_id, url_quote + aaa)
         temp = CollectPrices(url_quote + aaa[0])
         s += temp[0] + "\t" + format(aaa[1] * temp[1], ",") + "\n"
         vtotal += aaa[1] * temp[1]
-        stotal += aaa[1] * temp[0]
+        ttotal += aaa[1] * temp[2]
+        ytotal += aaa[1] * temp[3]
 #    s = s + CollectPrices(url_quote + '058470')
 #    s = s + CollectPrices(url_quote + '042700')
 #    s = s + CollectPrices(url_quote + '003650')
@@ -698,7 +700,7 @@ def cmd_view(chat_id):
 #    요일 식별을 위한 테스트 목적으로 아래의 두 줄이 추가되었음
 #    now = time.gmtime(time.time() + 3600 * 9)
 #    s = s + str(now.tm_wday)
-    vratio = vtotal / (stotal - vtotal)
+    vratio = vtotal / ytotal
     s = s + u'오늘의 변동금액은 ' + format(vtotal, ",") + u' 원 입니다.\n'
     s = s + u'현재 평가액은 ' + format(stotal, ",") + u' 원 입니다.\n'
     s = s + u'현재 수익률은 ' + '{0:6.2f}'.format(vratio) + u' 입니다.'
