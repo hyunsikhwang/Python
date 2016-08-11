@@ -146,12 +146,12 @@ def CollectPrices(url):
     
     name = js['result']['areas'][0]['datas'][0]['nm']
     quote = url[-6:]
-    price_t = int(js['result']['areas'][0]['datas'][0]['nv'])
-    price_y = int(js['result']['areas'][0]['datas'][0]['sv'])
+    price_t = js['result']['areas'][0]['datas'][0]['nv']
+    price_y = js['result']['areas'][0]['datas'][0]['sv']
     price_ud = price_t - price_y
     price_udrate = price_ud / float(price_y) * 100.0
     price_t = format(price_t, ",")
-    return [u"{0} {1:8} {2:8} {3:.2f}%".format(preformat_cjk(name, 14, "<", "_"), quote, price_t, price_udrate), price_ud, price_t, price_y]
+    return [u"{0} {1:8} {2:8} {3:.2f}%".format(preformat_cjk(name, 14, "<", "_"), quote, price_t, price_udrate), price_ud, int(price_t), int(price_y)]
 
 
 def MergeList(reflist):
