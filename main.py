@@ -700,7 +700,7 @@ def cmd_view(chat_id):
 #    요일 식별을 위한 테스트 목적으로 아래의 두 줄이 추가되었음
 #    now = time.gmtime(time.time() + 3600 * 9)
 #    s = s + str(now.tm_wday)
-    vratio = vtotal / ytotal
+    vratio = vtotal / float(ytotal) * 100.0
     s = s + u'오늘의 변동금액은 ' + format(vtotal, ",") + u' 원 입니다.\n'
     s = s + u'현재 평가액은 ' + format(ttotal, ",") + u' 원 입니다.\n'
     s = s + u'현재 수익률은 ' + '{0:6.2f}'.format(vratio) + u'% 입니다.'
