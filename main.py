@@ -685,8 +685,8 @@ def cmd_view(chat_id):
         temp = CollectPrices(url_quote + aaa[0])
         s += temp[0] + "\t" + format(aaa[1] * temp[1], ",") + "\n"
         vtotal += aaa[1] * temp[1]
-        ttotal += aaa[1] * temp[2]
-        ytotal += aaa[1] * temp[3]
+        ttotal += aaa[1] * int(temp[2])
+        ytotal += aaa[1] * int(temp[3])
 #    s = s + CollectPrices(url_quote + '058470')
 #    s = s + CollectPrices(url_quote + '042700')
 #    s = s + CollectPrices(url_quote + '003650')
