@@ -146,8 +146,8 @@ def CollectPrices(url):
     
     name = js['result']['areas'][0]['datas'][0]['nm']
     quote = url[-6:]
-    price_t = js['result']['areas'][0]['datas'][0]['nv']
-    price_y = js['result']['areas'][0]['datas'][0]['sv']
+    price_t = int(js['result']['areas'][0]['datas'][0]['nv'])
+    price_y = int(js['result']['areas'][0]['datas'][0]['sv'])
     price_ud = price_t - price_y
     price_udrate = price_ud / float(price_y) * 100.0
     price_t = format(price_t, ",")
