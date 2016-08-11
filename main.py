@@ -703,7 +703,7 @@ def cmd_view(chat_id):
     vratio = vtotal / ytotal
     s = s + u'오늘의 변동금액은 ' + format(vtotal, ",") + u' 원 입니다.\n'
     s = s + u'현재 평가액은 ' + format(ttotal, ",") + u' 원 입니다.\n'
-    s = s + u'현재 수익률은 ' + '{0:6.2f}'.format(vratio) + u'%% 입니다.'
+    s = s + u'현재 수익률은 ' + '{0:6.2f}'.format(vratio) + u'% 입니다.'
     send_msg(chat_id, s)
 
 def cmd_reord(chat_id):
