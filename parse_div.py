@@ -14,4 +14,4 @@ for record in doc.xpath('//item'):
     stockcode = record.xpath("./shotnIsin/text()")
     stockname = record.xpath("./korSecnNm/text()")
     stockdiv = record.xpath("./pval/text()") 
-    print stockcode, stockname, stockdiv
+    print stockcode, stockname.encode('utf-8'), stockdiv
