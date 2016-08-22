@@ -347,7 +347,8 @@ def set_stocklist(chat_id, sname, scode):
         if aaa.stockname == sname:
             send_msg(chat_id, u'이미 등록되어있는 종목입니다.')
             return
-    sltemp.append(ShareInfo(stockname = sname, stockcode = scode))
+    # 새로운 레코드 추가함 / 보유주식수와 가격은 0 으로 default 처리
+    sltemp.append(ShareInfo(stockname = sname, stockcode = scode, noofshare = 0, avgprice = 0))
     sl.info = sltemp
     #sl.info = [ShareInfo(stockname = stockinfo)]
     sl.put()
