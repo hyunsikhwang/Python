@@ -9,5 +9,4 @@ doc = etree.parse(fp)
 fp.close()
 
 for record in doc.xpath('//item'):
-    for x in record.xpath("./shotnIsin/text()"):
-        print "\t", x
+    print record.xpath("./shotnIsin/text()\t"), record.xpath("./korSecnNm/text()\t"), record.xpath("./pval/text()\t") 
