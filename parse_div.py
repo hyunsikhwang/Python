@@ -9,4 +9,6 @@ doc = etree.parse(fp)
 fp.close()
 
 for record in doc.xpath('//item'):
-    print record.xpath("./shotnIsin/text()\t"), record.xpath("./korSecnNm/text()\t"), record.xpath("./pval/text()\t") 
+    stockcode = record.xpath("./shotnIsin/text()")
+    stockname = record.xpath("./korSecnNm/text()")
+    stockdiv = record.xpath("./pval/text()") 
