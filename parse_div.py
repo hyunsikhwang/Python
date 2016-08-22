@@ -13,5 +13,5 @@ fp.close()
 for record in doc.xpath('//item'):
     stockcode = record.xpath("./shotnIsin/text()")
     stockname = record.xpath("./korSecnNm/text()")
-    stockdiv = record.xpath("./pval/text()") 
+    stockdiv = record.xpath("./divAmtPerStk/text()") 
     print stockcode[0], stockname[0], stockdiv[0]
