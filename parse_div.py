@@ -1,3 +1,5 @@
+#-*- coding: utf-8 -*-
+
 import urllib2
 from lxml import etree
 
@@ -12,3 +14,4 @@ for record in doc.xpath('//item'):
     stockcode = record.xpath("./shotnIsin/text()")
     stockname = record.xpath("./korSecnNm/text()")
     stockdiv = record.xpath("./pval/text()") 
+    print stockcode, stockname, stockdiv
