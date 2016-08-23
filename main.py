@@ -689,10 +689,12 @@ def cmd_view(chat_id):
 #        send_msg(chat_id, url_quote + aaa)
         temp = CollectPrices(url_quote + aaa[0])
         if temp[4] is None:
+            temp[4] = 0
             eps = 0
         else:
             eps = float(temp[2]) / float(temp[4])
         if temp[5] is None:
+            temp[5] = 0
             bps = 0
         else:
             bps = float(temp[2]) / float(temp[5])
