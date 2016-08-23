@@ -688,9 +688,11 @@ def cmd_view(chat_id):
         temp = CollectPrices(url_quote + aaa[0])
         if temp[4] is None:
             temp[4] = 0
+        temp[4] = temp / float(temp[4])
         if temp[5] is None:
             temp[5] = 0
-        s += temp[0] + "\t" + "{:,d}".format(int(temp[4])) + "\t" + "{:,d}".format(int(temp[5])) + "\t" + format(aaa[1] * temp[1], ",") + "\n"
+        temp[5] = temp / float(temp[5])
+        s += temp[0] + "\t" + "{0:6.2f}".format(int(temp[4])) + "\t" + "{0:6.2f}".format(int(temp[5])) + "\t" + format(aaa[1] * temp[1], ",") + "\n"
         vtotal += aaa[1] * temp[1]
         ttotal += aaa[1] * int(temp[2])
         ytotal += aaa[1] * int(temp[3])
