@@ -2,6 +2,10 @@
 
 import urllib2
 from lxml import etree
+import time
+
+#processing start
+start_time = time.time()
 
 url_KSP ='http://api.seibro.or.kr/openapi/service/StockSvc/getDividendRank?ServiceKey=CJL9jdtz5gsb4z4PpjFpCDjdz/UIk8cFAGgHbJvgLEJxPWLZaTx3wIcBNPkGu/KIKsI1zAy1XtfQJLG0VV0vVg==&stkTpcd=1&listTpcd=11&rankTpcd=1&year=2015'
 url_KSQ ='http://api.seibro.or.kr/openapi/service/StockSvc/getDividendRank?ServiceKey=CJL9jdtz5gsb4z4PpjFpCDjdz/UIk8cFAGgHbJvgLEJxPWLZaTx3wIcBNPkGu/KIKsI1zAy1XtfQJLG0VV0vVg==&stkTpcd=1&listTpcd=12&rankTpcd=1&year=2015'
@@ -24,3 +28,9 @@ for record in doc_Stock:
     for sm in stocklist:
         if stockcode[0] == sm:
             print stockcode[0], stockname[0], stockdiv[0]
+
+#processing end
+end_time = time.time()
+
+#
+print end_time - start_time
