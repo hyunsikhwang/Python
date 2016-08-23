@@ -17,5 +17,5 @@ for record in doc.xpath('//item'):
     stockdiv = record.xpath("./divAmtPerStk/text()")
     
     for sm in stocklist:
-        if stockcode == sm:
+        if stockcode[0] == sm:
             print stockcode[0], stockname[0], stockdiv[0]
