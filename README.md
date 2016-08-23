@@ -20,6 +20,8 @@
 4. parse_1_nv.py : 네이버 종목별 주가 정보에서 종목별 parsing
 
 
+5. parse_div.py : 최근 주당 배당금 정보를 parsing
+
 기타 : python 2.7 기준
 
 
