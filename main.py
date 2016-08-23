@@ -686,6 +686,10 @@ def cmd_view(chat_id):
     for aaa in quote_list:
 #        send_msg(chat_id, url_quote + aaa)
         temp = CollectPrices(url_quote + aaa[0])
+        if temp[4] == NonType:
+            temp[4] = 0
+        if temp[5] == NonType:
+            temp[5] = 0
         s += temp[0] + "\t" + "{:,d}".format(int(temp[4])) + "\t" + "{:,d}".format(int(temp[5])) + "\t" + format(aaa[1] * temp[1], ",") + "\n"
         vtotal += aaa[1] * temp[1]
         ttotal += aaa[1] * int(temp[2])
