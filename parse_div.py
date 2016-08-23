@@ -9,7 +9,9 @@ from datetime import datetime
 start_time = time.time()
 
 # 올해
-thisyear=datetime.today().year
+thisyear = datetime.today().year
+
+print thisyear
 
 # year 파라미터를 "오늘 기준 년도 - 1" 로 설정해야 함
 url_KSP ='http://api.seibro.or.kr/openapi/service/StockSvc/getDividendRank?ServiceKey=CJL9jdtz5gsb4z4PpjFpCDjdz/UIk8cFAGgHbJvgLEJxPWLZaTx3wIcBNPkGu/KIKsI1zAy1XtfQJLG0VV0vVg==&stkTpcd=1&listTpcd=11&rankTpcd=1&year=' + str(thisyear)
