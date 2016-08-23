@@ -694,7 +694,8 @@ def cmd_view(chat_id):
             temp[5] = 0
         else:
             temp[5] = float(temp[2]) / float(temp[5])
-        s += temp[0] + "\t" + "PER {0:6.2f}".format(temp[4]) + "\t" + "PBR {0:6.2f}".format(temp[5]) + "\t" + format(aaa[1] * temp[1], ",") + "\n"
+        s += temp[0] + "\t" + "E {0:6.2f}".format(temp[4]) + "\t" + "B {0:6.2f}".format(temp[5]) + "\n"
+        # + format(aaa[1] * temp[1], ",") + "\n"
         vtotal += aaa[1] * temp[1]
         ttotal += aaa[1] * int(temp[2])
         ytotal += aaa[1] * int(temp[3])
