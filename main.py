@@ -751,7 +751,7 @@ def cmd_reord(chat_id):
 
 
 def cmd_div(chat_id):
-    send_msg(chat_id, u'배당금를 일괄 업데이트 합니다.')
+    send_msg(chat_id, u'등록된 종목의 배당금을 일괄 업데이트 합니다.')
 
 
 def cmd_broadcast(chat_id, text):
