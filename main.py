@@ -148,10 +148,12 @@ def CollectPrices(url):
     quote = url[-6:]
     price_t = js['result']['areas'][0]['datas'][0]['nv']
     price_y = js['result']['areas'][0]['datas'][0]['sv']
+    eps = js['result']['areas'][0]['datas'][0]['eps']
+    bps = js['result']['areas'][0]['datas'][0]['bps']
     price_ud = price_t - price_y
     price_udrate = price_ud / float(price_y) * 100.0
     price_tc = format(price_t, ",")
-    return [u"{0} {1:8} {2:8} {3:.2f}%".format(preformat_cjk(name, 14, "<", "_"), quote, price_tc, price_udrate), price_ud, price_t, price_y]
+    return [u"{0} {1:8} {2:8} {3:.2f}%".format(preformat_cjk(name, 14, "<", "_"), quote, price_tc, price_udrate), price_ud, price_t, price_y, eps, bps]
 
 
 def MergeList(reflist):
@@ -684,7 +686,7 @@ def cmd_view(chat_id):
     for aaa in quote_list:
 #        send_msg(chat_id, url_quote + aaa)
         temp = CollectPrices(url_quote + aaa[0])
-        s += temp[0] + "\t" + format(aaa[1] * temp[1], ",") + "\n"
+        s += temp[0] + "\t" + temp[4] + "\t" + temp[5] + "\t" + format(aaa[1] * temp[1], ",") + "\n"
         vtotal += aaa[1] * temp[1]
         ttotal += aaa[1] * int(temp[2])
         ytotal += aaa[1] * int(temp[3])
