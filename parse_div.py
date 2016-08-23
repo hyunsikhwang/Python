@@ -14,7 +14,7 @@ fp.close()
 
 doc_Stock = doc_KSP.xpath('//item') + doc_KSQ.xpath('//item')
 
-stocklist = ['058470', '026960', '042700', '003650', '052330', '036190', '114090', '114090', '034230']
+stocklist = ['058470', '026960', '042700', '003650', '052330', '036190', '114090', '051360', '034230']
 
 for record in doc_Stock:
     stockcode = record.xpath("./shotnIsin/text()")
