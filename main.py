@@ -683,22 +683,26 @@ def cmd_view(chat_id):
     vtotal = 0
     ttotal = 0
     ytotal = 0
+    epstotal = 0
+    bpstotal = 0
     for aaa in quote_list:
 #        send_msg(chat_id, url_quote + aaa)
         temp = CollectPrices(url_quote + aaa[0])
         if temp[4] is None:
-            temp[4] = 0
+            eps = 0
         else:
-            temp[4] = float(temp[2]) / float(temp[4])
+            eps = float(temp[2]) / float(temp[4])
         if temp[5] is None:
-            temp[5] = 0
+            bps = 0
         else:
-            temp[5] = float(temp[2]) / float(temp[5])
-        s += temp[0] + "\t" + "E {0:6.2f}".format(temp[4]) + "\t" + "B {0:6.2f}".format(temp[5]) + "\n"
+            bps = float(temp[2]) / float(temp[5])
+        s += temp[0] + "\t" + "E {0:6.2f}".format(eps) + "\t" + "B {0:6.2f}".format(bps) + "\n"
         # + format(aaa[1] * temp[1], ",") + "\n"
         vtotal += aaa[1] * temp[1]
         ttotal += aaa[1] * int(temp[2])
         ytotal += aaa[1] * int(temp[3])
+        epstotal += aaa[1] * int(temp[4])
+        bpstotal += aaa[1] * int(temp[5])
 #    s = s + CollectPrices(url_quote + '058470')
 #    s = s + CollectPrices(url_quote + '042700')
 #    s = s + CollectPrices(url_quote + '003650')
@@ -713,9 +717,13 @@ def cmd_view(chat_id):
 #    now = time.gmtime(time.time() + 3600 * 9)
 #    s = s + str(now.tm_wday)
     vratio = vtotal / float(ytotal) * 100.0
+    per = ttotal / float(epstotal)
+    pbr = ttotal / float(bpstotal)
     s = s + u'오늘의 변동금액은 ' + format(vtotal, ",") + u' 원 입니다.\n'
     s = s + u'현재 평가액은 ' + format(ttotal, ",") + u' 원 입니다.\n'
-    s = s + u'현재 수익률은 ' + '{0:6.2f}'.format(vratio) + u'% 입니다.'
+    s = s + u'현재 수익률은 ' + '{0:6.2f}'.format(vratio) + u'% 입니다.\n'
+    s = s + u'현재 PER 은 ' + '{0:6.2f}'.format(per) + u' 입니다.\n'
+    s = s + u'현재 PBR 은 ' + '{0:6.2f}'.format(pbr) + u' 입니다.'
     send_msg(chat_id, s)
 
 def cmd_reord(chat_id):
