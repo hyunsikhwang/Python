@@ -9,9 +9,13 @@ url_KSQ ='http://api.seibro.or.kr/openapi/service/StockSvc/getDividendRank?Servi
 fp = urllib2.urlopen(url_KSQ)
 doc = etree.parse(fp)
 fp.close()
+stocklist = ['058470', '026960', '042700', '003650', '052330', '036190', '114090', '114090', '034230']
 
 for record in doc.xpath('//item'):
     stockcode = record.xpath("./shotnIsin/text()")
     stockname = record.xpath("./korSecnNm/text()")
-    stockdiv = record.xpath("./divAmtPerStk/text()") 
-    print stockcode[0], stockname[0], stockdiv[0]
+    stockdiv = record.xpath("./divAmtPerStk/text()")
+    
+    for sm in stocklist
+        if stockcode == sm:
+            print stockcode[0], stockname[0], stockdiv[0]
