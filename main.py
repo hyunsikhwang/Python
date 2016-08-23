@@ -180,6 +180,7 @@ CMD_NONE      = '/none'
 CMD_HELP      = '/help'
 CMD_VIEW      = '/view'
 CMD_REORD     = '/reord'
+CMD_DIV       = '/div'
 CMD_BROADCAST = '/broadcast'
 
 # 봇 사용법 & 메시지
@@ -194,6 +195,7 @@ USAGE = u"""[사용법] 아래 명령어를 메시지로 보내거나 버튼을 
 /none  - (종목 추가/삭제 종료)
 /view  - (수동 실행)
 /reord - (종목 순서 재배치)
+/div   - (종목 배당금 업데이트)
 /help  - (이 도움말 보여주기)
 """
 MSG_START = u'봇을 시작합니다.'
@@ -201,7 +203,7 @@ MSG_STOP  = u'봇을 정지합니다.'
 
 # 커스텀 키보드
 CUSTOM_KEYBOARD = [
-        [CMD_START, CMD_STOP, CMD_HELP],
+        [CMD_START, CMD_STOP, CMD_HELP, CMD_DIV],
         [CMD_ADD, CMD_DEL, CMD_LIST, CMD_NONE],
         [CMD_EDITP, CMD_EDITQ, CMD_VIEW, CMD_REORD],
         ]
@@ -220,6 +222,7 @@ ST_ECHO, ST_ADD, ST_DEL, ST_EDITP, ST_EDITQ, ST_EDITP_VAL, ST_EDITQ_VAL, ST_REOR
 # 사용자가 /eq    누르면 종목 수량수정 모드 진입
 # 사용자가 /list  누르면 종목 열람 
 # 사용자가 /reord 누르면 종목 순서 재배치 모드 진입
+# 사용자가 /div   누르면 종목 배당금액 일괄 업데이트
 # 사용자가 /none  누르면 종목 추가/삭제/수정 모드 종료
 
 class EnableStatus(ndb.Model):
@@ -665,6 +668,7 @@ def cmd_reord_execute(chat_id, text):
     cmd_reord(chat_id)
     return
 
+
 def cmd_help(chat_id):
     u"""cmd_help: 봇 사용법 메시지 발송
     chat_id: (integer) 채팅 ID
@@ -728,6 +732,7 @@ def cmd_view(chat_id):
     s = s + u'현재 PBR 은 ' + '{0:6.2f}'.format(pbr) + u' 입니다.'
     send_msg(chat_id, s)
 
+
 def cmd_reord(chat_id):
     set_status(chat_id, ST_REORD)
 
@@ -744,6 +749,11 @@ def cmd_reord(chat_id):
     USER_KEYBOARD = ReOrdKBD
     send_msg(chat_id, u'재배치할 종목 이름을 입력(선택)하세요.', keyboard=USER_KEYBOARD)
 
+
+def cmd_div(chat_id):
+    send_msg(chat_id, u'배당금를 일괄 업데이트 합니다.')
+
+
 def cmd_broadcast(chat_id, text):
     u"""cmd_broadcast: 봇이 활성화된 모든 채팅에 메시지 방송
     chat_id: (integer) 채팅 ID
@@ -751,6 +761,7 @@ def cmd_broadcast(chat_id, text):
     """
     send_msg(chat_id, u'메시지를 방송합니다.', keyboard=CUSTOM_KEYBOARD)
     broadcast(text)
+
 
 def cmd_echo(chat_id, text, reply_to):
     u"""cmd_echo: 사용자의 메시지를 따라서 답장
@@ -809,6 +820,9 @@ def process_cmds(msg):
         return
     if CMD_REORD == text:
         cmd_reord(chat_id)
+        return
+    if CMD_DIV == text:
+        cmd_div(chat_id)
         return
     if CMD_HELP == text:
         cmd_help(chat_id)
