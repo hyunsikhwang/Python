@@ -153,7 +153,7 @@ def CollectPrices(url):
     price_ud = price_t - price_y
     price_udrate = price_ud / float(price_y) * 100.0
     price_tc = format(price_t, ",")
-    return [u"{0} {1:8} {2:8} {3:.2f}%".format(preformat_cjk(name, 14, "<", "_"), quote, price_tc, price_udrate), price_ud, price_t, price_y, eps, bps]
+    return [u"{0} {1:8} {2:8} {3:.1f}%".format(preformat_cjk(name, 14, "<", "_"), quote, price_tc, price_udrate), price_ud, price_t, price_y, eps, bps]
 
 
 def MergeList(reflist):
@@ -702,7 +702,7 @@ def cmd_view(chat_id):
             bps = 0
         else:
             bps = float(temp[2]) / float(temp[5])
-        s += temp[0] + "\t" + "E {0:5.2f}".format(eps) + "\t" + "B {0:5.2f}".format(bps) + "\n"
+        s += temp[0] + "\t" + "E {0:4.1f}".format(eps) + "\t" + "B {0:4.1f}".format(bps) + "\n"
         # + format(aaa[1] * temp[1], ",") + "\n"
         vtotal += aaa[1] * temp[1]
         ttotal += aaa[1] * int(temp[2])
