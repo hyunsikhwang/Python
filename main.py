@@ -32,6 +32,8 @@ import pprint
 import unicodedata
 import copy
 
+from datetime import datetime
+
 # 파싱 주소
 url_quote = "http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_ITEM:"  # 종목 시세 주소
 url_index = "http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_INDEX:" # 인덱스 조회 주소
