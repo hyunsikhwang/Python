@@ -32,6 +32,7 @@ import pprint
 import unicodedata
 import copy
 
+from lxml import etree
 from datetime import datetime
 
 # 파싱 주소
