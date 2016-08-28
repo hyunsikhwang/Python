@@ -32,8 +32,6 @@ import pprint
 import unicodedata
 import copy
 
-from lxml import etree
-from datetime import datetime
 
 # 파싱 주소
 url_quote = "http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_ITEM:"  # 종목 시세 주소
@@ -754,32 +752,7 @@ def cmd_reord(chat_id):
 
 
 def cmd_div(chat_id):
-    #send_msg(chat_id, u'등록된 종목의 배당금을 일괄 업데이트 합니다.')
-    # 작년
-    lastyear = datetime.today().year - 1
-    
-    # year 파라미터를 "오늘 기준 년도 - 1" 로 설정해야 함
-    url_div_KSP ='http://api.seibro.or.kr/openapi/service/StockSvc/getDividendRank?ServiceKey=CJL9jdtz5gsb4z4PpjFpCDjdz/UIk8cFAGgHbJvgLEJxPWLZaTx3wIcBNPkGu/KIKsI1zAy1XtfQJLG0VV0vVg==&stkTpcd=1&listTpcd=11&rankTpcd=1&year=' + str(lastyear)
-    url_div_KSQ ='http://api.seibro.or.kr/openapi/service/StockSvc/getDividendRank?ServiceKey=CJL9jdtz5gsb4z4PpjFpCDjdz/UIk8cFAGgHbJvgLEJxPWLZaTx3wIcBNPkGu/KIKsI1zAy1XtfQJLG0VV0vVg==&stkTpcd=1&listTpcd=12&rankTpcd=1&year=' + str(lastyear)
-    
-    fp = urllib2.urlopen(url_div_KSP)
-    doc_KSP = etree.parse(fp)
-    fp = urllib2.urlopen(url_div_KSQ)
-    doc_KSQ = etree.parse(fp)
-    fp.close()
-    
-    doc_Stock = doc_KSP.xpath('//item') + doc_KSQ.xpath('//item')
-    
-    stocklist = ['058470', '026960', '042700', '003650', '052330', '036190', '114090', '051360', '034230']
-    
-    for record in doc_Stock:
-        stockcode = record.xpath("./shotnIsin/text()")
-        stockname = record.xpath("./korSecnNm/text()")
-        stockdiv = record.xpath("./divAmtPerStk/text()")
-        
-        for sm in stocklist:
-            if stockcode[0] == sm:
-                send_msg(chat_id, stockcode[0] + stockname[0] + stockdiv[0])
+    send_msg(chat_id, u'등록된 종목의 배당금을 일괄 업데이트 합니다.')
 
 
 def cmd_broadcast(chat_id, text):
