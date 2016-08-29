@@ -32,7 +32,7 @@ import pprint
 import unicodedata
 import copy
 
-from etree import lxml
+from lxml import etree
 
 # 파싱 주소
 url_quote = "http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_ITEM:"  # 종목 시세 주소
