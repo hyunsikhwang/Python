@@ -13,4 +13,4 @@ libraries:
 - name: webapp2
   version: 2.5.2
 - name: lxml    
- version: 3.6.4
+  version: latest
