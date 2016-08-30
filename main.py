@@ -782,7 +782,7 @@ def cmd_div(chat_id):
         for sm in stocklist:
             if stockcode[0] == sm:
                 #result_text = str(stockcode[0]) + str(stockname[0]).encode('utf-8') + str(stockdiv[0])
-                result_text = str(stockdiv[0])
+                result_text = str(stockcode[0]) + '\t' + str(stockdiv[0])
                 send_msg(chat_id, result_text)
 
 
