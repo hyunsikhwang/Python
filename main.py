@@ -781,7 +781,8 @@ def cmd_div(chat_id):
         
         for sm in stocklist:
             if stockcode[0] == sm:
-                send_msg(chat_id,  str(stockcode[0]) + str(stockname[0]) + str(stockdiv[0]))
+                result_text = str(stockcode[0]) + str(stockname[0]) + str(stockdiv[0])
+                send_msg(chat_id, result_text.encode('utf-8'))
 
 
 def cmd_broadcast(chat_id, text):
