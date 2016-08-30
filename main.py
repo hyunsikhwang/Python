@@ -764,24 +764,24 @@ def cmd_div(chat_id):
     url_div_KSP ='http://api.seibro.or.kr/openapi/service/StockSvc/getDividendRank?ServiceKey=CJL9jdtz5gsb4z4PpjFpCDjdz/UIk8cFAGgHbJvgLEJxPWLZaTx3wIcBNPkGu/KIKsI1zAy1XtfQJLG0VV0vVg==&stkTpcd=1&listTpcd=11&rankTpcd=1&year=' + str(lastyear)
     url_div_KSQ ='http://api.seibro.or.kr/openapi/service/StockSvc/getDividendRank?ServiceKey=CJL9jdtz5gsb4z4PpjFpCDjdz/UIk8cFAGgHbJvgLEJxPWLZaTx3wIcBNPkGu/KIKsI1zAy1XtfQJLG0VV0vVg==&stkTpcd=1&listTpcd=12&rankTpcd=1&year=' + str(lastyear)
     
-    #fp = urllib2.urlopen(url_div_KSP)
-    #doc_KSP = etree.parse(fp)
-    #fp = urllib2.urlopen(url_div_KSQ)
-    #doc_KSQ = etree.parse(fp)
-    #fp.close()
+    fp = urllib2.urlopen(url_div_KSP)
+    doc_KSP = etree.parse(fp)
+    fp = urllib2.urlopen(url_div_KSQ)
+    doc_KSQ = etree.parse(fp)
+    fp.close()
     
-    #doc_Stock = doc_KSP.xpath('//item') + doc_KSQ.xpath('//item')
+    doc_Stock = doc_KSP.xpath('//item') + doc_KSQ.xpath('//item')
     
     stocklist = ['058470', '026960', '042700', '003650', '052330', '036190', '114090', '051360', '034230']
     
-    #for record in doc_Stock:
-    #    stockcode = record.xpath("./shotnIsin/text()")
-    #    stockname = record.xpath("./korSecnNm/text()")
-    #    stockdiv = record.xpath("./divAmtPerStk/text()")
+    for record in doc_Stock:
+        stockcode = record.xpath("./shotnIsin/text()")
+        stockname = record.xpath("./korSecnNm/text()")
+        stockdiv = record.xpath("./divAmtPerStk/text()")
         
-    #    for sm in stocklist:
-    #        if stockcode[0] == sm:
-    #            send_msg(chat_id,  str(stockcode[0]) + str(stockname[0]) + str(stockdiv[0]))
+        for sm in stocklist:
+            if stockcode[0] == sm:
+                send_msg(chat_id,  str(stockcode[0]) + str(stockname[0]) + str(stockdiv[0]))
 
 
 def cmd_broadcast(chat_id, text):
