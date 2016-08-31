@@ -778,6 +778,7 @@ def cmd_div(chat_id):
 
     for aaa in sltemp:
         sList.append(str(aaa.stockcode))
+        send_msg(chat_id, str(aaa.stockcode))
 
     #slist = ['058470', '026960', '042700', '003650', '052330', '036190', '114090', '051360', '034230']
     
