@@ -777,7 +777,7 @@ def cmd_div(chat_id):
     stockList = []
 
     for aaa in sltemp:
-        stockList.append(aaa.stockcode)
+        stockList.append(str(aaa.stockcode))
 
     #stocklist = ['058470', '026960', '042700', '003650', '052330', '036190', '114090', '051360', '034230']
     
