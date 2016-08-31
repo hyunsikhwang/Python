@@ -774,19 +774,19 @@ def cmd_div(chat_id):
     
     sl = StockList.get_by_id(str(chat_id))
     sltemp = sl.info
-    stockList = []
+    sList = []
 
     for aaa in sltemp:
-        stockList.append(str(aaa.stockcode))
+        sList.append(str(aaa.stockcode))
 
-    #stocklist = ['058470', '026960', '042700', '003650', '052330', '036190', '114090', '051360', '034230']
+    #slist = ['058470', '026960', '042700', '003650', '052330', '036190', '114090', '051360', '034230']
     
     for record in doc_Stock:
         stockcode = record.xpath("./shotnIsin/text()")
         stockname = record.xpath("./korSecnNm/text()")
         stockdiv = record.xpath("./divAmtPerStk/text()")
         
-        for sm in stocklist:
+        for sm in slist:
             if stockcode[0] == sm:
                 #result_text = str(stockcode[0]) + str(stockname[0]).encode('utf-8') + str(stockdiv[0])
                 result_text = str(stockcode[0]) + '\t' + str(stockdiv[0])
