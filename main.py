@@ -772,7 +772,14 @@ def cmd_div(chat_id):
     
     doc_Stock = doc_KSP.xpath('//item') + doc_KSQ.xpath('//item')
     
-    stocklist = ['058470', '026960', '042700', '003650', '052330', '036190', '114090', '051360', '034230']
+    sl = StockList.get_by_id(str(chat_id))
+    sltemp = sl.info
+    stockList = ""
+
+    for aaa in sltemp:
+        stockList.append(aaa.stockcode)
+
+    #stocklist = ['058470', '026960', '042700', '003650', '052330', '036190', '114090', '051360', '034230']
     
     for record in doc_Stock:
         stockcode = record.xpath("./shotnIsin/text()")
