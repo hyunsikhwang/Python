@@ -214,6 +214,8 @@ CUSTOM_KEYBOARD = [
 
 USER_KEYBOARD = []
 
+#sList = []
+
 ST_ECHO, ST_ADD, ST_DEL, ST_EDITP, ST_EDITQ, ST_EDITP_VAL, ST_EDITQ_VAL, ST_REORD, ST_REORD_RANK = range(9)
 
 # 채팅별 로봇 활성화 상태
@@ -778,7 +780,6 @@ def cmd_div(chat_id):
 
     for aaa in sltemp:
         sList.append(str(aaa.stockcode))
-        send_msg(chat_id, str(aaa.stockcode))
 
     #slist = ['058470', '026960', '042700', '003650', '052330', '036190', '114090', '051360', '034230']
     
@@ -787,7 +788,7 @@ def cmd_div(chat_id):
         stockname = record.xpath("./korSecnNm/text()")
         stockdiv = record.xpath("./divAmtPerStk/text()")
         
-        for sm in slist:
+        for sm in sList:
             if stockcode[0] == sm:
                 #result_text = str(stockcode[0]) + str(stockname[0]).encode('utf-8') + str(stockdiv[0])
                 result_text = str(stockcode[0]) + '\t' + str(stockdiv[0])
