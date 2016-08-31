@@ -774,7 +774,7 @@ def cmd_div(chat_id):
     
     sl = StockList.get_by_id(str(chat_id))
     sltemp = sl.info
-    stockList = ""
+    stockList = []
 
     for aaa in sltemp:
         stockList.append(aaa.stockcode)
