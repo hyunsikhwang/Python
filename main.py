@@ -734,6 +734,8 @@ def cmd_view(chat_id):
     s = s + u'오늘의 변동금액은 ' + format(vtotal, ",") + u' 원 입니다.\n'
     s = s + u'현재 평가액은 ' + format(ttotal, ",") + u' 원 입니다.\n'
     s = s + u'현재 수익률은 ' + '{0:5.2f}'.format(vratio) + u'% 입니다.\n'
+    s = s + u'현재 EPS 는 ' + '{0:10.0f}'.format(epstotal) + u' 입니다.\n'
+    s = s + u'현재 BPS 는 ' + '{0:10.0f}'.format(bpstotal) + u' 입니다\n.'
     s = s + u'현재 PER 은 ' + '{0:5.2f}'.format(per) + u' 입니다.\n'
     s = s + u'현재 PBR 은 ' + '{0:5.2f}'.format(pbr) + u' 입니다.'
     send_msg(chat_id, s)
