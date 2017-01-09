@@ -2,6 +2,7 @@
 #
 # original:    https://github.com/yukuku/telebotuseri
 # modified by: Bak Yeon O @ http://bakyeono.net
+# re-modified by: Hyunsik Hwang
 # description: http://bakyeono.net/post/2015-08-24-using-telegram-bot-api.html
 # github:      https://github.com/bakyeono/using-telegram-bot-api
 #
@@ -574,7 +575,7 @@ def cmd_editquantity(chat_id, text):
         if aaa.stockname == text:
             set_editstock(chat_id, text)
             send_msg(chat_id, text + u'의 보유수량을 입력해주세요.')
-            send_msg(u'현재 설정된 보유 수량은 ' + str(aaa.noofshare) + u' 주 입니다.')
+            send_msg(chat_id, u'현재 설정된 보유 수량은 ' + str(aaa.noofshare) + u' 주 입니다.')
             set_status(chat_id, ST_EDITQ_VAL)
             return
         #sindex = sindex + 1
