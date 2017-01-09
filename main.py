@@ -574,6 +574,7 @@ def cmd_editquantity(chat_id, text):
         if aaa.stockname == text:
             set_editstock(chat_id, text)
             send_msg(chat_id, text + u'의 보유수량을 입력해주세요.')
+            send_msg(u'현재 설정된 보유 수량은 ' + aaa.noofshare + u' 주 입니다.')
             set_status(chat_id, ST_EDITQ_VAL)
             return
         #sindex = sindex + 1
