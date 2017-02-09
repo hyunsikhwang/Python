@@ -70,23 +70,26 @@ class MyPrettyPrinter(pprint.PrettyPrinter):
 def FindCodeAPI(APIKey, stock_name):
     url = 'http://api.seibro.or.kr/openapi/service/StockSvc/getStkIsinByNm'
     queryParams = '?' + urlencode({ quote_plus('ServiceKey') : APIKey, quote_plus('secnNm') : stock_name.encode('utf-8'), quote_plus('pageNo') : '1', quote_plus(u'numOfRows') : '50' })
-    
+
     request = Request(url + queryParams)
     request.get_method = lambda: 'GET'
     page = urlopen(request).read()
-    
+
     soup = BeautifulSoup(page, 'html.parser', from_encoding='utf-8')
-    
+
     i = 0
     retlist = []
     retlist1 = []
     retlist2 = []
-    
+
     for li in soup.findAll('item'):
         i = i + 1
         retlist1.append([li.korsecnnm.string])
+        if li.shotnisin == None:
+            retlist2.append(['000000'])
+        else:
         retlist2.append([li.shotnisin.string])
-    
+
     retlist = [retlist1, retlist2]
     return retlist
 
@@ -135,20 +138,20 @@ def CollectIndex(url):
     page = f.read().decode('euc-kr', 'ignore')
     f.close()
     js = json.loads(page)
-    
+
     name = js['result']['areas'][0]['datas'][0]['cd']
     price_t = js['result']['areas'][0]['datas'][0]['nv']
     price_diff = js['result']['areas'][0]['datas'][0]['cv']
     price_ud = price_diff / float(price_t + price_diff) * 100.0
     return u"<code>{0:8} {1:7.2f} {2:6.2f}%</code>\n".format(name, price_t/100.0, price_ud)
 
-    
+
 def CollectPrices(url):
     f = urllib2.urlopen(url)
     page = f.read().decode('euc-kr', 'ignore')
     f.close()
     js = json.loads(page)
-    
+
     name = js['result']['areas'][0]['datas'][0]['nm']
     quote = url[-6:]
     price_t = js['result']['areas'][0]['datas'][0]['nv']
@@ -165,7 +168,7 @@ def MergeList(reflist):
     ml = ""
     for il in reflist:
         ml += il[0] + "\n"
-    
+
     return ml
 
 
@@ -227,7 +230,7 @@ ST_ECHO, ST_ADD, ST_DEL, ST_EDITP, ST_EDITQ, ST_EDITP_VAL, ST_EDITQ_VAL, ST_REOR
 # 사용자가 /del   누르면 종목 삭제 모드 진입
 # 사용자가 /ep    누르면 종목 가격수정 모드 진입
 # 사용자가 /eq    누르면 종목 수량수정 모드 진입
-# 사용자가 /list  누르면 종목 열람 
+# 사용자가 /list  누르면 종목 열람
 # 사용자가 /reord 누르면 종목 순서 재배치 모드 진입
 # 사용자가 /div   누르면 종목 배당금액 일괄 업데이트
 # 사용자가 /none  누르면 종목 추가/삭제/수정 모드 종료
@@ -294,7 +297,7 @@ def set_editstock(chat_id, text):
     se = EditStock.get_or_insert(str(chat_id))
     se.name = text
     se.put()
-    
+
 
 def view_list(chat_id):
     u"""view_list: 등록된 종목 리스트 출력
@@ -448,7 +451,7 @@ def cmd_add(chat_id):
     """
     set_status(chat_id, ST_ADD)
     send_msg(chat_id, u'추가할 종목 이름을 입력하세요.')
-    
+
 def cmd_del(chat_id):
     u"""cmd_del: 종목 삭제 모드
     chat_id: (integer) 채팅 ID
@@ -503,7 +506,7 @@ def cmd_delquote(chat_id, text):
     u"""cmd_delquote: 종목 삭제
     chat_id: (integer) 채팅 ID
     """
-    
+
     sl = StockList.get_by_id(str(chat_id))
     sltemp = sl.info
     sindex = 0
@@ -673,7 +676,7 @@ def cmd_reord_execute(chat_id, text):
 
 #    for aaa in NewStockList:
 #        send_msg(chat_id, aaa.stockname)
-#    send_msg(chat_id, u'순서를 잘못 입력하셨습니다. 다시 확인해주세요.')    
+#    send_msg(chat_id, u'순서를 잘못 입력하셨습니다. 다시 확인해주세요.')
     cmd_reord(chat_id)
     return
 
@@ -756,7 +759,7 @@ def cmd_reord(chat_id):
     for aaa in sltemp:
         ReOrdKBD.append([aaa.stockname])
     ReOrdKBD.append([CMD_NONE])
-    
+
     USER_KEYBOARD = ReOrdKBD
     send_msg(chat_id, u'재배치할 종목 이름을 입력(선택)하세요.', keyboard=USER_KEYBOARD)
 
@@ -766,19 +769,19 @@ def cmd_div(chat_id):
 
     # 작년
     lastyear = datetime.today().year - 1
-    
+
     # year 파라미터를 "오늘 기준 년도 - 1" 로 설정해야 함
     url_div_KSP ='http://api.seibro.or.kr/openapi/service/StockSvc/getDividendRank?ServiceKey=CJL9jdtz5gsb4z4PpjFpCDjdz/UIk8cFAGgHbJvgLEJxPWLZaTx3wIcBNPkGu/KIKsI1zAy1XtfQJLG0VV0vVg==&stkTpcd=1&listTpcd=11&rankTpcd=1&year=' + str(lastyear)
     url_div_KSQ ='http://api.seibro.or.kr/openapi/service/StockSvc/getDividendRank?ServiceKey=CJL9jdtz5gsb4z4PpjFpCDjdz/UIk8cFAGgHbJvgLEJxPWLZaTx3wIcBNPkGu/KIKsI1zAy1XtfQJLG0VV0vVg==&stkTpcd=1&listTpcd=12&rankTpcd=1&year=' + str(lastyear)
-    
+
     fp = urllib2.urlopen(url_div_KSP)
     doc_KSP = etree.parse(fp)
     fp = urllib2.urlopen(url_div_KSQ)
     doc_KSQ = etree.parse(fp)
     fp.close()
-    
+
     doc_Stock = doc_KSP.xpath('//item') + doc_KSQ.xpath('//item')
-    
+
     sl = StockList.get_by_id(str(chat_id))
     sltemp = sl.info
     sList = []
@@ -787,12 +790,12 @@ def cmd_div(chat_id):
         sList.append(str(aaa.stockcode))
 
     #slist = ['058470', '026960', '042700', '003650', '052330', '036190', '114090', '051360', '034230']
-    
+
     for record in doc_Stock:
         stockcode = record.xpath("./shotnIsin/text()")
         stockname = record.xpath("./korSecnNm/text()")
         stockdiv = record.xpath("./divAmtPerStk/text()")
-        
+
         for sm in sList:
             if stockcode[0] == sm:
                 #result_text = str(stockcode[0]) + str(stockname[0]).encode('utf-8') + str(stockdiv[0])
