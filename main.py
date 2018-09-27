@@ -88,7 +88,7 @@ def FindCodeAPI(APIKey, stock_name):
         if li.shotnisin == None:
             retlist2.append(['000000'])
         else:
-        retlist2.append([li.shotnisin.string])
+            retlist2.append([li.shotnisin.string])
 
     retlist = [retlist1, retlist2]
     return retlist
