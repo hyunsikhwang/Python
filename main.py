@@ -43,7 +43,7 @@ url_index = "http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_IND
 url_quotelist_KSP = "http://finance.daum.net/quote/all.daum?type=S&stype=P"  #type : U(업종순), S(가나다순)
 url_quotelist_KSD = "http://finance.daum.net/quote/all.daum?type=S&stype=Q"  #stype : P(유가증권), Q(코스닥)
 
-APIKey = "CJL9jdtz5gsb4z4PpjFpCDjdz/UIk8cFAGgHbJvgLEJxPWLZaTx3wIcBNPkGu/KIKsI1zAy1XtfQJLG0VV0vVg=="
+APIKey = "VYrRFsJTI42yMy9v7HHbDhRduUEdM%2FFNveB1Y9Rhv1YpkAjvfgn7uJFv2vC3XYed7gtjOJ4iB6ikIeelxhFZGw=="
 
 def preformat_cjk (string, width, align='<', fill=' '):
     count = (width - sum(1 + (unicodedata.east_asian_width(c) in "WF")
@@ -771,8 +771,8 @@ def cmd_div(chat_id):
     lastyear = datetime.today().year - 1
 
     # year 파라미터를 "오늘 기준 년도 - 1" 로 설정해야 함
-    url_div_KSP ='http://api.seibro.or.kr/openapi/service/StockSvc/getDividendRank?ServiceKey=CJL9jdtz5gsb4z4PpjFpCDjdz/UIk8cFAGgHbJvgLEJxPWLZaTx3wIcBNPkGu/KIKsI1zAy1XtfQJLG0VV0vVg==&stkTpcd=1&listTpcd=11&rankTpcd=1&year=' + str(lastyear)
-    url_div_KSQ ='http://api.seibro.or.kr/openapi/service/StockSvc/getDividendRank?ServiceKey=CJL9jdtz5gsb4z4PpjFpCDjdz/UIk8cFAGgHbJvgLEJxPWLZaTx3wIcBNPkGu/KIKsI1zAy1XtfQJLG0VV0vVg==&stkTpcd=1&listTpcd=12&rankTpcd=1&year=' + str(lastyear)
+    url_div_KSP ='http://api.seibro.or.kr/openapi/service/StockSvc/getDividendRank?ServiceKey=' + APIKey + '&stkTpcd=1&listTpcd=11&rankTpcd=1&year=' + str(lastyear)
+    url_div_KSQ ='http://api.seibro.or.kr/openapi/service/StockSvc/getDividendRank?ServiceKey=' + APIKey + '&stkTpcd=1&listTpcd=12&rankTpcd=1&year=' + str(lastyear)
 
     fp = urllib2.urlopen(url_div_KSP)
     doc_KSP = etree.parse(fp)
