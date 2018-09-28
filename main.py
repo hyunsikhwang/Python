@@ -68,7 +68,7 @@ class MyPrettyPrinter(pprint.PrettyPrinter):
 
 
 def FindCodeAPI(APIKey, stock_name):
-    url = 'http://api.seibro.or.kr/openapi/service/StockSvc/getStkIsinByNm'
+    url = 'http://api.seibro.or.kr/openapi/service/StockSvc/getStkIsinByNmN1'
     queryParams = '?' + urlencode({ quote_plus('ServiceKey') : APIKey, quote_plus('secnNm') : stock_name.encode('utf-8'), quote_plus('pageNo') : '1', quote_plus(u'numOfRows') : '500' })
 
     request = Request(url + queryParams)
@@ -88,7 +88,7 @@ def FindCodeAPI(APIKey, stock_name):
         if li.shotnisin == None:
             retlist2.append(['000000'])
         else:
-        retlist2.append([li.shotnisin.string])
+            retlist2.append([li.shotnisin.string])
 
     retlist = [retlist1, retlist2]
     return retlist
