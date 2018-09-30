@@ -43,7 +43,7 @@ url_index = "http://polling.finance.naver.com/api/realtime.nhn?query=SERVICE_IND
 url_quotelist_KSP = "http://finance.daum.net/quote/all.daum?type=S&stype=P"  #type : U(업종순), S(가나다순)
 url_quotelist_KSD = "http://finance.daum.net/quote/all.daum?type=S&stype=Q"  #stype : P(유가증권), Q(코스닥)
 
-APIKey = "VYrRFsJTI42yMy9v7HHbDhRduUEdM%2FFNveB1Y9Rhv1YpkAjvfgn7uJFv2vC3XYed7gtjOJ4iB6ikIeelxhFZGw=="
+APIKey = "VYrRFsJTI42yMy9v7HHbDhRduUEdM/FNveB1Y9Rhv1YpkAjvfgn7uJFv2vC3XYed7gtjOJ4iB6ikIeelxhFZGw=="
 
 def preformat_cjk (string, width, align='<', fill=' '):
     count = (width - sum(1 + (unicodedata.east_asian_width(c) in "WF")
