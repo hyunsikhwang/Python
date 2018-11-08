@@ -828,6 +828,32 @@ def cron_method(handler):
             return handler(self, *args, **kwargs)
     return check_if_cron
 
+
+# def cmd_stock_open():
+#     payload = {'exchange':'krx,nyse,nasdaq'}
+
+#     url = 'https://www.stockmarketclock.com/api-v1/status'
+
+#     f = urllib2.urlopen(url)
+#     page = f.read().decode('utf-8', 'ignore')
+#     f.close()
+
+#     soup = BeautifulSoup(page, 'html.parser', from_encoding='utf-8')
+#     soup BeautifulSoup(requests.post(url, data=payload).text, "lxml")
+#     a = post_bs(url, payload)
+#     b = a.find('p').text
+#     c = json.loads(b)
+#     d = c['results']['krx']['status']
+#     e = c['results']['nyse']['status']
+#     f = c['results']['nasdaq']['status']
+
+#     s = 'KRX : ' + d + '\n' \
+#       + 'NYSE : ' + e + '\n' \
+#       + 'NASDAQ : ' + f + '\n'
+
+#     return s
+
+
 def process_cmds(msg):
     u"""사용자 메시지를 분석해 봇 명령을 처리
     chat_id: (integer) 채팅 ID
